@@ -1,0 +1,33 @@
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__panel {
+    width: 640px;
+    height: 640px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #e4f1f9 0%, #f7f7f8 100%);
+    animation-duration: 0.3s !important;
+    position: relative;
+
+    &__close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 2;
+
+      text {
+        font-size: 30px;
+        font-weight: 600;
+      }
+    }
+  }
+}

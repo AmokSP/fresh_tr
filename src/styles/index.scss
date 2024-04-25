@@ -1,0 +1,92 @@
+@import './variables';
+@import './animations';
+@import './richtext';
+@import './buttons.scss';
+
+page {
+  -webkit-font-smoothing: antialiased;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', STHeiti,
+    'Microsoft Yahei', Tahoma, Simsun, sans-serif;
+  line-height: 1.5;
+  font-size: 28px;
+  color: $text-primary-color;
+}
+
+.page {
+  height: 100%;
+  overflow: hidden;
+}
+
+.text_link {
+  // text-decoration: underline;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 90%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: currentColor;
+  }
+}
+
+.centerX {
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+}
+
+.img-in-rich {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+
+@keyframes notification {
+  0% {
+    transform: translateX(100vw);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+// NEWS MASONRY STYLING
+.my-masonry-grid {
+  display: flex !important;
+  margin-left: -30px;
+  margin-bottom: -80px;
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  padding-left: 24px;
+  background-clip: padding-box;
+}
+
+.my-masonry-grid_column_item {
+  margin-bottom: 80px;
+}
+
+.xiaohongshu-masonry-grid {
+  display: flex !important;
+  margin-left: -8px;
+  width: auto;
+}
+
+.xiaohongshu-masonry-grid_column {
+  padding-left: 8px;
+  background-clip: padding-box;
+}
+
+.xiaohongshu-masonry-grid_column_item {
+  margin-bottom: 10px;
+}

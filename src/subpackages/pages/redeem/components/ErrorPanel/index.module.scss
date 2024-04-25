@@ -1,0 +1,32 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+  box-sizing: border-box;
+
+  &__button {
+    width: 340px;
+    height: 76px;
+    border-radius: 70px;
+    background-color: #424a52;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-top: 100px;
+  }
+
+  &__icon {
+    margin-top: 50px;
+
+    text {
+      font-size: 110px;
+      color: #e00746;
+    }
+  }
+
+  &__message {
+    font-size: 40px;
+  }
+}

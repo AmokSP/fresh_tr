@@ -1,0 +1,47 @@
+@import '@styles/mixins';
+
+.storeCard {
+  padding: 30px 40px;
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    top: -10px;
+    left: 0;
+
+    Text {
+      font-size: 40px;
+    }
+  }
+
+  &__distance {
+    font-size: 22px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+  }
+
+  &__info {
+    position: relative;
+    padding-left: 50px;
+  }
+
+  &__address {
+    width: 80%;
+    font-size: 24px;
+    margin-top: 15px;
+    @include clamp(2);
+  }
+
+  &__opentime {
+    font-size: 24px;
+    margin-top: 2px;
+  }
+
+  &__name {
+    width: 420px;
+    font-size: 28px;
+    font-weight: 600;
+    @include ellipsis;
+  }
+}

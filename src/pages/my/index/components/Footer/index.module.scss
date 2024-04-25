@@ -1,0 +1,33 @@
+.footer {
+  font-size: 24px;
+  padding: 45px 0;
+  background-color: #f7f7f9;
+  width: 750px;
+  height: 200px;
+  box-sizing: border-box;
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    flex-wrap: wrap;
+    row-gap: 40px;
+
+    &__item {
+      width: 50%;
+      box-sizing: border-box;
+      padding-left: 85px;
+      padding-right: 0;
+      border: none;
+      background: none;
+      font-size: 24px;
+      text-align: left;
+      color: currentColor;
+      line-height: inherit;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

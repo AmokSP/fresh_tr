@@ -1,0 +1,34 @@
+.fresh-p {
+  margin: 20px 0;
+  font-size: 28px;
+  line-height: 1.6;
+}
+
+.fresh-ul {
+  margin: 0;
+  padding: 0;
+}
+
+.h5-h1 {
+  margin: 0 !important;
+  font-size: inherit !important;
+}
+
+.h5-img {
+  width: 100% !important;
+  overflow-x: hidden;
+}
+
+.h5-p {
+  font-size: 32px;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.h5-tr {
+  font-size: 28px;
+
+  .h5-p {
+    font-size: 28px;
+  }
+}

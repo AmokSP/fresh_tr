@@ -1,0 +1,26 @@
+.notification {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  background-color: #eff3f6;
+  padding: 0 30px;
+  &__img {
+    width: 40px;
+  }
+  &__text {
+    white-space: nowrap;
+    color: #475255;
+    font-size: 24px;
+    font-weight: 400;
+    padding-left: 20px;
+  }
+}
+
+@keyframes notification {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

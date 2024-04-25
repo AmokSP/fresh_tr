@@ -1,0 +1,66 @@
+@import '@styles/variables';
+
+.checkin {
+  width: 700px;
+  height: 220px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px 30px;
+
+  &__status {
+    font-size: 24px;
+    font-weight: 600;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 2px solid currentColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__expired {
+      font-size: 24px;
+      font-weight: normal;
+      color: $gray-light-color;
+      background-color: #eff3f6;
+      pointer-events: none;
+    }
+
+    &__checked {
+      Text {
+        font-size: 36px;
+        margin-top: 5px;
+      }
+
+      pointer-events: none;
+    }
+
+    &__unchecked {
+      background-color: $blue-dark-color;
+      color: #fff;
+    }
+  }
+
+  &__list {
+    margin-top: 30px;
+    text-align: center;
+    width: 72px;
+    display: flex;
+    gap: 25px;
+    margin-left: 2px;
+
+    &__item {
+      &__label {
+        font-size: 20px;
+        margin-top: 10px;
+        text-align: center;
+      }
+    }
+  }
+
+  &__header {
+    font-size: 24px;
+  }
+}

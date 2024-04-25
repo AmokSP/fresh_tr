@@ -1,0 +1,57 @@
+.share-guide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  pointer-events: all;
+  z-index: 500;
+  font-size: 12px * 2;
+  font-weight: 300;
+  line-height: 16.8px * 2;
+  .cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 166px * 2;
+    height: 40px * 2;
+    border-radius: 8px;
+    border: 2px solid white;
+    color: white;
+  }
+  .finger {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    transform-origin: 0 0;
+    transform: rotate(180deg);
+    top: 602 * 2px;
+  }
+  .download-finger {
+    left: 150px * 2;
+  }
+  .share-finger {
+    left: 256px * 2;
+  }
+  .texts {
+    position: absolute;
+    font-size: 12px * 2;
+    font-weight: 300;
+    line-height: 16.8px * 2;
+    text-align: left;
+    color: white;
+    top: 535 * 2px;
+  }
+  .download-text {
+    left: 100 * 2px;
+  }
+  .share-text {
+    left: 206 * 2px;
+  }
+}

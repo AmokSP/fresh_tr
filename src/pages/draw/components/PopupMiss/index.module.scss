@@ -1,0 +1,42 @@
+@import '@styles/variables';
+
+.miss {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+
+  &__button {
+    width: 335px;
+    height: 75px;
+    border-radius: 100px;
+    background-color: $blue-dark-color;
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+
+    &__home {
+      font-size: 30px;
+      text-decoration: underline;
+      margin-top: 40px;
+    }
+  }
+
+  &__content {
+    text-align: center;
+
+    &__body {
+      font-size: 30px;
+      margin-top: 30px;
+    }
+
+    &__title {
+      font-size: 38px;
+      font-weight: bold;
+    }
+  }
+}

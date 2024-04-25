@@ -1,0 +1,110 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+page {
+  padding-bottom: 106px;
+}
+
+.draw {
+  &__detail {
+    Image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__button {
+    width: 750px;
+    height: 106px;
+    background-color: $blue-dark-color;
+    position: fixed;
+    bottom: 0;
+    font-size: 32px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+
+    &__disabled {
+      background-color: #eff3f6;
+      color: #d1d8df;
+      pointer-events: none;
+    }
+  }
+
+  &__detail {
+    margin-top: 10px;
+    overflow: hidden;
+
+    &__content {
+      Image {
+        width: 750px;
+      }
+    }
+
+    &__header {
+      padding: 0 40px;
+      font-size: 30px;
+      font-weight: bold;
+      color: #000;
+
+      &__label {
+        &__icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 26px;
+          height: 26px;
+        }
+      }
+
+      &__wrap {
+        padding: 40px 0;
+        border-top: 2px solid #d9d9d9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      Image {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  }
+
+  &__content {
+    padding: 40px;
+
+    &__tag {
+      font-size: 28px;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      &__item {
+        display: flex;
+
+        &__value {
+          margin-left: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__title {
+      font-size: 36px;
+      font-weight: bold;
+      color: #000;
+      @include clamp(2);
+    }
+
+    &__subtitle {
+      margin-top: 15px;
+      font-size: 28px;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+export const arrow_back = require('./arrow-back.svg');
+export const arrow_down = require('./arrow-down.svg');
+export const arrow_right = require('./arrow-right.svg');
+export const plus = require('./plus.svg');
+export const minus = require('./minus.svg');
+export const favorite_on = require('./favorite-on.svg');
+export const favorite_off = require('./favorite-off.svg');
+export const notification = require('./notification.svg');
+export const checked = require('./checked.svg');
+export const squared_plus = require('./squared-plus.svg');
+export const squared_minus = require('./squared-minus.svg');
+export const search = require('./search.svg');

@@ -1,0 +1,67 @@
+.points {
+  background: linear-gradient(180deg, #e4f0f8 0%, #f6f7f8 68.37%, #fff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__scroll {
+    height: 100vh;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: center;
+    padding: 0 20px;
+    gap: 20px;
+    row-gap: 40px;
+    width: 700px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding-bottom: 100px;
+
+    &__item {
+      &:last-child {
+        margin-right: auto;
+      }
+    }
+  }
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__info {
+      margin-top: 20px;
+      font-size: 28px;
+      text-align: center;
+
+      &__rule {
+        text-decoration: underline;
+        margin-top: 5px;
+      }
+
+      &__points {
+        Text {
+          font-size: 38px;
+          font-weight: 600;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    &__image {
+      width: 361px;
+      height: 323px;
+      margin-top: 100px;
+
+      Image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

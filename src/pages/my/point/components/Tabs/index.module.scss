@@ -1,0 +1,23 @@
+.tabs {
+  display: flex;
+  gap: 140px;
+
+  &__item {
+    font-size: 32px;
+
+    &__active {
+      font-weight: bold;
+      position: relative;
+
+      &::after {
+        content: '';
+        left: 0;
+        bottom: -5px;
+        background-color: currentColor;
+        position: absolute;
+        height: 2px;
+        width: 100%;
+      }
+    }
+  }
+}

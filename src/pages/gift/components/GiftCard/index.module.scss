@@ -1,0 +1,68 @@
+@import '@styles/variables';
+
+.pointCard {
+  font-size: 24px;
+  text-align: center;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__button {
+    width: 168px;
+    height: 60px;
+    color: #fff;
+    background-color: $blue-dark-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    &__disabled {
+      width: 168px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      border: 2px solid $gray-light-color;
+      color: $gray-light-color;
+      margin-top: 10px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+  }
+
+  &__title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 98%;
+  }
+
+  &__subtitle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 98%;
+  }
+
+  &__points {
+    font-weight: 600;
+    margin-top: 5px;
+  }
+
+  &__image {
+    width: 340px;
+    height: 340px;
+    margin-bottom: 20px;
+
+    Image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

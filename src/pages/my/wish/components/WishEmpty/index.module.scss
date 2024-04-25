@@ -1,0 +1,27 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 300px;
+
+  &__text {
+    font-size: 28px;
+    margin-top: 40px;
+  }
+
+  &__image {
+    width: 216px;
+    height: 216px;
+    background-color: #e2eff8;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    Image {
+      width: 124px;
+      height: 90px;
+    }
+  }
+}

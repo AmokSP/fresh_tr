@@ -1,0 +1,47 @@
+@import '@styles/mixins';
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+  box-sizing: border-box;
+
+  &__button {
+    width: 340px;
+    height: 76px;
+    border-radius: 70px;
+    background-color: #424a52;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-top: 40px;
+  }
+
+  &__icon {
+    margin-top: 30px;
+    width: 160px;
+    height: 180px;
+    border-radius: 50%;
+    //background-color: #f6f6f6;
+    padding: 10px;
+
+    Image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__desc {
+    width: 80%;
+    margin-top: 30px;
+    font-size: 28px;
+    text-align: center;
+    @include clamp(2);
+  }
+
+  &__message {
+    font-size: 40px;
+  }
+}

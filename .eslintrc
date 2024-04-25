@@ -1,0 +1,12 @@
+{
+  "extends": ["taro/react"],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-commonjs": "off",
+    "no-undef": "off",
+    "jsx-quotes": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
+}

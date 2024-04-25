@@ -1,0 +1,78 @@
+@import '@styles/variables';
+
+.redeemPanel {
+  width: 640px;
+  height: 746px;
+  border-radius: 20px;
+  animation-duration: 0.3s !important;
+  position: relative;
+  // background-color: white;
+  .content {
+    position: relative;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+      font-size: 44px;
+      font-weight: 600;
+      line-height: 60px;
+      letter-spacing: 0px;
+      text-align: center;
+      margin-top: 64px;
+      margin-bottom: 200px;
+    }
+    .subTitle {
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 23px;
+      letter-spacing: 0px;
+      text-align: center;
+    }
+    .ctaHome {
+      width: 320px;
+      height: 84px;
+      border-radius: 84px;
+      color: white;
+      background-color: $text-primary-color;
+      border: 2px solid $text-primary-color;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 84px;
+      letter-spacing: 0px;
+      text-align: center;
+      margin-top: 52px;
+      margin-bottom: 32px;
+    }
+    .ctaMore {
+      width: 320px;
+      height: 84px;
+      border-radius: 84px;
+      background-color: transparent;
+      color: $text-primary-color;
+      border: 2px solid $text-primary-color;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 84px;
+      letter-spacing: 0px;
+      text-align: center;
+    }
+  }
+  .bg {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+  .close {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    bottom: -26px;
+    z-index: 2;
+    width: 64px;
+    height: 64px;
+  }
+}

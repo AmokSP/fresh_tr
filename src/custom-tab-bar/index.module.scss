@@ -1,0 +1,56 @@
+@import '@styles/variables';
+
+.tabbar {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: $bottom-element-height;
+  box-shadow: 0 1px 5px 5px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 0 20px;
+  z-index: 10;
+
+  &__wrap {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &__item {
+    color: $text-primary-color;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    padding-bottom: 10px;
+
+    &__text {
+      font-size: 28px;
+    }
+
+    &__active {
+      opacity: 1;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 30%;
+        height: 6px;
+        background-color: $default-active-color;
+        border-radius: 20px;
+        bottom: 35px;
+      }
+    }
+
+    Image {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}

@@ -1,0 +1,384 @@
+.city-map {
+  min-height: 100vh;
+  background-color: rgb(242, 248, 253);
+  overflow-x: hidden;
+  .texts {
+    position: relative;
+
+    margin-top: 50px;
+    margin-left: 60px;
+    .title {
+      font-family: PingFang SC;
+      font-size: 22px * 2;
+      font-weight: 600;
+      line-height: 34px * 2;
+      text-align: left;
+      color: #323d47;
+      margin-bottom: 24px;
+    }
+    .desc1 {
+      font-family: PingFang SC;
+      font-size: 18px * 2;
+      font-weight: 400;
+      line-height: 22px * 2;
+      text-align: left;
+      margin-bottom: 18px;
+    }
+    .desc2 {
+      font-family: PingFang SC;
+      font-size: 18px * 2;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+      color: rgb(94, 163, 249);
+      text {
+        font-weight: 600;
+        color: #323d47;
+      }
+    }
+    .bell {
+      position: absolute;
+      top: 0;
+      right: 60px;
+      width: 66px;
+      height: 66px;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 0;
+        right: 0;
+        border-radius: 100%;
+        background-color: rgb(94, 163, 249);
+      }
+    }
+  }
+  .swiper-wrapper {
+    position: relative;
+    z-index: 420;
+    margin-top: 60px;
+    width: 100vw;
+    overflow: hidden;
+    height: 348 * 2px;
+    overflow-y: visible;
+    // filter: drop-shadow(0 80px 90px rgba(#6b91ae, 0.2));
+    .paginator {
+      position: absolute;
+      bottom: 0px;
+      width: 100vw;
+      height: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      &-item {
+        width: 46px;
+        height: 2px;
+        background-color: #323d47;
+        transition: all 0.3s;
+        opacity: 0.3;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+    .arrow {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      transform-origin: 50% 50%;
+      z-index: 2;
+      transition: all 0.3s;
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.3;
+      }
+      &.left {
+        left: 0;
+      }
+      &.right {
+        right: 0;
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+  }
+  .kol-swiper {
+    .kol-item {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      padding-top: 40px;
+      box-sizing: border-box;
+      width: 100vw;
+      .image {
+        position: absolute;
+        z-index: 2;
+        top: 0px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 266 * 2px;
+        height: 200 * 2px;
+        border-radius: 8px;
+      }
+      .kol-body {
+        position: relative;
+        box-sizing: border-box;
+        width: 286px * 2;
+        height: 304 * 2px;
+        border-radius: 8px;
+        background-clip: content-box;
+        background: linear-gradient(180deg, #c7e9ff 0%, #ffffff 100%);
+
+        .kol-desc {
+          position: absolute;
+          top: 400px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 8px;
+          font-family: PingFang SC;
+          font-size: 13px * 2;
+          font-weight: 400;
+          line-height: 14px * 2;
+          text-align: center;
+          color: #323d47;
+          width: 240 * 2px;
+
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .pill-button {
+          position: absolute;
+          bottom: 44px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+  .fly-anime {
+    position: relative;
+    width: 347px * 2;
+    height: 81 * 2px;
+    margin-left: 50px;
+    margin-top: 160px;
+    .path {
+      position: absolute;
+      animation: fly 6s ease-in-out;
+      animation-fill-mode: forwards;
+      z-index: 10;
+      .plane {
+        position: relative;
+        width: 106px;
+        height: 106px;
+        animation: float 2s ease-in-out infinite;
+        overflow: visible;
+        z-index: 22;
+        &::after {
+          content: '查看进度';
+          position: absolute;
+          font-family: PingFang SC;
+          font-size: 14px * 2;
+          font-weight: 400;
+          line-height: 19.6px;
+          text-align: center;
+          width: 120px;
+          opacity: 0;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%) translateY(100%);
+          animation: show 0.5s ease-in-out;
+          animation-fill-mode: forwards;
+          animation-delay: 6s;
+        }
+      }
+    }
+
+    .route {
+      position: relative;
+      width: 341 * 2px;
+      height: auto;
+      z-index: 3;
+    }
+    .bg {
+      position: absolute;
+      right: -28px;
+      bottom: -108px;
+      width: 469 * 2px;
+      height: 486 * 2px;
+      z-index: 0;
+    }
+    .points {
+      .point {
+        position: absolute;
+        width: 14px * 2;
+        height: 14px * 2;
+        box-shadow: 0px 0px 12px #48a5fb80;
+        border-radius: 100%;
+
+        &::before {
+          position: absolute;
+          content: '';
+          width: 8px * 2;
+          height: 8px * 2;
+          background-color: rgba(white, 1);
+          border-radius: 100%;
+          top: 50%;
+          left: 50%;
+          z-index: 3;
+          transform: translate(-50%, -50%) scale(1);
+          transition: all 0.3s;
+        }
+        &::after {
+          position: absolute;
+          content: '';
+          width: 16px * 2;
+          height: 16px * 2;
+          background-color: rgba(#323d47, 1);
+          border-radius: 100%;
+          top: 50%;
+          left: 50%;
+          z-index: 2;
+          transform: translate(-50%, -50%) scale(1);
+          transition: all 0.3s;
+        }
+
+        z-index: 4;
+
+        .pin {
+          position: absolute;
+          width: 112px;
+          height: 112px;
+          z-index: 6;
+          transform: translate(-42px, -100px) scale(0);
+          opacity: 0;
+          transform-origin: 50% 100%;
+          transition: all 0.3s ease-in;
+        }
+        .city-title {
+          position: absolute;
+          height: 40px;
+          width: auto;
+        }
+        &:nth-child(1) {
+          .city-title {
+            transform: translate(-32px, 48px);
+          }
+        }
+        &:nth-child(2) {
+          .city-title {
+            transform: translate(40%, 80%);
+          }
+        }
+        &:nth-child(3) {
+          .city-title {
+            transform: translate(-32px, 48px);
+          }
+        }
+        &.active {
+          border: none;
+          background-color: none;
+          box-shadow: none;
+          .pin {
+            transform: translate(-42px, -100px) scale(1);
+            opacity: 1;
+          }
+          &::before {
+            position: absolute;
+            content: '';
+            width: 14px * 2;
+            height: 14px * 2;
+            background-color: rgba(#48a5fb, 1);
+            border-radius: 100%;
+            animation: breath1 1.5s ease-in-out infinite;
+            top: 50%;
+            left: 50%;
+          }
+          &::after {
+            position: absolute;
+            content: '';
+            width: 28px * 2;
+            height: 28px * 2;
+            background-color: rgba(#48a5fb, 0.3);
+            border-radius: 100%;
+            animation: breath2 1.5s ease-in-out infinite;
+            top: 50%;
+            left: 50%;
+          }
+        }
+      }
+    }
+  }
+  .ctas {
+    padding-top: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .pill-button {
+      margin-bottom: 22px;
+    }
+    .underline.disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+  }
+}
+
+@keyframes fly {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(5%);
+  }
+  50% {
+    transform: translateY(-5%);
+  }
+  100% {
+    transform: translateY(5%);
+  }
+}
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes breath1 {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes breath2 {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

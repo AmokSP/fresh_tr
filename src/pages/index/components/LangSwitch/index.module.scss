@@ -1,0 +1,44 @@
+@import '@styles/variables';
+
+.lang {
+  position: absolute;
+  top: 210px;
+  right: 25px;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(66, 74, 82, 0.5);
+
+  &__wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__text {
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 5px;
+    left: -2px;
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+
+    Image {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}

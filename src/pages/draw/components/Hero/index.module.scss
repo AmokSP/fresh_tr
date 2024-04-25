@@ -1,0 +1,38 @@
+.hero {
+  position: relative;
+
+  &__swiper {
+    width: 750px;
+    height: 750px;
+
+    &__indicator {
+      position: absolute;
+      width: 100%;
+      bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+
+      &__item {
+        width: 15px;
+        height: 15px;
+        background-color: #d1d8df;
+        border-radius: 50%;
+
+        &__active {
+          background-color: #424a52;
+        }
+      }
+    }
+
+    &__item {
+      width: 750px;
+      height: 750px;
+
+      Image {
+        width: 750px;
+        height: 750px;
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+@import '@styles/variables';
+
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 24px 0;
+  background-color: white;
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 28px;
+    font-weight: 400;
+    color: $blue-dark-color;
+
+    &__active {
+      position: relative;
+      // overflow: hidden;
+      font-weight: 600;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        height: 1px;
+        width: 100%;
+        background-color: $blue-dark-color;
+      }
+    }
+  }
+}

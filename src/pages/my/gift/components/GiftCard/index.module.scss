@@ -1,0 +1,86 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.giftCard {
+  position: relative;
+  display: flex;
+
+  &__submit {
+    color: $blue-dark-color;
+  }
+
+  &__expired {
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    Image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__content {
+    margin-left: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    &__button {
+      width: 160px;
+      height: 60px;
+      color: #fff;
+      background-color: $blue-dark-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0;
+      border-radius: 5px;
+      font-size: inherit;
+      padding: 0;
+      margin: 0;
+
+      &__disabled {
+        width: 160px;
+        height: 60px;
+        color: #9aa5b0;
+        background-color: #d1d8df;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        pointer-events: none;
+      }
+    }
+
+    &__bottom {
+      font-size: 24px;
+    }
+
+    &__title {
+      font-size: 28px;
+      font-weight: 600;
+      @include clamp(2);
+    }
+
+    &__subtitle {
+      font-size: 22px;
+      margin-top: 5px;
+    }
+  }
+
+  &__image {
+    width: 210px;
+    height: 210px;
+    border-radius: 5px;
+
+    Image {
+      width: 210px;
+      height: 210px;
+      border-radius: 5px;
+    }
+  }
+}

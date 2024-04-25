@@ -1,0 +1,102 @@
+@import '@styles/variables';
+
+.productStar {
+  width: 100%;
+  color: $text-title-color;
+  text-align: center;
+  position: relative;
+
+  &__button {
+    &__buy {
+      margin-top: 36px;
+    }
+  }
+
+  &__rank {
+    font-size: 52px;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    font-size: 32px;
+    font-weight: 600;
+    width: 600px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 25px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__title {
+    font-size: 42px;
+    font-weight: 600;
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__swiper {
+    height: 540px;
+    margin-top: 30px;
+
+    &__indicator {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+
+      left: 0;
+      right: 0;
+      bottom: 230px;
+      margin: 0 auto;
+
+      &__wrap {
+        display: flex;
+        gap: 20px;
+      }
+
+      &__item {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: $text-title-color;
+        opacity: 0.2;
+        transition: all 0.3s ease-out;
+
+        &__active {
+          opacity: 1;
+        }
+      }
+    }
+
+    &__item {
+      height: 540px;
+      width: 540px;
+
+      Image {
+        transform: scale(0.85);
+      }
+
+      &__active {
+        Image {
+          transform: scale(1);
+          transition: all 0.3s ease-out;
+        }
+      }
+
+      &__image {
+        border-radius: 5px;
+
+        Image {
+          width: 540px;
+          height: 540px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}

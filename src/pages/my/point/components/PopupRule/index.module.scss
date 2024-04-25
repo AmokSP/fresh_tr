@@ -1,0 +1,19 @@
+.popupRule {
+  padding: 50px;
+  text-align: center;
+  height: 750px;
+
+  &__scroll {
+    text-align: left;
+    height: 680px;
+  }
+
+  &__content {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  &__title {
+    font-size: 36px;
+  }
+}

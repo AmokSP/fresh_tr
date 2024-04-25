@@ -1,0 +1,18 @@
+@mixin smallPhone {
+  @media only screen and (max-height: 740px) {
+    @content;
+  }
+}
+
+@mixin clamp($row) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $row;
+  overflow: hidden;
+}
+
+@mixin ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

@@ -1,0 +1,144 @@
+.poster-share {
+  position: relative;
+  background-color: rgb(228, 239, 248);
+  min-height: 100vh;
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
+    box-sizing: border-box;
+    font-size: unset;
+    text-align: center;
+    text-decoration: none;
+    line-height: 2.5;
+    border-radius: 0px;
+    -webkit-tap-highlight-color: transparent;
+    overflow: visible;
+    color: #000;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    &::after {
+      border: unset;
+    }
+  }
+  .block {
+    position: relative;
+
+    width: 628px;
+    margin-left: 60px;
+    border: 2px solid #e6e6e6;
+    color: #323d47;
+    background-color: white;
+    padding-bottom: 70px;
+    .preview {
+      display: block;
+      width: 444px;
+      height: 439 * 2px;
+      padding: 76px 90px;
+      background-color: white;
+    }
+    .desc {
+      font-family: PingFang SC;
+      font-size: 32px;
+      font-weight: 500;
+      text-align: left;
+      margin-bottom: 6px;
+      margin-left: 26px;
+    }
+    .hint {
+      font-family: PingFang SC;
+      font-size: 24px;
+      font-weight: 300;
+      text-align: left;
+      margin-left: 26px;
+    }
+  }
+  .buttons {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 114px;
+    margin-top: 50px;
+    padding-bottom: 80px;
+    z-index: 501;
+    button {
+      image {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 20px;
+      }
+      text {
+        font-family: PingFang SC;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 14px;
+        text-align: left;
+      }
+    }
+  }
+  .save-popup {
+    padding-top: 84px;
+    padding-left: 110px;
+    padding-right: 110px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+      font-family: PingFang SC;
+      font-size: 16px * 2;
+      font-weight: 600;
+      line-height: 26.32px;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+    .text {
+      font-family: PingFang SC;
+      font-size: 14px * 2;
+      font-weight: 400;
+      line-height: 19.6px * 2;
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .underline {
+      margin-top: 30px;
+      font-family: PingFang SC;
+      font-size: 15px * 2;
+      font-weight: 500;
+      line-height: 24.67px * 2;
+      text-align: center;
+    }
+  }
+  .share-popup-ctas {
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .pill-button {
+      margin-bottom: 60px;
+    }
+    .more {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 72px;
+      height: 42px;
+      .underline {
+        font-family: PingFang SC;
+        font-size: 14px * 2;
+        font-weight: 500;
+        line-height: 23.03px * 2;
+        text-align: center;
+      }
+      .line {
+        border-left: 2px solid rgba(#323d47, 0.1);
+        height: 100%;
+      }
+    }
+  }
+}

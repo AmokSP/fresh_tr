@@ -1,0 +1,12 @@
+.hero {
+  &__swiper {
+    height: 340px;
+    width: 100%;
+    &__item {
+      image {
+        width: 100vw;
+        height: 352px;
+      }
+    }
+  }
+}

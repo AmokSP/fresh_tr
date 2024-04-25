@@ -1,0 +1,299 @@
+@import '@styles/_variables.scss';
+
+.hideaway-book {
+  position: relative;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: black;
+  .mask {
+    pointer-events: none;
+
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 6;
+    opacity: 0;
+    transition: all 2s;
+    .bg {
+      z-index: 2;
+    }
+    .plane-load {
+      position: absolute;
+      width: 753 * 0.8px;
+      height: 184 * 0.8px;
+      top: 45%;
+      left: -750px;
+      z-index: 3;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .loading {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+
+      opacity: 0;
+    }
+  }
+  &.load-start {
+    .mask {
+      .plane-load {
+        left: 50%;
+        transition: all 2.5s ease-out;
+      }
+      .loading {
+        opacity: 1;
+        transition: all 0.8s;
+        transition-delay: 1.5s;
+      }
+    }
+  }
+  &.load-done {
+    .mask {
+      .plane-load {
+        left: 1500px;
+        transition: all 2s ease-in;
+      }
+      .loading {
+        opacity: 0;
+        transition: all 0.8s;
+        transition-delay: 0s;
+      }
+    }
+  }
+  .btn-plane {
+    position: absolute;
+    width: 124px;
+    height: 124px;
+    bottom: 152px;
+    left: 0px;
+    z-index: 3;
+    animation: float 2s ease-in-out infinite;
+    overflow: visible;
+    transition: all 1s ease-out;
+    opacity: 0;
+    pointer-events: none;
+
+    &::after {
+      content: '查看进度';
+      color: black;
+      position: absolute;
+      top: 105%;
+      width: 100%;
+      font-size: 14px * 2;
+      font-weight: 400;
+      line-height: 19.6px;
+      text-align: center;
+    }
+  }
+  &.cover {
+    .btn-plane {
+      left: 100px;
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0px);
+    }
+  }
+  &.idle,
+  &.load-start,
+  &.load-done {
+    .mask {
+      opacity: 1;
+      pointer-events: all;
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+  &.book-out {
+    .mask {
+      opacity: 1;
+      pointer-events: all;
+      transition: all 2s ease-in;
+    }
+  }
+  .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+  .title {
+    position: absolute;
+    width: 474px;
+    height: 302px;
+    top: 224px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+
+    z-index: 5;
+    transition: all 1.55s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  &.cover {
+    .title {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  .cta {
+    position: absolute;
+    width: 336px;
+    height: 84px;
+    left: 50%;
+    bottom: 206px;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 5;
+    transition: all 1.55s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  &.cover {
+    .cta {
+      pointer-events: all;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  .orient-toggle {
+    position: absolute;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    z-index: 4;
+    bottom: 100px;
+    transform: translateX(-50%) rotate(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.8s;
+  }
+  &.landscape {
+    .orient-toggle {
+      left: 80px;
+      bottom: 50px;
+      transform: translateX(-50%) rotate(90deg);
+    }
+  }
+  &.book-ready {
+    .orient-toggle {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
+  .paginator {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 60px;
+    z-index: 3;
+    transition: all 0.5s;
+    .page-item {
+      border-radius: 100%;
+      width: 100px;
+      height: 100px;
+      border: 1px solid $text-primary-color;
+      color: $text-primary-color;
+      font-size: 34px;
+      text-align: center;
+      line-height: 96px;
+      transition: all 1s;
+      &.active {
+        background-color: $text-primary-color;
+        color: white;
+      }
+      transform: translateY(25px);
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  &.landscape {
+    .paginator {
+      transform: translateY(150%) translateX(-50%);
+      .page-item {
+        transform: translateY(0%) rotate(90deg);
+      }
+    }
+  }
+  &.book-ready {
+    .page-item {
+      pointer-events: all;
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+  &.book-ready {
+    .slogan {
+      transform: translateY(0) translateX(-50%);
+      opacity: 1;
+    }
+  }
+  .slogan {
+    position: fixed;
+    top: 116px;
+    left: 50%;
+    transition: all 1s;
+    transform: translateX(-50%) translateY(-10%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    color: $text-primary-color;
+    font-size: 56px;
+    font-weight: 300;
+    z-index: 3;
+    width: 600px;
+    .sub {
+      margin-top: 36px;
+      font-size: 32px;
+      font-weight: 400;
+    }
+  }
+  &.landscape {
+    .slogan {
+      opacity: 0;
+    }
+  }
+  .ctas {
+    padding-top: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .pill-button {
+      margin-bottom: 22px;
+    }
+    .underline.disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-50%, 5%);
+  }
+  50% {
+    transform: translate(-50%, -5%);
+  }
+  100% {
+    transform: translate(-50%, 5%);
+  }
+}

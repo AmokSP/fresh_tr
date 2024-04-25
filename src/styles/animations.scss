@@ -1,0 +1,37 @@
+.slideUp {
+  animation: slideUp 0.5s ease-out;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+  animation-delay: 0.2s;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translate(0px, 30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+.slideDown {
+  animation: slideDown 0.5s ease-out;
+  animation-fill-mode: both;
+  animation-direction: alternate;
+  animation-delay: 0.2s;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translate(0px, -30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}

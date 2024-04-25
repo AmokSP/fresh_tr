@@ -1,0 +1,44 @@
+@import '@styles/variables';
+
+.policy {
+  color: $blue-dark-color;
+  padding: 20px 50px;
+
+  &__tabs {
+    display: flex;
+    gap: 60px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+
+    &__item {
+      font-size: 32px;
+      color: $blue-dark-color;
+
+      &__active {
+        font-weight: bold;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          height: 3px;
+          width: 100%;
+          background-color: currentColor;
+          bottom: -5px;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  &__content {
+    margin-top: 50px;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+  }
+}

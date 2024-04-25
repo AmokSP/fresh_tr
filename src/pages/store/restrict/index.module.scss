@@ -1,0 +1,64 @@
+@import '@styles/variables';
+
+.store {
+  &__scroll {
+    width: 700px;
+    padding-right: 50px;
+    margin-right: 50px;
+  }
+
+  &__tip {
+    position: absolute;
+    z-index: 2;
+    top: 15px;
+    right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__text {
+      font-size: 24px !important;
+      margin-top: -2px;
+    }
+
+    Text {
+      font-size: 38px;
+    }
+  }
+
+  &__dock {
+    width: 100%;
+    height: 360px;
+    position: fixed;
+    z-index: 2;
+    bottom: 0;
+    background-color: #fff;
+    box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.2);
+    padding-left: 30px;
+    padding-top: 80px;
+    box-sizing: border-box;
+  }
+
+  &__list {
+    display: flex;
+    gap: 20px;
+
+    &__item {
+      width: 600px;
+      height: 220px;
+      flex-shrink: 0;
+      background-color: #edf7ff;
+      border-radius: 5px;
+    }
+  }
+
+  &__map {
+    width: 100%;
+    height: 100%;
+
+    Map {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+page {
+  overflow: hidden;
+}
+
+.gift {
+  &__scroll {
+    height: 82vh;
+  }
+
+  &__list {
+    width: 670px;
+    margin: 40px auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+
+    &__item {
+      border-bottom: 2px solid #d1d8df;
+      padding-bottom: 30px;
+
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+}

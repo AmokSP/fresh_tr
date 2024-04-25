@@ -1,0 +1,41 @@
+@import '@styles/variables';
+
+// page {
+//   overflow: hidden;
+// }
+
+.coupon {
+  height: 100%;
+
+  &__banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #edf7ff;
+    padding: 10px 0;
+
+    Image {
+      width: 360px;
+      height: 324px;
+    }
+  }
+
+  &__list {
+    margin-top: 55px;
+    padding: 0 36px;
+    padding-bottom: 50px;
+
+    &__scroll {
+      height: 62vh;
+      box-sizing: border-box;
+    }
+
+    &__card {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__tabs {
+    background-color: #edf7ff;
+  }
+}

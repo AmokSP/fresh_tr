@@ -1,0 +1,175 @@
+{
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "package-hideaway/pages/city-map/index",
+          "pathName": "package-hideaway/pages/city-map/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/poster/share/view/index",
+          "pathName": "package-hideaway/pages/poster/share/view/index",
+          "query": "token=postcard_1WB1G3_E3arYW",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/city-map/index",
+          "pathName": "package-hideaway/pages/city-map/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/poster/share/index",
+          "pathName": "package-hideaway/pages/poster/share/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/poster/share/index",
+          "pathName": "package-hideaway/pages/poster/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/index/index",
+          "pathName": "package-hideaway/pages/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/signup/index/index",
+          "pathName": "pages/signup/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/index/index",
+          "pathName": "package-hideaway/pages/poster/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/webview/index",
+          "pathName": "pages/webview/index",
+          "query": "target=argarden&lang=kr",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/draw/index",
+          "query": "name=newonlinecoupon1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/coupon/index",
+          "query": "name=newonlinecoupon1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my/coupon/detail/index",
+          "query": "id=offlinecoupon1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/signup/edit/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "注册",
+          "pathName": "pages/signup/index/index",
+          "query": "utm_source=val1&utm_medium=val2&utm_campaign=val3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "utm_source=v1&utm_medium=val2&utm_campaign=val3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "测试",
+          "pathName": "pages/index/index",
+          "query": "utm_source=test1&utm_medium=test2",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/signup/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "lang=hant",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "utm_source=valtech",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "utm_source=valtech",
+          "launchMode": "default",
+          "scene": 1011
+        },
+        {
+          "name": "test",
+          "pathName": "pages/index/index",
+          "query": "utm_source=valtech",
+          "launchMode": "default",
+          "scene": 1047
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "scene=lang%3DHant",
+          "launchMode": "default",
+          "scene": 1047
+        },
+        {
+          "name": "my gifts",
+          "pathName": "pages/my/gift/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "libVersion": "3.4.1",
+  "setting": {
+    "urlCheck": false,
+    "compileHotReLoad": false
+  }
+}

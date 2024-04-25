@@ -1,0 +1,16 @@
+@import '@styles/variables';
+
+.policy {
+  color: $blue-dark-color;
+  padding: 20px 50px;
+
+  &__content {
+    margin-top: 50px;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+  }
+}

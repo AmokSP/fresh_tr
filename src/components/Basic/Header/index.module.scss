@@ -1,0 +1,93 @@
+.header {
+  position: relative;
+  height: 100%;
+
+  &__content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    top: 0;
+    left: 80px;
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+  }
+
+  .title {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 100%;
+    text-align: center;
+    align-self: center;
+    flex-grow: 1;
+    font-size: 30px;
+    line-height: 16px;
+    transition: color 0.2s linear;
+    pointer-events: none;
+
+    &.center {
+      text-align: center;
+    }
+
+    &.left {
+      text-align: left;
+    }
+  }
+
+  .brand-logo {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .buttons {
+    display: flex;
+    align-content: center;
+    height: 100%;
+    padding-left: 34px;
+    left: 0;
+    right: 0;
+
+    .header-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-left {
+      // margin-right: 10px;
+      flex-grow: 0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 5px 20px;
+      margin-left: -20px;
+
+      .img {
+        width: 18px;
+      }
+    }
+
+    .home {
+      flex-grow: 0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 5px 20px;
+      margin-left: -20px;
+
+      .img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.tabs {
+  width: 100%;
+  height: 88px;
+  display: flex;
+  align-items: center;
+
+  &__fixed {
+    position: fixed;
+    z-index: 10;
+  }
+
+  &__item {
+    height: 100%;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 28px;
+    transition: all 0.3s ease-out;
+    background-color: #edf7ff;
+
+    &__active {
+      font-weight: 600;
+      background-color: #fff;
+    }
+  }
+}
