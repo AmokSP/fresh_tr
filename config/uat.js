@@ -3,8 +3,8 @@ module.exports = {
     NODE_ENV: '"production"',
   },
   defineConstants: {
-    TRANSLATE_API: true,
-    ENABLE_LANG: true,
+    TRANSLATE_API: 'true',
+    ENABLE_LANG: 'true',
 
     // API_URL: "'https://develop-env.valtech.com.cn/freshtruat'",
     // CMS_API_URL: "'https://develop-env.valtech.com.cn:8443/api'",
@@ -33,54 +33,54 @@ module.exports = {
     // SHARE_IMAGE: "'https://tr-cdn.fresh-cn.com/uploads/mnp_9211ca1a36.jpg'",
     // ENV_VERSION: "'release'",
 
-    TRACKING: {
+    TRACKING: JSON.stringify({
       gio: {
-        dataSourceId: "'98632e70b9958ea9'",
+        dataSourceId: '98632e70b9958ea9',
       },
-    },
+    }),
 
-    DEFAULT_LOCATION: {
+    DEFAULT_LOCATION: JSON.stringify({
       LNG: '109.75065',
       LAT: '18.37201',
-    },
-    H5_CAMPAIGN: {
-      cnyar: "'https://tr-game.fresh-cn.com/cnyar2024/'",
-      argarden: "'https://tr-game-uat.fresh-cn.com/argarden2024/'",
-      // argarden: "'https://develop-env.valtech.com.cn/argarden2024/'",
-      // argarden: "'https://amoksp.fun/argarden2024/'",
-    },
-    HIDEAWAY_ASSETS: {
+    }),
+    H5_CAMPAIGN: JSON.stringify({
+      cnyar: 'https://tr-game.fresh-cn.com/cnyar2024/',
+      argarden: 'https://tr-game-uat.fresh-cn.com/argarden2024/',
+      // argarden: 'https://develop-env.valtech.com.cn/argarden2024/',
+      // argarden: 'https://amoksp.fun/argarden2024/',
+    }),
+    HIDEAWAY_ASSETS: JSON.stringify({
       book: {
-        cover: "'https://develop-env.valtech.com.cn/freshcms/uploads/cover_68df9288e8.png'",
-        back: "'https://develop-env.valtech.com.cn/freshcms/uploads/back_7d6982bfb5.png'",
+        cover: 'https://develop-env.valtech.com.cn/freshcms/uploads/cover_68df9288e8.png',
+        back: 'https://develop-env.valtech.com.cn/freshcms/uploads/back_7d6982bfb5.png',
         pages: [
           {
-            bg: "'https://develop-env.valtech.com.cn/freshcms/uploads/bg_da316590ad.png'",
-            layer1: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer1_408a76cba9.png'",
-            layer2: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer2_040a9e2ea3.png'",
-            layer3: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer3_847adc1bb1.png'",
-            layer4: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer4_18a365b1a7.png'",
-            layer5: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer5_bb9709632c.png'",
+            bg: 'https://develop-env.valtech.com.cn/freshcms/uploads/bg_da316590ad.png',
+            layer1: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer1_408a76cba9.png',
+            layer2: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer2_040a9e2ea3.png',
+            layer3: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer3_847adc1bb1.png',
+            layer4: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer4_18a365b1a7.png',
+            layer5: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer5_bb9709632c.png',
           },
           {
-            bg: "'https://develop-env.valtech.com.cn/freshcms/uploads/bg_8b05dc848a.png'",
-            layer1: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer1_939a116d54.png'",
-            layer2: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer2_347d780661.png'",
-            layer3: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer3_c5be7927c1.png'",
-            layer4: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer4_ae97a40174.png'",
-            layer5: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer5_5728f469b5.png'",
+            bg: 'https://develop-env.valtech.com.cn/freshcms/uploads/bg_8b05dc848a.png',
+            layer1: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer1_939a116d54.png',
+            layer2: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer2_347d780661.png',
+            layer3: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer3_c5be7927c1.png',
+            layer4: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer4_ae97a40174.png',
+            layer5: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer5_5728f469b5.png',
           },
           {
-            bg: "'https://develop-env.valtech.com.cn/freshcms/uploads/bg_9c9f748a2a.png'",
-            layer1: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer1_8962a53b8b.png'",
-            layer2: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer2_135b772e45.png'",
-            layer3: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer3_c7302313c8.png'",
-            layer4: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer4_bb9d8b1866.png'",
-            layer5: "'https://develop-env.valtech.com.cn/freshcms/uploads/layer5_f75d8e4700.png'",
+            bg: 'https://develop-env.valtech.com.cn/freshcms/uploads/bg_9c9f748a2a.png',
+            layer1: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer1_8962a53b8b.png',
+            layer2: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer2_135b772e45.png',
+            layer3: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer3_c7302313c8.png',
+            layer4: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer4_bb9d8b1866.png',
+            layer5: 'https://develop-env.valtech.com.cn/freshcms/uploads/layer5_f75d8e4700.png',
           },
         ],
       },
-    },
+    }),
   },
   mini: {},
   h5: {},
