@@ -16,6 +16,7 @@ import Route from '@hideaway/assets/route.svg';
 import Map from '@hideaway/assets/map.svg';
 import Pin from '@hideaway/assets/pin.svg';
 import Arrow from '@hideaway/assets/swiper-arrow.svg';
+import CardBG from '@hideaway/assets/card.png';
 import { useRef, useState } from 'react';
 import Cities from './cities';
 import gsap from 'gsap';
@@ -187,13 +188,15 @@ export default function Index() {
             return (
               <View
                 className='kol-item'
-                style={{ left: index * windowWidth + 'px' }}
+                style={{
+                  left: index * windowWidth + 'px',
+                  opacity: (windowWidth - Math.abs(offset)) / windowWidth,
+                }}
                 onClick={() => goto({ url: `${HIDEAWAY.KOL_STORY}?id=${123}` })}
               >
                 <Image
                   style={{
                     transform: `translateX(${-offset * 0.6}px)`,
-                    opacity: (windowWidth - Math.abs(offset)) / windowWidth,
                   }}
                   className='image'
                   src={i.image}
@@ -205,14 +208,9 @@ export default function Index() {
                     transform: `translateX(${-offset * 2}px)`,
                   }}
                 >
-                  <View
-                    style={{
-                      opacity: (windowWidth - Math.abs(offset)) / windowWidth,
-                    }}
-                  >
-                    <View className='kol-desc'>{i.text}</View>
-                    <View className='pill-button primary outline'>即刻探索</View>
-                  </View>
+                  <View className='kol-desc'>{i.text}</View>
+                  <View className='pill-button primary outline'>即刻探索</View>
+                  <Image src={CardBG} className='bg'></Image>
                 </View>
               </View>
             );

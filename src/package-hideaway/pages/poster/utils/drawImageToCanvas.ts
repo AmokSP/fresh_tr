@@ -58,15 +58,13 @@ export function drawImage({
     }
     const ctx = canvas.getContext('2d');
     const img = canvas.createImage();
-    console.log('drawing', imagePath);
-    console.log(ctx);
-    console.log(img);
     img.onerror = (e) => {
       console.warn('fail drawing:', imagePath);
       reject(e);
     };
 
     img.onload = () => {
+      console.warn('drawing:', imagePath);
       const distRect = {
         x: drawPositionX,
         y: drawPositionY,
@@ -80,7 +78,6 @@ export function drawImage({
         height: img.height,
       };
       if (scaleMode && scaleMode != 'scaleToFill') {
-        console.log('modifying scale');
         let distRatio = drawWidth / drawHeight;
         let srcRatio = img.width / img.height;
         switch (scaleMode) {

@@ -2,27 +2,28 @@ import React from 'react';
 import Taro from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import { posterToView } from '../../utils/scale';
+import { degToRad } from '../../utils/rotations';
 
 export default React.memo((props: TextField & { onClick?: () => void }) => {
-  const { content, fontSize, lineHeight,error } = props;
+  const { content, x, y, fontSize, lineHeight, error, rotation } = props;
+  const cosV = Math.cos(degToRad(rotation)??0);
+  const sinV = Math.sin(degToRad(rotation)??0);
   return (
     <View
       style={{
         position: 'absolute',
-        width: Taro.pxTransform(props.width * 2),
-        height: Taro.pxTransform(props.height * 2),
         transformOrigin: '0 0',
-        transform: `translate(${props.x}px,${props.y}px) rotate(${props.rotation}deg)`,
+        transform: `matrix(${cosV},${sinV},${-sinV},${cosV},${Math.round(x)},${Math.round(y)})`,
       }}
     >
       <Text
         onClick={props.onClick}
         style={{
           position: 'absolute',
-          width: '100%',
-          height: '100%',
+          width: props.width + 'px',
+          height: props.height + 'px',
           transform: `translate(-50%, -50%)`,
-          border: error? '1px #ff2c5f dashed':'1px white dashed',
+          border: error ? '1px #ff2c5f dashed' : '1px white dashed',
           color: props.color,
           fontWeight: props.fontWeight,
           textAlign: props.textAlign,

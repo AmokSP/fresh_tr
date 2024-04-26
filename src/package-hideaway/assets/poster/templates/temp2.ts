@@ -76,20 +76,20 @@ const Temp1: PosterData = {
       src: 'https://ts1.cn.mm.bing.net/th/id/R-C.16772d9f53053d1b4fd634ef849748c2?rik=A%2fLly4dMRIWEQw&riu=http%3a%2f%2fnwzimg.wezhan.cn%2fcontents%2fsitefiles2002%2f10013195%2fimages%2f16873206.jpg&ehk=DWYUFHkCG2JhZx59eiTodVI8cRoZUISDCrsEWsrjO8U%3d&risl=&pid=ImgRaw&r=0',
 
       x: 291,
-      y: 324,
-      width: 180,
-      height: 140,
-      rotation: 5.81,
+      y: 326,
+      width: 134,
+      height: 100,
+      rotation: 7,
     },
     {
       id: 2,
       src: 'https://ts1.cn.mm.bing.net/th/id/R-C.16772d9f53053d1b4fd634ef849748c2?rik=A%2fLly4dMRIWEQw&riu=http%3a%2f%2fnwzimg.wezhan.cn%2fcontents%2fsitefiles2002%2f10013195%2fimages%2f16873206.jpg&ehk=DWYUFHkCG2JhZx59eiTodVI8cRoZUISDCrsEWsrjO8U%3d&risl=&pid=ImgRaw&r=0',
 
       x: 276,
-      y: 445,
-      width: 180,
-      height: 140,
-      rotation: 5.81,
+      y: 446,
+      width: 134,
+      height: 100,
+      rotation: 7,
     },
     {
       id: 3,
@@ -103,22 +103,6 @@ const Temp1: PosterData = {
     },
   ],
   stickers: [
-    {
-      ...AllStickers[1],
-      width: 78,
-      height: 78,
-      x: 24,
-      y: 53,
-      rotation: degToRad(-10),
-    },
-    {
-      ...AllStickers[3],
-      width: 78,
-      height: 78,
-      x: 24,
-      y: 53,
-      rotation: degToRad(-10),
-    },
   ],
 };
 export default Temp1;

@@ -60,12 +60,12 @@
     margin-top: 60px;
     width: 100vw;
     overflow: hidden;
-    height: 348 * 2px;
+    height: 786px;
     overflow-y: visible;
     // filter: drop-shadow(0 80px 90px rgba(#6b91ae, 0.2));
     .paginator {
       position: absolute;
-      bottom: 0px;
+      bottom: 60px;
       width: 100vw;
       height: 2px;
       display: flex;
@@ -105,61 +105,73 @@
         transform: translateY(-50%) rotate(180deg);
       }
     }
-  }
-  .kol-swiper {
-    .kol-item {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      padding-top: 40px;
-      box-sizing: border-box;
-      width: 100vw;
-      .image {
+    .kol-swiper {
+      height: 453 * 2px;
+      .kol-item {
         position: absolute;
-        z-index: 2;
-        top: 0px;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        width: 266 * 2px;
-        height: 200 * 2px;
-        border-radius: 8px;
-      }
-      .kol-body {
-        position: relative;
+        display: flex;
+        justify-content: center;
+        padding-top: 40px;
         box-sizing: border-box;
-        width: 286px * 2;
-        height: 304 * 2px;
-        border-radius: 8px;
-        background-clip: content-box;
-        background: linear-gradient(180deg, #c7e9ff 0%, #ffffff 100%);
-
-        .kol-desc {
+        width: 100vw;
+        height: 100%;
+        .image {
           position: absolute;
-          top: 400px;
-          left: 50%;
-          transform: translateX(-50%);
+          z-index: 2;
+          top: 0px;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          width: 266 * 2px;
+          height: 200 * 2px;
           border-radius: 8px;
-          font-family: PingFang SC;
-          font-size: 13px * 2;
-          font-weight: 400;
-          line-height: 14px * 2;
-          text-align: center;
-          color: #323d47;
-          width: 240 * 2px;
-
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
-        .pill-button {
-          position: absolute;
-          bottom: 44px;
-          left: 50%;
-          transform: translateX(-50%);
+        .kol-body {
+          position: relative;
+          box-sizing: border-box;
+          width: 100vw;
+          height: 100%;
           border-radius: 8px;
+          background-clip: content-box;
+          .bg {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 93%;
+            height: 100%;
+          }
+          .kol-desc {
+            position: absolute;
+            top: 400px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px;
+            font-family: PingFang SC;
+            font-size: 13px * 2;
+            font-weight: 400;
+            line-height: 14px * 2;
+            text-align: center;
+            color: #323d47;
+            width: 240 * 2px;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            z-index: 1;
+          }
+          .pill-button {
+            position: absolute;
+            top: 248 *2px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px;
+            z-index: 2;
+            width: 200px;
+            height: 64px;
+            font-size: 24px;
+          }
         }
       }
     }
@@ -169,7 +181,7 @@
     width: 347px * 2;
     height: 81 * 2px;
     margin-left: 50px;
-    margin-top: 160px;
+    margin-top: 40px;
     .path {
       position: absolute;
       animation: fly 6s ease-in-out;

@@ -72,6 +72,18 @@ export default function Index() {
       }
     );
   };
+  const backToMap = ()=>{
+
+    const pages = Taro.getCurrentPages();
+    const target = pages.findIndex((i) => i.route === HIDEAWAY.CITY_MAP.slice(1));
+    if (target === -1) {
+      goto({ url: HIDEAWAY.CITY_MAP, type: 'reLaunch' });
+    } else {
+      Taro.navigateBack({
+        delta: pages.length - target - 1,
+      });
+    }
+  }
   return (
     <View
       className={'poster-share'}
@@ -106,7 +118,7 @@ export default function Index() {
           <View className='pill-button primary' onClick={() => Taro.navigateBack({ delta: 1 })}>
             返回制作
           </View>
-          <View className='underline' onClick={() => Taro.navigateBack({ delta: 3 })}>
+          <View className='underline' onClick={backToMap}>
             继续探索
           </View>
         </View>
@@ -128,19 +140,7 @@ export default function Index() {
           <View className='more'>
             <View
               className='underline'
-              onClick={() => {
-                const pages = Taro.getCurrentPages();
-                console.log(pages);
-                const target = pages.findIndex((i) => i.route === HIDEAWAY.CITY_MAP.slice(1));
-                if (target === -1) {
-                  goto({ url: HIDEAWAY.CITY_MAP, type: 'reLaunch' });
-                } else {
-                  Taro.navigateBack({
-                    delta: pages.length - target - 1,
-                  });
-                }
-                console.log(target);
-              }}
+              onClick={backToMap}
             >
               继续探索
             </View>

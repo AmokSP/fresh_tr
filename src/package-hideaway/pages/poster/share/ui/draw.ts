@@ -21,6 +21,7 @@ export async function drawPoster(posterData: PosterData) {
       context.translate(item.x, item.y);
       context.rotate(degToRad(item.rotation));
       try {
+        console.warn('drawing',item.id)
         await drawImage({
           canvas,
           url: item.src,
@@ -91,9 +92,7 @@ export async function drawPoster(posterData: PosterData) {
 
     try {
       const data = canvas.toDataURL();
-      let temp = `${Taro.env.USER_DATA_PATH}/temp_poster.png`;
-      Taro.getFileSystemManager().writeFileSync(temp, data.slice(22), 'base64');
-      resolve(temp);
+      resolve(data);
     } catch (error) {
       console.error('saving temp');
       reject('saving temp error');

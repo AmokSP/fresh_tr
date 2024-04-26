@@ -38,7 +38,7 @@ export default function Editor() {
   const { receivedCount, summary } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
+  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp2');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -53,7 +53,7 @@ export default function Editor() {
   });
   useEffect(() => {
     setFocusItemId(-1);
-    const localData = Taro.getStorageSync('posterData');
+    const localData = undefined //Taro.getStorageSync('posterData');
     let photoArr: Photo[];
     let textArr: TextField[];
     let stickerArr: Sticker[];

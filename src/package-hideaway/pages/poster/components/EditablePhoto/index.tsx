@@ -1,8 +1,11 @@
 import React from 'react';
 import { Image, View, Text } from '@tarojs/components';
+import { degToRad } from '../../utils/rotations';
 
 export default React.memo((props: Photo & { onClick?: (e) => void }) => {
-  const { src } = props;
+  const { src,rotation,x,y } = props;
+  const cosV = Math.cos(degToRad(rotation)??0);
+  const sinV = Math.sin(degToRad(rotation)??0);
   return (
     <View
       className='custom-photo'
@@ -10,13 +13,10 @@ export default React.memo((props: Photo & { onClick?: (e) => void }) => {
         e.stopPropagation();
         e.preventDefault();
       }}
-      onClick={props.onClick}
       style={{
         position: 'absolute',
-        width: props.width + 'px',
-        height: props.height + 'px',
         transformOrigin: '0 0',
-        transform: `translate(${props.x}px,${props.y}px) rotate(${props.rotation}deg)`,
+        transform: `matrix(${cosV},${sinV},${-sinV},${cosV},${Math.round(x)},${Math.round(y)})`,
       }}
     >
       <View
@@ -32,15 +32,17 @@ export default React.memo((props: Photo & { onClick?: (e) => void }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          pointerEvents:'none'
         }}
       >
         +
       </View>
       <Image
         src={src}
+        onClick={props.onClick}
         style={{
-          width: '100%',
-          height: '100%',
+          width: props.width + 'px',
+          height: props.height + 'px',
           transform: `translate(-50%, -50%)`,
         }}
         mode='aspectFill'

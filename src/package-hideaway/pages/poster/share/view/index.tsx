@@ -1,5 +1,5 @@
 import { View, Image, Button, Block, Text } from '@tarojs/components';
-import Taro, { useDidShow, useLoad, useRouter } from '@tarojs/taro';
+import Taro, { useDidHide, useDidShow, useLoad, useRouter } from '@tarojs/taro';
 import { getAuthorization } from '../../utils/getAuth';
 import Templates from '@hideaway/assets/poster/templates';
 import IconDownload from '@hideaway/assets/poster/icons/download.svg';
@@ -24,7 +24,11 @@ export default function Index() {
     return [state?.userInfo?.profile?.status === 'Registered', state.isLogin];
   });
 
-  const { value: posterData, execute: fetchPoster } = useAsync(async (token) => {
+  const {
+    value: posterData,
+    execute: fetchPoster,
+    reset: resetPosterData,
+  } = useAsync(async (token) => {
     return HideawayService.readPoster(token);
   });
 
@@ -35,7 +39,15 @@ export default function Index() {
       fetchPoster(params.token);
     }
   }, [isLogin]);
-  useDidShow(() => {});
+  useDidShow(() => {
+    if (isLogin) {
+      showLoading();
+      fetchPoster(params.token);
+    }
+  });
+  useDidHide(() => {
+    resetPosterData();
+  });
   useEffect(() => {
     if (posterData) {
       console.log(posterData);
@@ -59,6 +71,9 @@ export default function Index() {
           if (saveRes.errMsg === 'saveImageToPhotosAlbum:ok') {
             Taro.hideLoading();
             showSavePopup();
+            Taro.getFileSystemManager().removeSavedFile({
+              filePath: imageUrl,
+            });
           } else {
             Taro.hideLoading();
             Taro.showToast({
@@ -85,18 +100,22 @@ export default function Index() {
           }}
         ></Header>
       </Navbar>
-      <View className='block'>
-        <Image className='preview' mode='aspectFill' src={drawnImageUrl ?? ''}></Image>
-        {posterData && <View className='desc'>{Templates[posterData.id]?.desc}</View>}
-        <View className='hint'>{'扫码制作海报分享好友获得优惠券'}</View>
-      </View>
+      {posterData && (
+        <Block>
+          <View className='block'>
+            <Image className='preview' mode='aspectFill' src={drawnImageUrl ?? ''}></Image>
+            <View className='desc'>{Templates[posterData.id]?.desc}</View>
+            <View className='hint'>{'扫码制作海报分享好友获得优惠券'}</View>
+          </View>
 
-      <View className='buttons'>
-        <Button onClick={saveImage}>
-          <Image src={IconDownload}></Image>
-          <Text>下载到相册</Text>
-        </Button>
-      </View>
+          <View className='buttons'>
+            <Button onClick={saveImage}>
+              <Image src={IconDownload}></Image>
+              <Text>下载到相册</Text>
+            </Button>
+          </View>
+        </Block>
+      )}
       <HideawayPopup show={savePopup} onClose={hideSavePopup}>
         <View className='save-popup'>
           <View className='title'>保存成功</View>

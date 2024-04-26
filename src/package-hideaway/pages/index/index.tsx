@@ -7,6 +7,8 @@ import cx from 'classnames';
 import FressBook, { PAGE_WIDTH } from './ui/FreshBook';
 import Orient from '@hideaway/assets/book/orient.svg';
 import Title from '@hideaway/assets/book/title.png';
+import LoadingTitle from '@hideaway/assets/book/loading-title.svg';
+import LoadingText from '@hideaway/assets/book/loading-text.svg';
 import Cta from '@hideaway/assets/book/cta.png';
 import Background from '@hideaway/assets/book/background.jpg';
 import { PLATFORM } from 'three-platformize';
@@ -38,17 +40,6 @@ export default function Index() {
     'idle' | 'load-start' | 'load-done' | 'book-ready' | 'cover' | 'cover-out' | 'book-out' | ''
   >('idle');
   useLoad(async () => {
-    await delay(100);
-    setPhase('load-start');
-    await delay(2500);
-    Taro.eventCenter.on('asset-loaded', async () => {
-      assetLoaded++;
-      if (assetLoaded >= 20) {
-        setPhase('load-done');
-        await delay(2000);
-        startIntro();
-      }
-    });
     Taro.createSelectorQuery()
       .select('#webgl')
       .node()
@@ -61,6 +52,17 @@ export default function Index() {
 
         freshBook.current = new FressBook(canvas);
       });
+    await delay(100);
+    setPhase('load-start');
+    await delay(2500);
+    Taro.eventCenter.on('asset-loaded', async () => {
+      assetLoaded++;
+      if (assetLoaded >= 20) {
+        setPhase('load-done');
+        await delay(2000);
+        startIntro();
+      }
+    });
   });
   useDidShow(() => {
     freshBook.current?.startRender();
@@ -226,7 +228,7 @@ export default function Index() {
     });
 
     gsap.to(freshBook.current.camera.position, {
-      y: 0,
+      y: -0.5,
       duration: 1.5,
       ease: 'power1.inOut',
       onComplete: () => {
@@ -247,7 +249,7 @@ export default function Index() {
       },
     });
   };
-  const bookOut = (cityIndex) => {
+  const bookOut = (index=cityIndex) => {
     if (animating) return;
     animating = true;
     setPhase('book-out');
@@ -260,7 +262,7 @@ export default function Index() {
       onComplete: () => {
         animating = false;
         goto({
-          url: `${HIDEAWAY.CITY_MAP}?city=${cityIndex}`,
+          url: `${HIDEAWAY.CITY_MAP}?city=${index}`,
         });
       },
     });
@@ -291,11 +293,26 @@ export default function Index() {
       <View className='mask'>
         {phase !== 'book-out' && <Image className='bg' src={Background}></Image>}
         {phase !== 'book-out' && <Image className='plane-load' src={PlaneLoad}></Image>}
-        {phase !== 'book-out' && <View className='loading'>Loading...</View>}
+        {phase !== 'book-out' && (
+          <Image src={LoadingTitle} className='loading-title' mode='widthFix'></Image>
+        )}
+        {phase !== 'book-out' && (
+          <Image src={LoadingText} className='loading-text' mode='widthFix'></Image>
+        )}
+        {/* {phase !== 'book-out' && <View className='loading'></View>} */}
       </View>
       <Image onClick={showSharePanel} src={Plane} className={'btn-plane'}></Image>
       <Image className='title' src={Title}></Image>
-      <Image onClick={coverOut} className='cta' src={Cta}></Image>
+      <Image
+        onClick={()=>{
+          phase === 'cover'
+            ? coverOut()
+            : bookOut()
+          }
+        }
+        className='cta'
+        src={Cta}
+      ></Image>
       <Image src={Orient} onClick={toggleOrient} className='orient-toggle'></Image>
       <View style={{ paddingTop: `${NAVBAR_HEIGHT}px` }} className='slogan'>
         <View>亲近自然世界</View>
