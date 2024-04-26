@@ -20,25 +20,35 @@ export async function drawPoster(posterData: PosterData) {
       context.save();
       context.translate(item.x, item.y);
       context.rotate(degToRad(item.rotation));
-      await drawImage({
-        canvas,
-        url: item.src,
-        x: 0 - item.width / 2,
-        y: 0 - item.height / 2,
-        width: item.width,
-        height: item.height,
-        mode: 'aspectFill',
-      });
+      try {
+        await drawImage({
+          canvas,
+          url: item.src,
+          x: 0 - item.width / 2,
+          y: 0 - item.height / 2,
+          width: item.width,
+          height: item.height,
+          mode: 'aspectFill',
+        });
+      } catch (e) {
+        console.error('PHOTO ERROR');
+        reject('photo error');
+      }
       context.restore();
     }
-    await drawImage({
-      canvas,
-      url: Templates[posterData.id].background,
-      x: 0,
-      y: 0,
-      width: POSTER_WIDTH,
-      height: POSTER_HEIGHT,
-    });
+    try {
+      await drawImage({
+        canvas,
+        url: Templates[posterData.id].background,
+        x: 0,
+        y: 0,
+        width: POSTER_WIDTH,
+        height: POSTER_HEIGHT,
+      });
+    } catch (e) {
+      console.error('bg error');
+      reject('bg error');
+    }
     for (const item of posterData.textfields) {
       context.save();
       context.translate(item.x, item.y);
@@ -63,21 +73,31 @@ export async function drawPoster(posterData: PosterData) {
       context.save();
       context.translate(item.x, item.y);
       context.rotate(item.rotation);
-      await drawImage({
-        canvas,
-        url: item.src,
-        x: 0 - item.width / 2,
-        y: 0 - item.height / 2,
-        width: item.width,
-        height: item.height,
-      });
+      try {
+        await drawImage({
+          canvas,
+          url: item.src,
+          x: 0 - item.width / 2,
+          y: 0 - item.height / 2,
+          width: item.width,
+          height: item.height,
+        });
+      } catch (e) {
+        console.error('sticker');
+        reject('sticker error');
+      }
       context.restore();
     }
 
-    const data = canvas.toDataURL();
-    let temp = `${Taro.env.USER_DATA_PATH}/temp_poster.png`;
-    Taro.getFileSystemManager().writeFileSync(temp, data.slice(22), 'base64');
-    resolve(temp);
+    try {
+      const data = canvas.toDataURL();
+      let temp = `${Taro.env.USER_DATA_PATH}/temp_poster.png`;
+      Taro.getFileSystemManager().writeFileSync(temp, data.slice(22), 'base64');
+      resolve(temp);
+    } catch (error) {
+      console.error('saving temp');
+      reject('saving temp error');
+    }
   });
 }
 

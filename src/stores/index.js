@@ -20,6 +20,7 @@ const useStore = create((set) => ({
   utmMedium: '',
   utmCampaign: '',
   isFromDFS: false, // 用于标记用户是否通过免税店线下二维码进入
+  showRecommend: false, //是否显示咨询
   setUtm: (source, medium, campaign) =>
     set(() => {
       return {
@@ -32,6 +33,12 @@ const useStore = create((set) => ({
     set(() => {
       return {
         sign,
+      };
+    }),
+  setShowRecommend: (showRecommend) =>
+    set(() => {
+      return {
+        showRecommend,
       };
     }),
   setFromDFS: (isFromDFS) =>

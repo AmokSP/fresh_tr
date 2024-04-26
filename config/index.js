@@ -113,7 +113,7 @@ const config = {
 
 module.exports = function (merge) {
   console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'dev') {
     return merge({}, config, require('./dev'));
   } else if (process.env.NODE_ENV === 'uat') {
     return merge({}, config, require('./uat'));

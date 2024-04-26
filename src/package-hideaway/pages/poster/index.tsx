@@ -38,7 +38,7 @@ export default function Editor() {
   const { receivedCount, summary } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 1);
+  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -323,7 +323,19 @@ export default function Editor() {
   return (
     <View className='hideaway-poster'>
       <Navbar transparent={true} holdPlace={false}>
-        <Header title='brand_logo'></Header>
+        <Header
+          buttonBack
+          onClickBack={() => {
+            Taro.navigateBack({
+              delta: 1,
+
+              fail: () => {
+                goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+              },
+            });
+          }}
+          title='brand_logo'
+        ></Header>
       </Navbar>
       <Image
         style={{ top: NAVBAR_HEIGHT }}

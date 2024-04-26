@@ -34,7 +34,7 @@ type Photo = {
   error?: boolean;
 };
 type PosterData = {
-  id: number;
+  id: string;
   preview: string;
   background: string;
   desc: string;

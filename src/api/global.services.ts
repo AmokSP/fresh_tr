@@ -32,6 +32,13 @@ export class GlobalService {
       url: `${CMS_API_URL}/dfs-infos?populate=*`,
     });
   }
+
+  public static async getShowRecommend(): Promise<any> {
+    return request({
+      method: 'GET',
+      url: `${CMS_API_URL}/global-resource?fields[0]=showRecommend`,
+    });
+  }
 }
 
 export default GlobalService;

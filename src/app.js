@@ -3,6 +3,7 @@ import storage from '@utils/storage';
 import useLogin from '@hooks/useLogin';
 import useDFS from '@hooks/useDFS';
 import useStore from '@stores';
+import useTabbarSetting from '@hooks/useTabbarSetting';
 
 import { Tracking } from '@utils/tracking';
 import { buildObjectFromQuery } from '@utils';
@@ -16,6 +17,7 @@ function App({ children }) {
   const store = useStore();
   useLogin();
   useDFS();
+  useTabbarSetting();
   useDidShow((options) => {
     console.log('options', options);
     const { scene, lang, utm_source, utm_medium, utm_campaign, dfs } = options.query;

@@ -25,11 +25,16 @@ export default function Tabbar() {
       [styles['tabbar__ios']]: isIOS,
     },
   ]);
-
+  const tabbarItems = [...(store.isFromDFS ? DFS_TAB_BAR : TAB_BAR)];
+  const third = tabbarItems.splice(2, 1)[0];
+  console.log(store);
+  if (store.showRecommend) {
+    tabbarItems.splice(2, 0, third);
+  }
   return (
     <View className={tabbarClass}>
       <View className={styles['tabbar__wrap']}>
-        {(store.isFromDFS ? DFS_TAB_BAR : TAB_BAR).map((item, index) => {
+        {tabbarItems.map((item, index) => {
           const isActive = index === store.tabbar.activeIndex;
           const toggleClass = cx(styles['tabbar__item'], {
             [styles['tabbar__item__active']]: isActive,

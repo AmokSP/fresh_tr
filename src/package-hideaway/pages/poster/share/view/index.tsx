@@ -1,5 +1,5 @@
 import { View, Image, Button, Block, Text } from '@tarojs/components';
-import Taro, { useLoad, useRouter } from '@tarojs/taro';
+import Taro, { useDidShow, useLoad, useRouter } from '@tarojs/taro';
 import { getAuthorization } from '../../utils/getAuth';
 import Templates from '@hideaway/assets/poster/templates';
 import IconDownload from '@hideaway/assets/poster/icons/download.svg';
@@ -20,7 +20,7 @@ export default function Index() {
   // const posterData: PosterData = Taro.getStorageSync('posterData');
   const [savePopup, showSavePopup, hideSavePopup] = useBoolean(false);
   const { params } = useRouter();
-  const [isRegister, isLogin] = useStore((state) => {
+  const [isLogin] = useStore((state) => {
     return [state?.userInfo?.profile?.status === 'Registered', state.isLogin];
   });
 
@@ -29,17 +29,18 @@ export default function Index() {
   });
 
   useEffect(() => {
+    console.log(params.token);
     if (isLogin) {
       showLoading();
       fetchPoster(params.token);
     }
   }, [isLogin]);
-  useLoad(async () => {});
+  useDidShow(() => {});
   useEffect(() => {
     if (posterData) {
+      console.log(posterData);
       showLoading();
       draw(posterData).finally(hideLoading);
-      hideLoading();
     }
   }, [posterData]);
 
@@ -86,7 +87,7 @@ export default function Index() {
       </Navbar>
       <View className='block'>
         <Image className='preview' mode='aspectFill' src={drawnImageUrl ?? ''}></Image>
-        {posterData && <View className='desc'>{Templates[posterData.id].desc}</View>}
+        {posterData && <View className='desc'>{Templates[posterData.id]?.desc}</View>}
         <View className='hint'>{'扫码制作海报分享好友获得优惠券'}</View>
       </View>
 

@@ -23,14 +23,14 @@ const TAB_BAR = [
     iconPath: IconProduct,
     selectedIconPath: IconProduct,
   },
-  // {
-  //   index: 2,
-  //   pagePath: PAGES.NEWS,
-  //   text: '资讯',
-  //   langIndex: 'news',
-  //   iconPath: IconInfo,
-  //   selectedIconPath: IconInfo,
-  // },
+  {
+    index: 2,
+    pagePath: PAGES.NEWS,
+    text: '资讯',
+    langIndex: 'news',
+    iconPath: IconInfo,
+    selectedIconPath: IconInfo,
+  },
   {
     index: 3,
     pagePath: PAGES.STORE,

@@ -1,16 +1,16 @@
 module.exports = {
   env: {
-    NODE_ENV: '"development"',
+    NODE_ENV: '"production"',
   },
   defineConstants: {
     TRANSLATE_API: 'true',
     ENABLE_LANG: 'true',
     API_URL: "'https://develop-env.valtech.com.cn/freshtrBackend'",
-    CMS_API_URL: "'https://develop-env.valtech.com.cn:8000/api'",
+    CMS_API_URL: "'https://develop-env.valtech.com.cn/freshcms/api'",
     CMS_TOKEN:
-      "'d08e849184cb8a64c70ed9788096d0b9bc8624d3d8c756ea3ce00f8dd9411256f1499be10457e2ebb114d42a97987560ce7dc5280a276ee6daadf07219bd0ab517e0f4b00aeba24c6601ca15ef98897ba2bc46987ee8b3d9b18bef77d46c8d43123e6dfea704bb3755bbc07b1628b96e9c41d532ac8b37572275ecb4ed6a206f'",
+      "'3af0e1d4c97ff5811eee7d2f3ee456e990c868a6cf8cb164de4c688cf6f2ed516b7ef23c85c1ef051a2afebb174816badb10795340310ad13299d3b92993449a22d9f0b829d363e8d348ef559004441ee9314a61662984bb600f5122765c514d95cd8b9413ac64609fddd9cd188dc13a7e6d4ec84412dc4277990fd48f2c6440'",
     BUCKET_URL: "'https://develop-env.valtech.com.cn/freshcms'",
-    CMS_URL: "'https://develop-env.valtech.com.cn:8000'",
+    CMS_URL: "'https://develop-env.valtech.com.cn/freshcms'",
     TASK_URL: "'https://wz-api-test.todreamer.com'",
     SHARE_IMAGE: "'https://tr-cdn-uat.fresh-cn.com/uploads/mnp_e8de521d07.jpg'",
     ENV_VERSION: "'trial'",

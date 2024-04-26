@@ -171,5 +171,6 @@
   "setting": {
     "urlCheck": false,
     "compileHotReLoad": false
-  }
+  },
+  "projectname": "freshTR"
 }

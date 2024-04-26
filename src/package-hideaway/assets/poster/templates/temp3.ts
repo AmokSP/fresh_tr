@@ -2,7 +2,7 @@ import { degToRad } from '@hideaway/pages/poster/utils/rotations';
 import preview from './3.png';
 import AllStickers from '../stickers';
 const Temp1: PosterData = {
-  id: 3,
+  id: 'tmp3',
   preview: preview,
   background: 'https://develop-env.valtech.com.cn/freshcms/uploads/bg1_2d6990422c.png',
   desc: '这是模板3 的文字哈哈哈',

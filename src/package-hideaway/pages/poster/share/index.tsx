@@ -27,9 +27,14 @@ export default function Index() {
   const { params } = useRouter();
   const { receivedCount, summary } = useShareStatusQuery();
   useLoad(async () => {
-    showLoading();
-    await draw(posterData);
-    hideLoading();
+    try {
+      showLoading();
+      await draw(posterData);
+      hideLoading();
+    } catch (e) {
+      hideLoading();
+      console.log(e);
+    }
   });
   useShareAppMessage(() => {
     showSharePopup();
@@ -128,7 +133,7 @@ export default function Index() {
                 console.log(pages);
                 const target = pages.findIndex((i) => i.route === HIDEAWAY.CITY_MAP.slice(1));
                 if (target === -1) {
-                  goto({ url: HIDEAWAY.INDEX, type: 'reLaunch' });
+                  goto({ url: HIDEAWAY.CITY_MAP, type: 'reLaunch' });
                 } else {
                   Taro.navigateBack({
                     delta: pages.length - target - 1,
