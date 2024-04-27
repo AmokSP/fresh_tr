@@ -50,7 +50,9 @@ export default function Index() {
       async () => {
         Taro.showLoading({ title: '图片保存中...', mask: true });
         try {
-          const imageUrl = await drawSaveImage(drawnImageUrl!, Templates[posterData.id].desc);
+          let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
+          Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
+          const imageUrl = await drawSaveImage(temp, Templates[posterData.id].desc);
           const saveRes = await Taro.saveImageToPhotosAlbum({
             filePath: imageUrl!,
           });
@@ -58,6 +60,9 @@ export default function Index() {
           if (saveRes.errMsg === 'saveImageToPhotosAlbum:ok') {
             Taro.hideLoading();
             showSavePopup();
+            Taro.getFileSystemManager().removeSavedFile({
+              filePath: temp,
+            });
           } else {
             Taro.hideLoading();
             Taro.showToast({
@@ -72,8 +77,7 @@ export default function Index() {
       }
     );
   };
-  const backToMap = ()=>{
-
+  const backToMap = () => {
     const pages = Taro.getCurrentPages();
     const target = pages.findIndex((i) => i.route === HIDEAWAY.CITY_MAP.slice(1));
     if (target === -1) {
@@ -83,7 +87,7 @@ export default function Index() {
         delta: pages.length - target - 1,
       });
     }
-  }
+  };
   return (
     <View
       className={'poster-share'}
@@ -138,10 +142,7 @@ export default function Index() {
             查看礼券
           </View>
           <View className='more'>
-            <View
-              className='underline'
-              onClick={backToMap}
-            >
+            <View className='underline' onClick={backToMap}>
               继续探索
             </View>
             <View className='line'></View>

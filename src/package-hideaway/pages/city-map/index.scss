@@ -182,6 +182,7 @@
     height: 81 * 2px;
     margin-left: 50px;
     margin-top: 40px;
+    z-index: 421;
     .path {
       position: absolute;
       animation: fly 6s ease-in-out;
@@ -227,6 +228,7 @@
       width: 469 * 2px;
       height: 486 * 2px;
       z-index: 0;
+      pointer-events: none;
     }
     .points {
       .point {

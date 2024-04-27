@@ -210,10 +210,14 @@ export default class FressBook {
     // this.rough = await new TextureLoader().load(Rough);
     // this.bump = await new TextureLoader().load(Bump);
     // this.normalMap = await new TextureLoader().load(Normal);
-    const coverTex = await new TextureLoader().loadAsync(HIDEAWAY_ASSETS.book.cover);
+    const coverTex = await new TextureLoader().loadAsync(
+      `${BUCKET_URL}${HIDEAWAY_ASSETS.book.cover}`
+    );
     Taro.eventCenter.trigger('asset-loaded');
     coverTex.minFilter = NearestFilter;
-    const backTex = await new TextureLoader().loadAsync(HIDEAWAY_ASSETS.book.back);
+    const backTex = await new TextureLoader().loadAsync(
+      `${BUCKET_URL}${HIDEAWAY_ASSETS.book.back}`
+    );
     Taro.eventCenter.trigger('asset-loaded');
     backTex.minFilter = NearestFilter;
     this.camera = new PerspectiveCamera(45, windowWidth / windowHeight, 0.25, 1000);

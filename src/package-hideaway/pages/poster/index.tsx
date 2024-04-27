@@ -32,13 +32,16 @@ let touches: Map<string, { preX: number; preY: number }> = new Map();
 let mode: 'control' | '' = '';
 let edited = false;
 let tempId = -1;
+
+
+
 export default function Editor() {
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
   const [templateSwitchPopup, showTempalteSwitch, hideTemplateSwitch] = useBoolean(false);
   const { receivedCount, summary } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp2');
+  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -53,7 +56,7 @@ export default function Editor() {
   });
   useEffect(() => {
     setFocusItemId(-1);
-    const localData = undefined //Taro.getStorageSync('posterData');
+    const localData = Taro.getStorageSync('posterData');
     let photoArr: Photo[];
     let textArr: TextField[];
     let stickerArr: Sticker[];

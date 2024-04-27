@@ -1,4 +1,4 @@
-import { View, Image, Text, Canvas } from '@tarojs/components';
+import { View, Image, Text, Canvas, Block } from '@tarojs/components';
 import Taro, { useDidHide, useDidShow, useLoad, useUnload } from '@tarojs/taro';
 import gsap from 'gsap';
 import './index.scss';
@@ -29,6 +29,16 @@ let prevTouch = 0;
 let animating = false;
 let platform: any;
 let assetLoaded = 0;
+const PhaseSeq = [
+  'idle',
+  'load-start',
+  'load-done',
+  '',
+  'cover',
+  'cover-out',
+  'book-ready',
+  'book-out',
+] as const;
 export default function Index() {
   const freshBook = useRef<any>();
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
@@ -36,10 +46,19 @@ export default function Index() {
   const [swipeGuideFlag, showSwipeGuide] = useBoolean(false);
   const [isLandscape, setLandscape] = useState(false);
   const [cityIndex, setCityIndex] = useState(0);
-  const [phase, setPhase] = useState<
-    'idle' | 'load-start' | 'load-done' | 'book-ready' | 'cover' | 'cover-out' | 'book-out' | ''
-  >('idle');
+  const [phase, setPhase] = useState<(typeof PhaseSeq)[number]>('idle');
   useLoad(async () => {
+    await delay(100);
+    setPhase('load-start');
+    await delay(2500);
+    Taro.eventCenter.on('asset-loaded', async () => {
+      assetLoaded++;
+      if (assetLoaded >= 20) {
+        setPhase('load-done');
+        await delay(2000);
+        startIntro();
+      }
+    });
     Taro.createSelectorQuery()
       .select('#webgl')
       .node()
@@ -52,17 +71,6 @@ export default function Index() {
 
         freshBook.current = new FressBook(canvas);
       });
-    await delay(100);
-    setPhase('load-start');
-    await delay(2500);
-    Taro.eventCenter.on('asset-loaded', async () => {
-      assetLoaded++;
-      if (assetLoaded >= 20) {
-        setPhase('load-done');
-        await delay(2000);
-        startIntro();
-      }
-    });
   });
   useDidShow(() => {
     freshBook.current?.startRender();
@@ -143,6 +151,7 @@ export default function Index() {
       });
       gsap.to(freshBook.current.camera.position, {
         z: 45,
+        y: -0.5,
         duration: transitDuration,
         onComplete: () => {
           animating = false;
@@ -155,6 +164,7 @@ export default function Index() {
       });
       gsap.to(freshBook.current.camera.position, {
         z: 35,
+        y: 0,
         duration: transitDuration,
         onComplete: () => {
           animating = false;
@@ -249,7 +259,7 @@ export default function Index() {
       },
     });
   };
-  const bookOut = (index=cityIndex) => {
+  const bookOut = (index = cityIndex) => {
     if (animating) return;
     animating = true;
     setPhase('book-out');
@@ -291,25 +301,21 @@ export default function Index() {
         <Header buttonBack title='brand_logo'></Header>
       </Navbar>
       <View className='mask'>
-        {phase !== 'book-out' && <Image className='bg' src={Background}></Image>}
-        {phase !== 'book-out' && <Image className='plane-load' src={PlaneLoad}></Image>}
-        {phase !== 'book-out' && (
-          <Image src={LoadingTitle} className='loading-title' mode='widthFix'></Image>
+        {PhaseSeq.indexOf(phase) <= 3 && (
+          <Block>
+            <Image className='bg' src={Background}></Image>
+            <Image className='plane-load' src={PlaneLoad}></Image>
+            <Image src={LoadingTitle} className='loading-title' mode='widthFix'></Image>
+            <Image src={LoadingText} className='loading-text' mode='widthFix'></Image>
+          </Block>
         )}
-        {phase !== 'book-out' && (
-          <Image src={LoadingText} className='loading-text' mode='widthFix'></Image>
-        )}
-        {/* {phase !== 'book-out' && <View className='loading'></View>} */}
       </View>
       <Image onClick={showSharePanel} src={Plane} className={'btn-plane'}></Image>
       <Image className='title' src={Title}></Image>
       <Image
-        onClick={()=>{
-          phase === 'cover'
-            ? coverOut()
-            : bookOut()
-          }
-        }
+        onClick={() => {
+          phase === 'cover' ? coverOut() : bookOut();
+        }}
         className='cta'
         src={Cta}
       ></Image>

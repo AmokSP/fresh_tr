@@ -5,6 +5,8 @@ import { drawImage } from '../../utils/drawImageToCanvas';
 import { fillTextarea } from '../../utils/fillTextarea';
 import Templates from '@hideaway/assets/poster/templates';
 const dpr = Math.max(Taro.getWindowInfo().pixelRatio, 3);
+
+
 export async function drawPoster(posterData: PosterData) {
   return new Promise<string>(async (resolve, reject) => {
     const canvas: any = Taro.createOffscreenCanvas({
@@ -21,7 +23,7 @@ export async function drawPoster(posterData: PosterData) {
       context.translate(item.x, item.y);
       context.rotate(degToRad(item.rotation));
       try {
-        console.warn('drawing',item.id)
+        console.warn('drawing', item.id);
         await drawImage({
           canvas,
           url: item.src,
@@ -74,6 +76,7 @@ export async function drawPoster(posterData: PosterData) {
       context.save();
       context.translate(item.x, item.y);
       context.rotate(item.rotation);
+      console.warn('drawing sticker', item.id);
       try {
         await drawImage({
           canvas,
@@ -85,6 +88,7 @@ export async function drawPoster(posterData: PosterData) {
         });
       } catch (e) {
         console.error('sticker');
+        console.error(e);
         reject('sticker error');
       }
       context.restore();

@@ -9,9 +9,9 @@ import AllStickers from '@hideaway/assets/poster/stickers';
 
 type StickerPopupProps = {
   show: boolean;
-  selectedTemplate: number;
+  selectedTemplate: string;
   selectedStickers: number[];
-  onSelectTemplate?: (id: number) => void;
+  onSelectTemplate?: (id: string) => void;
   onAddSticker?: (id: number) => void;
   onRemoveSticker?: (id: number) => void;
   onClose?: () => void;
@@ -71,7 +71,7 @@ export default React.memo((props: StickerPopupProps) => {
                 onClick={() => toggleSticker(i)}
                 className={cx('option s-option', { active: selectedStickers.includes(i.id) })}
               >
-                <Image src={i.src} mode='aspectFit'></Image>
+                <Image lazyLoad src={i.src} mode='aspectFit'></Image>
               </View>
             ))}
           </View>

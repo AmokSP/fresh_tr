@@ -27,7 +27,6 @@ export default function Tabbar() {
   ]);
   const tabbarItems = [...(store.isFromDFS ? DFS_TAB_BAR : TAB_BAR)];
   const third = tabbarItems.splice(2, 1)[0];
-  console.log(store);
   if (store.showRecommend) {
     tabbarItems.splice(2, 0, third);
   }

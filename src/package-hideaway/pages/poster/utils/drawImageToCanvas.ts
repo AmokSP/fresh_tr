@@ -1,3 +1,5 @@
+import Taro from '@tarojs/taro';
+
 type DrawOption = {
   /**
    * 通过 SelectorQuery 获取的canvas对象
@@ -56,74 +58,88 @@ export function drawImage({
     if (!imagePath) {
       reslove(null);
     }
-    const ctx = canvas.getContext('2d');
-    const img = canvas.createImage();
-    img.onerror = (e) => {
-      console.warn('fail drawing:', imagePath);
-      reject(e);
-    };
+    // imagePath = `${imagePath}?r=${new Date().getTime()}${Math.random().toString().slice(2)}`
+    console.warn('getting src: ', imagePath);
+    Taro.getImageInfo({
+      src: imagePath,
+      fail: () => {
+        console.warn('fail drawing:', imagePath);
+      },
+      success: (res) => {
+        const ctx = canvas.getContext('2d');
+        const img = canvas.createImage();
+        img.onerror = (e) => {
+          console.warn('fail drawing:', res.path);
+          console.warn(e);
+          reject(e);
+        };
 
-    img.onload = () => {
-      console.warn('drawing:', imagePath);
-      const distRect = {
-        x: drawPositionX,
-        y: drawPositionY,
-        width: drawWidth,
-        height: drawHeight,
-      };
-      const sourceRect = {
-        x: 0,
-        y: 0,
-        width: img.width,
-        height: img.height,
-      };
-      if (scaleMode && scaleMode != 'scaleToFill') {
-        let distRatio = drawWidth / drawHeight;
-        let srcRatio = img.width / img.height;
-        switch (scaleMode) {
-          case 'aspectFill':
-            if (distRatio > srcRatio) {
-              sourceRect.x = 0;
-              sourceRect.y = (img.height - (img.width / drawWidth) * drawHeight) / 2;
-              sourceRect.width = img.width;
-              sourceRect.height = (img.width / drawWidth) * drawHeight;
-            } else {
-              sourceRect.y = 0;
-              sourceRect.x = (img.width - (img.height / drawHeight) * drawWidth) / 2;
-              sourceRect.width = (img.height / drawHeight) * drawWidth;
-              sourceRect.height = img.height;
+        img.onload = () => {
+          console.warn('imgonload:', res.path);
+          const distRect = {
+            x: drawPositionX,
+            y: drawPositionY,
+            width: drawWidth,
+            height: drawHeight,
+          };
+          const sourceRect = {
+            x: 0,
+            y: 0,
+            width: img.width,
+            height: img.height,
+          };
+          if (scaleMode && scaleMode != 'scaleToFill') {
+            let distRatio = drawWidth / drawHeight;
+            let srcRatio = img.width / img.height;
+            switch (scaleMode) {
+              case 'aspectFill':
+                if (distRatio > srcRatio) {
+                  sourceRect.x = 0;
+                  sourceRect.y = (img.height - (img.width / drawWidth) * drawHeight) / 2;
+                  sourceRect.width = img.width;
+                  sourceRect.height = (img.width / drawWidth) * drawHeight;
+                } else {
+                  sourceRect.y = 0;
+                  sourceRect.x = (img.width - (img.height / drawHeight) * drawWidth) / 2;
+                  sourceRect.width = (img.height / drawHeight) * drawWidth;
+                  sourceRect.height = img.height;
+                }
+                break;
+              case 'aspectFit':
+                if (distRatio > srcRatio) {
+                  distRect.y = drawPositionY;
+                  distRect.x =
+                    drawPositionX + (drawWidth - (drawHeight / img.height) * img.width) / 2;
+                  distRect.height = drawHeight;
+                  distRect.width = (drawHeight / img.height) * img.width;
+                } else {
+                  distRect.x = drawPositionX;
+                  distRect.y =
+                    drawPositionY + (drawHeight - (drawWidth / img.width) * img.height) / 2;
+                  distRect.width = drawWidth;
+                  distRect.height = (drawWidth / img.width) * img.height;
+                }
+                break;
+              default:
+                break;
             }
-            break;
-          case 'aspectFit':
-            if (distRatio > srcRatio) {
-              distRect.y = drawPositionY;
-              distRect.x = drawPositionX + (drawWidth - (drawHeight / img.height) * img.width) / 2;
-              distRect.height = drawHeight;
-              distRect.width = (drawHeight / img.height) * img.width;
-            } else {
-              distRect.x = drawPositionX;
-              distRect.y = drawPositionY + (drawHeight - (drawWidth / img.width) * img.height) / 2;
-              distRect.width = drawWidth;
-              distRect.height = (drawWidth / img.width) * img.height;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-      ctx.drawImage(
-        img,
-        sourceRect.x,
-        sourceRect.y,
-        sourceRect.width,
-        sourceRect.height,
-        distRect.x,
-        distRect.y,
-        distRect.width,
-        distRect.height
-      );
-      reslove({ width: img.width, height: img.height });
-    };
-    img.src = imagePath;
+          }
+          ctx.drawImage(
+            img,
+            sourceRect.x,
+            sourceRect.y,
+            sourceRect.width,
+            sourceRect.height,
+            distRect.x,
+            distRect.y,
+            distRect.width,
+            distRect.height
+          );
+          reslove({ width: img.width, height: img.height });
+        };
+        console.warn('setting src: ', res.path);
+        img.src = res.path;
+      },
+    });
   });
 }

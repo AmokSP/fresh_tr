@@ -20,9 +20,7 @@ export default function Index() {
   // const posterData: PosterData = Taro.getStorageSync('posterData');
   const [savePopup, showSavePopup, hideSavePopup] = useBoolean(false);
   const { params } = useRouter();
-  const [isLogin] = useStore((state) => {
-    return [state?.userInfo?.profile?.status === 'Registered', state.isLogin];
-  });
+  const { isLogin } = useStore((state) => state);
 
   const {
     value: posterData,
@@ -63,7 +61,9 @@ export default function Index() {
       async () => {
         Taro.showLoading({ title: '图片保存中...', mask: true });
         try {
-          const imageUrl = await drawSaveImage(drawnImageUrl!, Templates[posterData!.id].desc);
+          let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
+          Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
+          const imageUrl = await drawSaveImage(temp, Templates[posterData!.id].desc);
           const saveRes = await Taro.saveImageToPhotosAlbum({
             filePath: imageUrl!,
           });
@@ -72,7 +72,7 @@ export default function Index() {
             Taro.hideLoading();
             showSavePopup();
             Taro.getFileSystemManager().removeSavedFile({
-              filePath: imageUrl,
+              filePath: temp,
             });
           } else {
             Taro.hideLoading();
