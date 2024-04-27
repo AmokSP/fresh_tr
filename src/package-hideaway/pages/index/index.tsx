@@ -24,6 +24,8 @@ import PlaneLoad from '@hideaway/assets/plane-load.png';
 import { HIDEAWAY, PAGES } from '@app.config';
 import { COUPON_STATUS } from '@constants/coupon';
 import Header from '@components/Basic/Header';
+import useAsync from '@hooks/useAsync';
+import HideawayService from '@api/hideaway.service';
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 let prevTouch = 0;
 let animating = false;

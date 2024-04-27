@@ -1,7 +1,17 @@
 import request from '@utils/request';
+import cmsRequest from '@utils/cmsRequest';
 import storage from '@utils/storage';
 import Taro from '@tarojs/taro';
 export class HideawayService {
+  
+  public static async getHidewayAsset(): Promise<any> {
+    return cmsRequest({
+      method: 'GET',
+      url: `${CMS_API_URL}/hideaway-asset?populate=deep`,
+      // url: `${CMS_API_URL}/hideaway-asset?fields[0]=bookcover&fields[1]=bookback&fields[2]=bookpage`,
+    });
+  }
+
   public static async getShareStatus(): Promise<any> {
     return request({
       method: 'GET',

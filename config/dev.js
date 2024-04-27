@@ -30,36 +30,6 @@ module.exports = {
       argarden: 'https://develop-env.valtech.com.cn/argarden2024/',
     }),
     HIDEAWAY_ASSETS: JSON.stringify({
-      book: {
-        cover: '/uploads/cover_68df9288e8.png',
-        back: '/uploads/back_7d6982bfb5.png',
-        pages: [
-          {
-            bg: '/uploads/bg_da316590ad.png',
-            layer1: '/uploads/layer1_408a76cba9.png',
-            layer2: '/uploads/layer2_040a9e2ea3.png',
-            layer3: '/uploads/layer3_847adc1bb1.png',
-            layer4: '/uploads/layer4_18a365b1a7.png',
-            layer5: '/uploads/layer5_bb9709632c.png',
-          },
-          {
-            bg: '/uploads/bg_8b05dc848a.png',
-            layer1: '/uploads/layer1_939a116d54.png',
-            layer2: '/uploads/layer2_347d780661.png',
-            layer3: '/uploads/layer3_c5be7927c1.png',
-            layer4: '/uploads/layer4_ae97a40174.png',
-            layer5: '/uploads/layer5_5728f469b5.png',
-          },
-          {
-            bg: '/uploads/bg_9c9f748a2a.png',
-            layer1: '/uploads/layer1_8962a53b8b.png',
-            layer2: '/uploads/layer2_135b772e45.png',
-            layer3: '/uploads/layer3_c7302313c8.png',
-            layer4: '/uploads/layer4_bb9d8b1866.png',
-            layer5: '/uploads/layer5_f75d8e4700.png',
-          },
-        ],
-      },
       stickers: {
         sticker1: '/uploads/1_70d9eaae45.png',
         sticker2: '/uploads/2_0e58348f14.png',

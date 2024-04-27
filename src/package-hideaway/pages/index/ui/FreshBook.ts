@@ -1,7 +1,4 @@
-import PAGE_1 from '@hideaway/assets/images/01';
-import PAGE_3 from '@hideaway/assets/images/02';
-import PAGE_2 from '@hideaway/assets/images/03';
-
+import HideawayService from '@api/hideaway.service';
 import Taro from '@tarojs/taro';
 import {
   Vector2,
@@ -64,8 +61,8 @@ export default class FressBook {
       const moveFactors: any[] = [];
       const textureDimensions: any[] = [];
 
-      pageData.frames.reverse().forEach((frame, index) => {
-        let texture = new TextureLoader().load(frame.filename, () => {
+      pageData.forEach((frame, index) => {
+        let texture = new TextureLoader().load(`${BUCKET_URL}${frame.attributes.url}`, () => {
           Taro.eventCenter.trigger('asset-loaded');
         });
 
@@ -210,15 +207,18 @@ export default class FressBook {
     // this.rough = await new TextureLoader().load(Rough);
     // this.bump = await new TextureLoader().load(Bump);
     // this.normalMap = await new TextureLoader().load(Normal);
-    const coverTex = await new TextureLoader().loadAsync(
-      `${BUCKET_URL}${HIDEAWAY_ASSETS.book.cover}`
-    );
+    const { data: bookData } = await HideawayService.getHidewayAsset();
+    const [coverTex, backTex] = await Promise.all([
+      new TextureLoader().loadAsync(
+        `${BUCKET_URL}${bookData.attributes.bookcover.data.attributes.url}`
+      ),
+      new TextureLoader().loadAsync(
+        `${BUCKET_URL}${bookData.attributes.bookback.data.attributes.url}`
+      ),
+    ]);
+    Taro.eventCenter.trigger('asset-loaded');
     Taro.eventCenter.trigger('asset-loaded');
     coverTex.minFilter = NearestFilter;
-    const backTex = await new TextureLoader().loadAsync(
-      `${BUCKET_URL}${HIDEAWAY_ASSETS.book.back}`
-    );
-    Taro.eventCenter.trigger('asset-loaded');
     backTex.minFilter = NearestFilter;
     this.camera = new PerspectiveCamera(45, windowWidth / windowHeight, 0.25, 1000);
     this.camera.position.set(0, 0, 45);
@@ -349,42 +349,9 @@ export default class FressBook {
     this.renderer.setPixelRatio(pixelRatio);
     this.renderer.setSize(windowWidth, windowHeight);
     this.renderer.shadowMap.enabled = true;
-    await this.addPages();
-    this.animate(this.canvas);
-  }
-  private async addPages() {
-    // const cornerRadius = 1;
-    // const pageShape = new Shape();
-    // pageShape.moveTo(0, 0);
-    // pageShape.lineTo(0, PAGE_HEIGHT * 0.5);
-    // pageShape.lineTo(PAGE_WIDTH * 0.5 - cornerRadius, PAGE_HEIGHT * 0.5);
-    // pageShape.quadraticCurveTo(
-    //   PAGE_WIDTH * 0.5,
-    //   PAGE_HEIGHT * 0.5,
-    //   PAGE_WIDTH * 0.5,
-    //   PAGE_HEIGHT * 0.5 - cornerRadius
-    // );
-    // pageShape.lineTo(PAGE_WIDTH * 0.5, -PAGE_HEIGHT * 0.5 + cornerRadius);
-    // pageShape.quadraticCurveTo(
-    //   PAGE_WIDTH * 0.5,
-    //   -PAGE_HEIGHT * 0.5,
-    //   PAGE_WIDTH * 0.5 - cornerRadius,
-    //   -PAGE_HEIGHT * 0.5
-    // );
-    // pageShape.lineTo(0, -PAGE_HEIGHT * 0.5);
-    // pageShape.lineTo(0, 0);
-
-    // const sgeo = new ShapeGeometry(pageShape);
-    // const material = new MeshNormalMaterial({
-    //   wireframe: true,
-    // });
-    // const smesh = new Mesh(sgeo, material);
-    // smesh.position.y = 0;
-    // console.log(smesh.geometry);
-    // this.scene.add(smesh);
-    // return;
-
-    [PAGE_1, PAGE_2, PAGE_3].forEach(async (pageData, index) => {
+    const bookpages = bookData.attributes.bookpage.map((i) => i.frames.data);
+    console.log(bookpages);
+    bookpages.forEach(async (pageData, index) => {
       const mat = await this.getParaMat(pageData, index + 1);
       // const mat = new MeshStandardMaterial({ color: 0xfff000 });
       const mesh = new Mesh(
@@ -400,6 +367,8 @@ export default class FressBook {
       });
       this.bookWrapper.add(mesh);
     });
+
+    this.animate(this.canvas);
   }
   public startRender() {
     this.animate(this.canvas);
