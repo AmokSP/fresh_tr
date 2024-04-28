@@ -11,6 +11,7 @@ import LogoImageBlack from '@assets/logo-large.png';
 import { HomeService } from '@api/home.services';
 import useStore from '@stores';
 import storage from '@utils/storage';
+import Taro from '@tarojs/taro';
 
 import styles from './index.module.scss';
 import Hero from './components/Hero';
@@ -61,7 +62,8 @@ export default function Index() {
     Tracking.trackEvent('h_icon');
   };
   const goToHideaway = () => {
-    goto({ url: HIDEAWAY.INDEX });
+    Taro.navigateTo({ url: HIDEAWAY.INDEX })
+    // goto({ url: HIDEAWAY.INDEX });
   };
 
   useShareAppMessage(() => {
