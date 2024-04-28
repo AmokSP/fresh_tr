@@ -79,6 +79,7 @@ const Temp1: PosterData = {
       y: 326,
       width: 134,
       height: 100,
+      ratio: '5:4',
       rotation: 7,
     },
     {
@@ -89,6 +90,7 @@ const Temp1: PosterData = {
       y: 446,
       width: 134,
       height: 100,
+      ratio: '5:4',
       rotation: 7,
     },
     {
@@ -98,11 +100,11 @@ const Temp1: PosterData = {
       x: 121,
       y: 575,
       width: 231,
+      ratio: '4:3',
       height: 157,
       rotation: -1.81,
     },
   ],
-  stickers: [
-  ],
+  stickers: [],
 };
 export default Temp1;

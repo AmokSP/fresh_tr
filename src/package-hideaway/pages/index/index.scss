@@ -41,8 +41,8 @@
     }
     .plane-load {
       position: absolute;
-      width: 753 * 0.8px;
-      height: 184 * 0.8px;
+      width: 750 * 0.8px;
+      height: 263 * 0.8px;
       top: 45%;
       left: -750px;
       z-index: 3;
@@ -142,9 +142,13 @@
     z-index: 1;
   }
   .canvas {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 20px;
     left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
     z-index: 2;
   }
   .title {
@@ -243,6 +247,15 @@
       line-height: 96px;
       transition: all 1s;
       font-weight: 300;
+      &:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.3s;
+      }
       &::after {
         content: '';
         transition: all 0.3s ease-in;
@@ -269,6 +282,7 @@
     .paginator {
       transform: translateY(200%) translateX(-50%);
       .page-item {
+        transition-delay: 0s;
         transform: translateY(0%) rotate(90deg);
       }
     }

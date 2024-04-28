@@ -6,7 +6,6 @@ import { fillTextarea } from '../../utils/fillTextarea';
 import Templates from '@hideaway/assets/poster/templates';
 const dpr = Math.max(Taro.getWindowInfo().pixelRatio, 3);
 
-
 export async function drawPoster(posterData: PosterData) {
   return new Promise<string>(async (resolve, reject) => {
     const canvas: any = Taro.createOffscreenCanvas({

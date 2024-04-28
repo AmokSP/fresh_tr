@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import dayjs from 'dayjs';
-import { View, Image, ScrollView } from '@tarojs/components';
+import { View, Image, ScrollView, PageContainer } from '@tarojs/components';
 import Taro, { usePullDownRefresh, useRouter, useDidShow } from '@tarojs/taro';
 import useStore from '@stores';
 import useBoolean from '@hooks/useBoolean';
@@ -22,12 +22,16 @@ import Empty from './components/Empty';
 import CouponCard from './components/CouponCard';
 import styles from './index.module.scss';
 import CodePanel from './components/CodePanel';
+import Signup from '@pages/signup/index';
 
 const PAGE_SIZE = 10;
+
+let actionAfterRegister = '';
 
 export default function Coupon() {
   const { COUPON_STATUS_DATA } = getCouponData();
   const [status, setStatus] = useState(COUPON_STATUS_DATA[0]);
+  const [signupPageFlag, showSignup, hideSignup] = useBoolean(false);
   const [couponToRedeem, setCouponToRedeem] = useState();
 
   const { userInfo, isLogin, isFromDFS } = useStore((state) => state);
@@ -128,6 +132,7 @@ export default function Coupon() {
       });
       return;
     }
+    if (!isRegister) return showSignup();
     if (item.couponType === 'Coupon') {
       setCouponToRedeem(item.couponId);
     }
@@ -137,6 +142,7 @@ export default function Coupon() {
       });
     }
   };
+  const handleRegisterSuccess = () => {};
 
   const handleCouponDetail = async (item) => {
     if (item.status === COUPON_STATUS.LUCKY_DRAW) {
@@ -223,6 +229,14 @@ export default function Coupon() {
           ></CodePanel>
         )}
       </View>
+      <PageContainer show={signupPageFlag} onAfterLeave={hideSignup} position='right'>
+        <Signup
+          onClose={hideSignup}
+          ctaText={t('common.submitAndRedeem')}
+          inPage
+          onSuccess={handleRegisterSuccess}
+        ></Signup>
+      </PageContainer>
     </View>
   );
 }

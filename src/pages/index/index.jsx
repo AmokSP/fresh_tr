@@ -61,8 +61,8 @@ export default function Index() {
     Tracking.trackEvent('h_icon');
   };
   const goToHideaway = () => {
-    goto({url:HIDEAWAY.INDEX,type:'navigateTo'})
-  }
+    goto({ url: HIDEAWAY.INDEX });
+  };
 
   useShareAppMessage(() => {
     return {

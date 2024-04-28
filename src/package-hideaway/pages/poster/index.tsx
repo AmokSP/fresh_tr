@@ -33,8 +33,6 @@ let mode: 'control' | '' = '';
 let edited = false;
 let tempId = -1;
 
-
-
 export default function Editor() {
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
   const [templateSwitchPopup, showTempalteSwitch, hideTemplateSwitch] = useBoolean(false);
@@ -209,7 +207,6 @@ export default function Editor() {
     }
   };
   const onPhotoClick = async (target) => {
-    console.log(target);
     hideStickerPopup();
     setFocusItemId(-1);
     try {
@@ -220,11 +217,18 @@ export default function Editor() {
         sourceType: ['album', 'camera'],
       });
       console.log(newImage);
+      const { tempFilePath } = await Taro.cropImage({
+        src: newImage.tempFilePaths[0],
+        cropScale: target.ratio ?? '1:1',
+      });
       showLoading({ title: '上传中', mask: true });
 
-      const { accessUrl } = await HideawayService.uploadPhoto(newImage.tempFilePaths[0]);
+      const { accessUrl } = await HideawayService.uploadPhoto(tempFilePath);
       hideLoading();
       console.log(accessUrl);
+      if (!accessUrl) {
+        return showContentError();
+      }
       edited = true;
       setPhotos([
         ...photos.filter((i) => i.id !== target.id),
@@ -236,6 +240,7 @@ export default function Editor() {
     } catch (error) {
       console.log(error);
       if (error.errMsg === 'chooseImage:fail cancel') return;
+      if (error.errMsg === 'cropImage:fail cancel') return;
       hideLoading();
       showToast({
         title: '上传失败，请重试',

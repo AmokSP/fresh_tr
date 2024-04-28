@@ -59,13 +59,10 @@
     z-index: 420;
     margin-top: 60px;
     width: 100vw;
-    overflow: hidden;
-    height: 786px;
-    overflow-y: visible;
     // filter: drop-shadow(0 80px 90px rgba(#6b91ae, 0.2));
     .paginator {
       position: absolute;
-      bottom: 60px;
+      top: 716px;
       width: 100vw;
       height: 2px;
       display: flex;
@@ -88,7 +85,7 @@
       position: absolute;
       width: 64px;
       height: 64px;
-      top: 50%;
+      top: 346px;
       transform: translateY(-50%);
       transform-origin: 50% 50%;
       z-index: 2;
@@ -106,6 +103,8 @@
       }
     }
     .kol-swiper {
+      width: 100%;
+      overflow-x: visible;
       height: 453 * 2px;
       .kol-item {
         position: absolute;
@@ -163,7 +162,7 @@
           }
           .pill-button {
             position: absolute;
-            top: 248 *2px;
+            top: 248 * 2px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 8px;
@@ -181,7 +180,7 @@
     width: 347px * 2;
     height: 81 * 2px;
     margin-left: 50px;
-    margin-top: 40px;
+    margin-top: -100px;
     z-index: 421;
     .path {
       position: absolute;

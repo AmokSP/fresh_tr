@@ -32,6 +32,7 @@ type Photo = {
   height: number;
   rotation: number;
   error?: boolean;
+  ratio?: string;
 };
 type PosterData = {
   id: string;

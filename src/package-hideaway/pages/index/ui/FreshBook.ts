@@ -2,6 +2,7 @@ import HideawayService from '@api/hideaway.service';
 import Taro from '@tarojs/taro';
 import {
   Vector2,
+  Color,
   Vector3,
   Vector4,
   PerspectiveCamera,
@@ -15,6 +16,7 @@ import {
   Mesh,
   DoubleSide,
   WebGLRenderer,
+  WebGL1Renderer,
   PlaneGeometry,
   LinearFilter,
   Raycaster,
@@ -226,7 +228,7 @@ export default class FressBook {
     // this.camera.rotation.z = Math.PI / 2;
 
     this.scene = new Scene();
-    // this.scene.background = new Color(0xf1f8fd);
+    // this.scene.background = new Color(0xff0000);
 
     const light = new AmbientLight(0x404040); // soft white light
     this.scene.add(light);
@@ -345,7 +347,7 @@ export default class FressBook {
     this.scene.add(this.bookWrapper);
 
     // model
-    this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer = new WebGL1Renderer({ antialias: true, alpha: true });
     this.renderer.setPixelRatio(pixelRatio);
     this.renderer.setSize(windowWidth, windowHeight);
     this.renderer.shadowMap.enabled = true;

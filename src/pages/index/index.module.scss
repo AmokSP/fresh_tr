@@ -10,11 +10,11 @@ page {
   gap: 5px;
   position: relative;
   &__plane {
-    position: absolute;
+    position: fixed;
     width: 124px;
     height: 124px;
-    top: 65vh;
-    left: 80px;
+    bottom: 185px + 200px;
+    left: 100px;
     z-index: 3;
     animation: float 2s ease-in-out infinite;
     overflow: visible;
@@ -22,6 +22,7 @@ page {
       content: '探索豪礼';
       color: white;
       position: absolute;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 1);
       top: 105%;
       width: 100%;
       font-size: 14px * 2;

@@ -7,8 +7,8 @@ import cx from 'classnames';
 import FressBook, { PAGE_WIDTH } from './ui/FreshBook';
 import Orient from '@hideaway/assets/book/orient.svg';
 import Title from '@hideaway/assets/book/title.png';
-import LoadingTitle from '@hideaway/assets/book/loading-title.svg';
-import LoadingText from '@hideaway/assets/book/loading-text.svg';
+// import LoadingTitle from '@hideaway/assets/book/loading-title.svg';
+// import LoadingText from '@hideaway/assets/book/loading-text.svg';
 import Cta from '@hideaway/assets/book/cta.png';
 import Background from '@hideaway/assets/book/background.jpg';
 import { PLATFORM } from 'three-platformize';
@@ -24,12 +24,9 @@ import PlaneLoad from '@hideaway/assets/plane-load.png';
 import { HIDEAWAY, PAGES } from '@app.config';
 import { COUPON_STATUS } from '@constants/coupon';
 import Header from '@components/Basic/Header';
-import useAsync from '@hooks/useAsync';
-import HideawayService from '@api/hideaway.service';
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 let prevTouch = 0;
 let animating = false;
-let platform: any;
 let assetLoaded = 0;
 const PhaseSeq = [
   'idle',
@@ -43,6 +40,7 @@ const PhaseSeq = [
 ] as const;
 export default function Index() {
   const freshBook = useRef<any>();
+  const platform = useRef<WechatPlatform>();
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
   const { receivedCount, summary } = useShareStatusQuery();
   const [swipeGuideFlag, showSwipeGuide] = useBoolean(false);
@@ -50,9 +48,11 @@ export default function Index() {
   const [cityIndex, setCityIndex] = useState(0);
   const [phase, setPhase] = useState<(typeof PhaseSeq)[number]>('idle');
   useLoad(async () => {
+    console.log(Taro.getCurrentPages());
     await delay(100);
     setPhase('load-start');
     await delay(2500);
+
     Taro.eventCenter.on('asset-loaded', async () => {
       assetLoaded++;
       if (assetLoaded >= 20) {
@@ -67,9 +67,9 @@ export default function Index() {
       .exec((res) => {
         const canvas = res[0].node;
         if (!canvas) return;
-        platform = new WechatPlatform(canvas, windowWidth, windowHeight);
+        platform.current = new WechatPlatform(canvas, windowWidth, windowHeight);
 
-        PLATFORM.set(platform);
+        PLATFORM.set(platform.current);
 
         freshBook.current = new FressBook(canvas);
       });
@@ -95,9 +95,10 @@ export default function Index() {
     freshBook.current.stopRender();
   });
   useUnload(() => {
-    assetLoaded = 0;
+    animating = false;
     Taro.eventCenter.off('asset-loaded');
     freshBook.current.stopRender();
+    PLATFORM.dispose();
   });
   const touchBeginHandler = (e) => {
     if (phase != 'book-ready') return;
@@ -244,6 +245,7 @@ export default function Index() {
       duration: 1.5,
       ease: 'power1.inOut',
       onComplete: () => {
+        showSwipeGuide();
         freshBook.current.parallax = true;
         freshBook.current.interactive = true;
         setPhase('book-ready');
@@ -257,7 +259,6 @@ export default function Index() {
       ease: 'power1.inOut',
       onComplete: () => {
         animating = false;
-        showSwipeGuide();
       },
     });
   };
@@ -302,13 +303,25 @@ export default function Index() {
       <Navbar transparent holdPlace={false}>
         <Header buttonBack title='brand_logo'></Header>
       </Navbar>
+
+      <Canvas
+        onClick={onCanvasClick}
+        onTouchStart={touchBeginHandler}
+        onTouchMove={touchMoveHandler}
+        onTouchEnd={touchEndHandler}
+        type='webgl'
+        id='webgl'
+        className='canvas'
+        // width={`${windowWidth}px`}
+        // height={`${windowHeight}px`}
+      ></Canvas>
       <View className='mask'>
         {PhaseSeq.indexOf(phase) <= 3 && (
           <Block>
             <Image className='bg' src={Background}></Image>
             <Image className='plane-load' src={PlaneLoad}></Image>
-            <Image src={LoadingTitle} className='loading-title' mode='widthFix'></Image>
-            <Image src={LoadingText} className='loading-text' mode='widthFix'></Image>
+            {/* <Image src={LoadingTitle} className='loading-title' mode='widthFix'></Image>
+            <Image src={LoadingText} className='loading-text' mode='widthFix'></Image> */}
           </Block>
         )}
       </View>
@@ -331,7 +344,6 @@ export default function Index() {
           className={cx('page-item', {
             active: cityIndex === 0,
           })}
-          style={{ transitionDelay: '0.1s' }}
           onClick={() => flipTo(0)}
         >
           杭州
@@ -340,7 +352,6 @@ export default function Index() {
           className={cx('page-item', {
             active: cityIndex === 1,
           })}
-          style={{ transitionDelay: '0.2s' }}
           onClick={() => flipTo(1)}
         >
           云南
@@ -349,25 +360,12 @@ export default function Index() {
           className={cx('page-item', {
             active: cityIndex === 2,
           })}
-          style={{ transitionDelay: '0.3s' }}
           onClick={() => flipTo(2)}
         >
           成都
         </View>
       </View>
       <Image className='bg' src={Background}></Image>
-      <Canvas
-        onClick={onCanvasClick}
-        onTouchStart={touchBeginHandler}
-        onTouchMove={touchMoveHandler}
-        onTouchEnd={touchEndHandler}
-        type='webgl'
-        id='webgl'
-        className='canvas'
-        width={`${windowWidth}px`}
-        height={`${windowHeight}px`}
-        style='width: 100%; height: 100vh;'
-      ></Canvas>
       <SwipeGuide show={swipeGuideFlag}></SwipeGuide>
 
       <HideawaySharePanel
