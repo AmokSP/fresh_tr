@@ -157,7 +157,8 @@ export const goto = (options) => {
     }
   }
 
-  const isTabPath = TAB_PATHS.some((item) => url?.includes(item));
+  const route = url?.split('?')[0];
+  const isTabPath = TAB_PATHS.some((item) => route === item);
   if (isTabPath) {
     console.log(url);
     type = 'reLaunch';

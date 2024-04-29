@@ -4,18 +4,24 @@ import TAB_BAR, { DFS_TAB_BAR } from '@constants/tabbar';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import useStore from '@stores';
-import { isIOS } from '@utils';
+import { goto, isIOS } from '@utils';
+import { PAGES } from '@app.config';
 
 import styles from './index.module.scss';
+import { useState } from 'react';
 
 export default function Tabbar() {
   const store = useStore();
   const { t } = useTranslation();
+  const [newsRead, setNewsRead] = useState(Taro.getStorageSync('news_read') ?? false);
 
   const handleSwitch = (item) => {
-    Taro.reLaunch({
+    goto({
       url: item.pagePath,
     });
+
+    const isNews = item.pagePath === PAGES.NEWS;
+    isNews && Taro.setStorageSync('news_read', true);
     store.setTabbarIndex(item.index);
   };
 
@@ -35,12 +41,19 @@ export default function Tabbar() {
       <View className={styles['tabbar__wrap']}>
         {tabbarItems.map((item, index) => {
           const isActive = index === store.tabbar.activeIndex;
+          const isNews = item.pagePath === PAGES.NEWS;
+
           const toggleClass = cx(styles['tabbar__item'], {
             [styles['tabbar__item__active']]: isActive,
           });
           const toggleIcon = isActive ? item.selectedIconPath : item.iconPath;
           return (
-            <View className={toggleClass} key={item.index} onClick={() => handleSwitch(item)}>
+            <View
+              className={toggleClass}
+              key={item.index}
+              onClick={() => !isActive && handleSwitch(item)}
+            >
+              {isNews && !newsRead && <View className={styles['tabbar__item__news']}></View>}
               <View className={styles['tabbar__item__icon']}>
                 {store.isFromDFS && index === 4 ? (
                   <Image
