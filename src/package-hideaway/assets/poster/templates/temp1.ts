@@ -123,6 +123,8 @@ const Temp1: PosterData = {
       width: 128,
       height: 128,
       rotation: 12,
+      touched: false,
+      status: 'success',
     },
     {
       id: 2,
@@ -133,6 +135,9 @@ const Temp1: PosterData = {
       width: 100,
       height: 108,
       rotation: -4.58,
+      touched: false,
+      // status: 'invalid_content',
+      status: 'success',
     },
     {
       id: 3,
@@ -143,6 +148,9 @@ const Temp1: PosterData = {
       width: 123,
       height: 123,
       rotation: 9.8,
+      touched: false,
+      // status: 'in_check',
+      status: 'success',
     },
   ],
 

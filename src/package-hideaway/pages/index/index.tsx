@@ -221,10 +221,10 @@ export default function Index() {
 
     gsap.fromTo(
       freshBook.current.camera.position,
-      { z: 32, y: 0.5 },
+      { z: 25, y: 0.5 },
       {
-        y: 2.5,
-        z: 40,
+        y: 1.5,
+        z: 35,
         duration: 5 * factor,
         ease: 'power1.inOut',
       }

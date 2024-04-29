@@ -35,6 +35,7 @@ let tempId = -1;
 
 export default function Editor() {
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
+  const [contentInCheckFlag, showContentIncheck, hideContentIncheck] = useBoolean(false);
   const [templateSwitchPopup, showTempalteSwitch, hideTemplateSwitch] = useBoolean(false);
   const { receivedCount, summary } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
@@ -235,6 +236,8 @@ export default function Editor() {
         {
           ...target,
           src: accessUrl,
+          touched: true,
+          status: 'success',
         },
       ]);
     } catch (error) {
@@ -301,7 +304,24 @@ export default function Editor() {
     Taro.setStorageSync('posterData', template);
   };
   const handleGenerate = async () => {
-    if (photos.some((i) => i.error) || texts.some((i) => i.error)) {
+    if (photos.some((i) => i.touched)) {
+      const checkRres = await HideawayService.checkPhotos(photos.filter((i) => i.touched));
+      if (!checkRres.every((i) => i.status === 'success')) {
+        if (checkRres.some((i) => i.status === 'invalid_content')) {
+          showContentError();
+        } else if (checkRres.some((i) => i.status === 'in_check')) {
+          showContentIncheck();
+        }
+        return setPhotos((ps) => {
+          checkRres.forEach((res) => {
+            const target = ps.find((i) => i.id === res.id);
+            target!.status = res.status;
+          });
+          return ps;
+        });
+      }
+    }
+    if (texts.some((i) => i.error)) {
       return showContentError();
     }
     try {
@@ -436,6 +456,19 @@ export default function Editor() {
             <Text>您的编辑含有违法违规内容，{`\n`} 请重新编辑后再进行分享和下载。</Text>
           </View>
           <View className='pill-button primary' onClick={hideContentError}>
+            返回编辑
+          </View>
+        </View>
+      </HideawayPopup>
+      <HideawayPopup show={contentInCheckFlag} onClose={hideContentIncheck}>
+        <View className='template-switch-popup'>
+          <View className='title'>图片审核中</View>
+          <View className='text'>
+            <Text>
+              您上传的图片正在审核中，{'\n'}您可以返回继续编辑海报中{'\n'}其他内容或稍后再试。
+            </Text>
+          </View>
+          <View className='pill-button primary' onClick={hideContentIncheck}>
             返回编辑
           </View>
         </View>

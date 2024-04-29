@@ -3,7 +3,6 @@ import cmsRequest from '@utils/cmsRequest';
 import storage from '@utils/storage';
 import Taro from '@tarojs/taro';
 export class HideawayService {
-  
   public static async getHidewayAsset(): Promise<any> {
     return cmsRequest({
       method: 'GET',
@@ -34,11 +33,45 @@ export class HideawayService {
       data: payload,
     });
   }
-  public static async readPoster(token: string): Promise<PosterData> {
+  public static async readPoster(token: string): Promise<{ content: PosterData; success: string }> {
     return request({
       method: 'POST',
       url: `${API_URL}/postcard/received/${token}`,
     });
+  }
+  public static async checkPhotoStatus(url: string): Promise<any> {
+    return request({
+      method: 'GET',
+      url: `${API_URL}/postcard/mediaStatus`,
+      data: {
+        url,
+      },
+    });
+  }
+  public static async checkPhotos(photos: Photo[]): Promise<
+    {
+      status: CheckResult;
+      id: number;
+    }[]
+  > {
+    return await Promise.all(
+      photos.map(
+        (i) =>
+          new Promise<{
+            status: CheckResult;
+            id: number;
+          }>((resolve, reject) => {
+            this.checkPhotoStatus(i.src)
+              .then((res) => {
+                resolve({
+                  ...res,
+                  id: i.id,
+                });
+              })
+              .catch(reject);
+          })
+      )
+    );
   }
   public static async uploadPhoto(filePath): Promise<{ accessUrl: string }> {
     const userInfo = storage.getItem('userInfo');

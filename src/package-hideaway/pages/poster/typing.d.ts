@@ -1,3 +1,4 @@
+type CheckResult = 'success' | 'in_check' | 'invalid_content';
 type Sticker = {
   src: string;
   id: number;
@@ -33,6 +34,8 @@ type Photo = {
   rotation: number;
   error?: boolean;
   ratio?: string;
+  touched: false;
+  status: CheckResult;
 };
 type PosterData = {
   id: string;

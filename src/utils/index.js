@@ -56,7 +56,7 @@ export const filterRichText = (content) => {
 export const showLoading = (options) => {
   Taro.showLoading({
     title: i18n.t('loading.text'),
-    mask: false,
+    mask: true,
     ...options,
   });
 };

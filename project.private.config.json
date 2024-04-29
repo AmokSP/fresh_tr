@@ -4,16 +4,23 @@
     "miniprogram": {
       "list": [
         {
-          "name": "package-hideaway/pages/city-map/index",
-          "pathName": "package-hideaway/pages/city-map/index",
+          "name": "package-hideaway/pages/poster/share/view/index",
+          "pathName": "package-hideaway/pages/poster/share/view/index",
+          "query": "token=postcard_1WB1G3_ZW4wx3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/poster/index",
+          "pathName": "package-hideaway/pages/poster/index",
           "query": "",
           "launchMode": "default",
           "scene": null
         },
         {
-          "name": "package-hideaway/pages/poster/share/view/index",
-          "pathName": "package-hideaway/pages/poster/share/view/index",
-          "query": "token=postcard_1WB1G3_E3arYW",
+          "name": "package-hideaway/pages/city-map/index",
+          "pathName": "package-hideaway/pages/city-map/index",
+          "query": "",
           "launchMode": "default",
           "scene": null
         },
@@ -27,13 +34,6 @@
         {
           "name": "package-hideaway/pages/poster/share/index",
           "pathName": "package-hideaway/pages/poster/share/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "package-hideaway/pages/poster/share/index",
-          "pathName": "package-hideaway/pages/poster/index",
           "query": "",
           "launchMode": "default",
           "scene": null

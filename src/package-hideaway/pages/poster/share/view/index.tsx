@@ -19,6 +19,7 @@ import useStore from '@stores';
 export default function Index() {
   // const posterData: PosterData = Taro.getStorageSync('posterData');
   const [savePopup, showSavePopup, hideSavePopup] = useBoolean(false);
+  const [errorPopup, showErrorPopup, hideErrorPopup] = useBoolean(false);
   const { params } = useRouter();
   const { isLogin } = useStore((state) => state);
 
@@ -49,8 +50,11 @@ export default function Index() {
   useEffect(() => {
     if (posterData) {
       console.log(posterData);
-      showLoading();
-      draw(posterData).finally(hideLoading);
+      if (posterData.success !== 'success') {
+        hideLoading();
+        return showErrorPopup();
+      }
+      draw(posterData.content).finally(hideLoading);
     }
   }, [posterData]);
 
@@ -63,7 +67,7 @@ export default function Index() {
         try {
           let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
           Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
-          const imageUrl = await drawSaveImage(temp, Templates[posterData!.id].desc);
+          const imageUrl = await drawSaveImage(temp, Templates[posterData!.content.id].desc);
           const saveRes = await Taro.saveImageToPhotosAlbum({
             filePath: imageUrl!,
           });
@@ -104,7 +108,7 @@ export default function Index() {
         <Block>
           <View className='block'>
             <Image className='preview' mode='aspectFill' src={drawnImageUrl ?? ''}></Image>
-            <View className='desc'>{Templates[posterData.id]?.desc}</View>
+            <View className='desc'>{Templates[posterData.content.id]?.desc}</View>
             <View className='hint'>{'扫码制作海报分享好友获得优惠券'}</View>
           </View>
 
@@ -121,6 +125,36 @@ export default function Index() {
           <View className='title'>保存成功</View>
           <View className='text'>
             图片已保存至相册，请前往您的手机相册查看或制作一张您心仪的海报分享给好友把~
+          </View>
+          <View
+            className='pill-button primary'
+            onClick={() => {
+              goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
+            }}
+          >
+            前往制作
+          </View>
+          <View
+            onClick={() => {
+              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+            }}
+            className='underline'
+          >
+            继续探索
+          </View>
+        </View>
+      </HideawayPopup>
+      <HideawayPopup
+        show={errorPopup}
+        onClose={() => {
+          goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+        }}
+      >
+        <View className='save-popup'>
+          <View className='title'>安全提醒</View>
+          <View className='text'>
+            很抱歉，您的好友分享的内容因涉及
+            违规暂不可查看。您可以前往制作心仪的海报或探索更多其他内容。
           </View>
           <View
             className='pill-button primary'

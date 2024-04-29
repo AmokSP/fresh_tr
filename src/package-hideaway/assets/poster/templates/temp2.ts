@@ -81,6 +81,8 @@ const Temp1: PosterData = {
       height: 100,
       ratio: '5:4',
       rotation: 7,
+      touched: false,
+      status: 'success',
     },
     {
       id: 2,
@@ -92,6 +94,8 @@ const Temp1: PosterData = {
       height: 100,
       ratio: '5:4',
       rotation: 7,
+      touched: false,
+      status: 'success',
     },
     {
       id: 3,
@@ -103,6 +107,8 @@ const Temp1: PosterData = {
       ratio: '4:3',
       height: 157,
       rotation: -1.81,
+      touched: false,
+      status: 'success',
     },
   ],
   stickers: [],
