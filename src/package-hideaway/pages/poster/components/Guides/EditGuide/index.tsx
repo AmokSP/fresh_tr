@@ -2,6 +2,7 @@ import { View, Image, Text, Block } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import React, { useEffect, useState } from 'react';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 import PanelBtn from '@hideaway/assets/poster/icons/panel-btn.png';
 import IconFinger from '../assets/finger.svg';
 import FakePanel from '../assets/Panel.png';
@@ -9,12 +10,16 @@ import FakeSticker from '../assets/sticker.png';
 import FakePhoto from '../assets/Photo.png';
 import FakeText from '../assets/text.png';
 import { NAVBAR_HEIGHT } from '@components/Basic/Navbar';
+import { goto, showToast } from '@utils';
 import useBoolean from '@hooks/useBoolean';
 import cx from 'classnames';
+import { PAGES } from '@app.config';
 export default React.memo(() => {
   // const [guideRead, setGuideRead] = useBoolean(false);
+  const [policyChecked, , , togglePolicy] = useBoolean(false);
   const [guideRead, setGuideRead] = useBoolean(Taro.getStorageSync('edit_guide_read') ?? false);
   const [step, setStep] = useState(0);
+  const { t } = useTranslation();
   return guideRead ? (
     <Block></Block>
   ) : (
@@ -58,11 +63,42 @@ export default React.memo(() => {
             <View
               className='rnd-btn btn-start'
               onClick={() => {
+                if (!policyChecked) return showToast({ title: t('signup.error.policy') });
                 setGuideRead();
                 Taro.setStorageSync('edit_guide_read', true);
               }}
             >
               开始制作
+            </View>
+            <View className={'policy'} onClick={togglePolicy}>
+              <View
+                className={`policy__checkbox ${policyChecked ? 'policy__checkbox__active' : ''}`}
+              >
+                <Text className={`${'policy__checkbox__icon'} iconfont icon-right`}></Text>
+              </View>
+              <View className={'policy__text'}>
+                {t('signup.policy.part1')}
+                <Text
+                  className='text_link'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goto({ url: `${PAGES.POLICY}?name=private` });
+                  }}
+                >
+                  {t('signup.policy.link')}
+                </Text>
+                {t('signup.policy.part2')}
+                <Text
+                  className='text_link'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goto({ url: `${PAGES.POLICY}?name=private` });
+                  }}
+                >
+                  {t('signup.policy.link')}
+                </Text>
+                {t('signup.policy.part3')}
+              </View>
             </View>
           </Block>,
         ][step]

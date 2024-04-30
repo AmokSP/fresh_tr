@@ -1,3 +1,4 @@
+@import '@styles/variables';
 .fullscreen-guide {
   position: absolute;
   left: 0;
@@ -73,7 +74,7 @@
   }
   &.step1 {
     .btn-start {
-      bottom: 74 * 2px;
+      bottom: 212px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -140,8 +141,74 @@
       height: 39px * 2;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 123 * 2px;
+      bottom: 150 * 2px;
       color: white;
+    }
+  }
+
+  .policy {
+    font-size: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 80px;
+    position: absolute;
+    box-sizing: border-box;
+    padding-left: 40px;
+    margin-top: 30px;
+    color: white;
+
+    width: 620px;
+    &_button {
+      width: 620px;
+      height: 88px;
+      color: #fff;
+      background-color: $blue-dark-color;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      margin-top: 40px;
+
+      &__cancel {
+        font-size: 28px;
+        text-decoration: underline;
+        color: $gray-light-color;
+        margin-top: 40px;
+      }
+    }
+
+    &__checkbox {
+      box-sizing: border-box;
+      border: 2px solid $gray-light-color;
+      background-color: #fff;
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      left: 0;
+
+      & > Text {
+        display: none;
+      }
+
+      &__active {
+        background-color: $gray-light-color;
+
+        & > Text {
+          color: #fff;
+          display: inline-block;
+          margin-top: -10px;
+        }
+      }
+
+      &__icon {
+        font-size: 30px;
+      }
+    }
+
+    &__link {
+      color: white;
+      margin-top: 5px;
     }
   }
 }

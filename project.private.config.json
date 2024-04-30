@@ -4,6 +4,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/signup/index/index",
+          "pathName": "pages/signup/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "package-hideaway/pages/poster/share/view/index",
           "pathName": "package-hideaway/pages/poster/share/view/index",
           "query": "token=postcard_1WB1G3_ZW4wx3",

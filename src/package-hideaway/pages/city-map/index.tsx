@@ -38,6 +38,8 @@ newPath += path;
 
 const KolData = Cities.flatMap((i) => i.story);
 let prevX = 0;
+
+const SubscribeKey = 'hideaway_subscribed';
 export default function Index() {
   useLoad(() => {});
   const progress = useRef(0);
@@ -48,6 +50,7 @@ export default function Index() {
   } = useRouter();
   const [currentKol, setCurrentKol] = useState(parseInt(city));
   const [transition, setTransition] = useState(0);
+  const [subscribed, setSubscribed] = useState<boolean>(Taro.getStorageSync(SubscribeKey) ?? false);
   useLoad(() => {
     gsap.fromTo(
       progress,
@@ -125,6 +128,15 @@ export default function Index() {
   const moveNext = () => {
     moveTo(currentKol + 1);
   };
+  const onBellClick = () => {
+    setSubscribed(true);
+    Taro.setStorageSync(SubscribeKey, true);
+  };
+  const onCardClick = (index) => {
+    goto({
+      url: `${HIDEAWAY.KOL_STORY}?id=${index}`,
+    });
+  };
 
   return (
     <View className={'city-map'}>
@@ -152,7 +164,13 @@ export default function Index() {
             获得优惠券
           </View>
         </View>
-        <Image src={Bell} className='bell'></Image>
+        <Image
+          src={Bell}
+          onClick={onBellClick}
+          className={cx('bell', {
+            subscribed,
+          })}
+        ></Image>
       </View>
       <View className='swiper-wrapper'>
         <Image
@@ -192,7 +210,7 @@ export default function Index() {
                   left: index * windowWidth + 'px',
                   opacity: (windowWidth - Math.abs(offset)) / windowWidth,
                 }}
-                onClick={() => goto({ url: `${HIDEAWAY.KOL_STORY}?id=${123}` })}
+                onClick={() => onCardClick(index)}
               >
                 <Image
                   style={{
