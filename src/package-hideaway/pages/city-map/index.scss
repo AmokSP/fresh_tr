@@ -35,6 +35,14 @@
         font-weight: 600;
         color: #323d47;
       }
+      image {
+        width: 36px;
+        height: 36px;
+        box-sizing: content-box;
+        padding: 12px;
+        position: absolute;
+        transform: translate(-10px, -50%);
+      }
     }
     .bell {
       position: absolute;

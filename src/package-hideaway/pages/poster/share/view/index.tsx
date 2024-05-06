@@ -15,6 +15,7 @@ import { drawPoster, drawSaveImage } from '../ui/draw';
 import HideawayService from '@api/hideaway.service';
 import { useEffect } from 'react';
 import useStore from '@stores';
+import PrivacyAuth from '@components/PrivacyAuth';
 
 export default function Index() {
   // const posterData: PosterData = Taro.getStorageSync('posterData');
@@ -174,6 +175,7 @@ export default function Index() {
           </View>
         </View>
       </HideawayPopup>
+      <PrivacyAuth init></PrivacyAuth>
     </View>
   );
 }

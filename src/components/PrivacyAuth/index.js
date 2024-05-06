@@ -3,7 +3,7 @@ import { View, Text, Button, RootPortal } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import styles from './index.module.scss';
 
-export default function PrivacyAuth({ init = false, onAuth }) {
+export default function PrivacyAuth({ init = false, onAuth = undefined }) {
   const [show, setShow] = useState(false);
   const resolveRef = useRef(null);
 

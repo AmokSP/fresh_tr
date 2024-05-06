@@ -1,7 +1,7 @@
 .share-panel {
   padding-top: 124px;
-  padding-left: 54px;
-  padding-right: 54px;
+  padding-left: 40px;
+  padding-right: 40px;
   padding-bottom: 75px;
   &__desc {
     font-family: PingFang SC;
@@ -9,6 +9,10 @@
     font-weight: 400;
     line-height: 22.75px * 2;
     text-align: center;
+    color: #424a52;
+    .underline {
+      font-weight: 600;
+    }
   }
   &__title {
     font-family: PingFang SC;

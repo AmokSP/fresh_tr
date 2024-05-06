@@ -17,6 +17,7 @@ import Map from '@hideaway/assets/map.svg';
 import Pin from '@hideaway/assets/pin.svg';
 import Arrow from '@hideaway/assets/swiper-arrow.svg';
 import CardBG from '@hideaway/assets/card.png';
+import Info from '@hideaway/assets/info.svg';
 import { useRef, useState } from 'react';
 import Cities from './cities';
 import gsap from 'gsap';
@@ -162,6 +163,7 @@ export default function Index() {
             每分享3位
             <Text>好友即可</Text>
             获得优惠券
+            <Image onClick={() => goto({ url: HIDEAWAY.GAME_RULE })} src={Info}></Image>
           </View>
         </View>
         <Image
@@ -210,7 +212,6 @@ export default function Index() {
                   left: index * windowWidth + 'px',
                   opacity: (windowWidth - Math.abs(offset)) / windowWidth,
                 }}
-                onClick={() => onCardClick(index)}
               >
                 <Image
                   style={{
@@ -219,6 +220,7 @@ export default function Index() {
                   className='image'
                   src={i.image}
                   mode='aspectFit'
+                  onClick={() => onCardClick(index)}
                 ></Image>
                 <View
                   className='kol-body'
@@ -227,7 +229,9 @@ export default function Index() {
                   }}
                 >
                   <View className='kol-desc'>{i.text}</View>
-                  <View className='pill-button primary outline'>即刻探索</View>
+                  <View className='pill-button primary outline' onClick={() => onCardClick(index)}>
+                    即刻探索
+                  </View>
                   <Image src={CardBG} className='bg'></Image>
                 </View>
               </View>

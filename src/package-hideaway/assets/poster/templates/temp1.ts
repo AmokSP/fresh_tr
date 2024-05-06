@@ -10,7 +10,7 @@ const Temp1: PosterData = {
     {
       id: 1,
       content: `仓木繁叶将热烈与喧嚣阻挡\n无数生命在此蔓延生长\n青苔在寂静、潮湿的空气中\n为大地盛开一片柔软湿凉\n微小又顽强的力量`,
-      limit: 60,
+      limit: 50,
       x: 78,
       y: 518,
       width: 84,
@@ -25,7 +25,7 @@ const Temp1: PosterData = {
     {
       id: 2,
       content: `一路走来都是绿色的风景`,
-      limit: 11,
+      limit: 10,
       x: 219,
       y: 305,
       width: 90,
@@ -40,7 +40,7 @@ const Temp1: PosterData = {
     {
       id: 3,
       content: `仓木繁叶将热烈与喧嚣阻挡\n无数生命在此蔓延生长`,
-      limit: 24,
+      limit: 20,
       x: 205,
       y: 490,
       width: 84,
@@ -55,7 +55,7 @@ const Temp1: PosterData = {
     {
       id: 4,
       content: `仓木繁叶将热烈与喧嚣阻挡\n无数生命在此蔓延生长`,
-      limit: 24,
+      limit: 50,
       x: 90,
       y: 666,
       width: 84,
@@ -85,7 +85,7 @@ const Temp1: PosterData = {
     {
       id: 6,
       content: `小闲即欢 小清即静`,
-      limit: 15,
+      limit: 10,
       x: 250,
       y: 651,
       width: 70,
@@ -100,7 +100,7 @@ const Temp1: PosterData = {
     {
       id: 7,
       content: `你分享的城市？\nby: fresh`,
-      limit: 24,
+      limit: 10,
       x: 296,
       y: 712,
       width: 98,

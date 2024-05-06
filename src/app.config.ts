@@ -32,6 +32,7 @@ export enum HIDEAWAY {
   POSTER = '/package-hideaway/pages/poster/index',
   POSTER_VIEW = '/package-hideaway/pages/poster/share/view/index',
   POSTER_SHARE = '/package-hideaway/pages/poster/share/index',
+  GAME_RULE = '/package-hideaway/pages/rules/index',
 }
 export default {
   pages: [...Object.values(PAGES).map((i) => i.slice(1))],
