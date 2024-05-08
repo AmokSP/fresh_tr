@@ -27,7 +27,7 @@ export default function Tabs({ tabsData = [], onChange, status }) {
           styles['tabs__item'],
           {
             [styles['tabs__item__active']]: index === currentIndex,
-            [styles['tabs__item__disabled']]: !isRegister && index > 0,
+            // [styles['tabs__item__disabled']]: !isRegister && index > 0,
           },
         ]);
         return (
