@@ -88,10 +88,12 @@ export default function Index() {
       gsap.to(freshBook.current.camera.position, {
         x: 0,
         z: 45,
+        y: 0,
         duration: 2,
         delay: 0,
         ease: 'power1.out',
         onComplete: () => {
+          freshBook.current.interactive = true;
           animating = false;
         },
       });
@@ -272,12 +274,26 @@ export default function Index() {
     if (animating) return;
     animating = true;
     setPhase('book-out');
+    console.log('book-out');
+    freshBook.current.interactive = false;
+    const zoomInpos = {
+      x: -3.8,
+      y: 2,
+    };
+    if (index === 1) {
+      zoomInpos.x = -1.9;
+      zoomInpos.y = -2;
+    }
+    if (index === 2) {
+      zoomInpos.x = 2.4;
+      zoomInpos.y = -0.2;
+    }
     gsap.to(freshBook.current.camera.position, {
-      x: 0,
-      z: 25,
-      duration: 2,
+      ...zoomInpos,
+      z: 12,
+      duration: 3,
       delay: 0,
-      ease: 'power1.in',
+      ease: 'power1.inOut',
       onComplete: () => {
         animating = false;
         goto({
@@ -360,7 +376,7 @@ export default function Index() {
           })}
           onClick={() => flipTo(1)}
         >
-          云南
+          成都
         </View>
         <View
           className={cx('page-item', {
@@ -368,7 +384,7 @@ export default function Index() {
           })}
           onClick={() => flipTo(2)}
         >
-          成都
+          云南
         </View>
       </View>
       <Image className='bg' src={Background}></Image>

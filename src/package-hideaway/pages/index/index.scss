@@ -130,7 +130,8 @@
     .mask {
       opacity: 1;
       pointer-events: all;
-      transition: all 2s ease-in;
+      transition: all 1s ease-in;
+      transition-delay: 2s;
     }
   }
   .bg {

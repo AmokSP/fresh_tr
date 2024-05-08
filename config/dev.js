@@ -1,4 +1,3 @@
-const cmsUrl = 'https://develop-env.valtech.com.cn/freshcms';
 module.exports = {
   env: {
     NODE_ENV: '"production"',
@@ -31,6 +30,20 @@ module.exports = {
     }),
     HIDEAWAY_ASSETS: JSON.stringify({
       shareTitle: '感官逸游 馥已焕新',
+      templates: [
+        {
+          bg: '/uploads/bg1_2d6990422c.png',
+          photo1: '/uploads/Rectangle_5321_db9ea8c02d.png',
+          photo2: '/uploads/Rectangle_5322_c7cd8fac15.png',
+          photo3: '/uploads/Rectangle_5322_c7cd8fac15.png',
+        },
+        {
+          bg: '/uploads/bg2_64299e7ee2.png',
+          photo1: '/uploads/Rectangle_5321_db9ea8c02d.png',
+          photo2: '/uploads/Rectangle_5322_c7cd8fac15.png',
+          photo3: '/uploads/Rectangle_5322_c7cd8fac15.png',
+        },
+      ],
       stickers: {
         sticker1: '/uploads/1_70d9eaae45.png',
         sticker2: '/uploads/2_0e58348f14.png',

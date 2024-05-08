@@ -4,7 +4,7 @@ import AllStickers from '../stickers';
 const Temp1: PosterData = {
   id: 'tmp2',
   preview: preview,
-  background: 'https://develop-env.valtech.com.cn/freshcms/uploads/bg2_64299e7ee2.png',
+  background: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[1].bg}`,
   desc: '这是模板2 的文字',
   textfields: [
     {
@@ -73,7 +73,7 @@ const Temp1: PosterData = {
   photos: [
     {
       id: 1,
-      src: 'https://ts1.cn.mm.bing.net/th/id/R-C.16772d9f53053d1b4fd634ef849748c2?rik=A%2fLly4dMRIWEQw&riu=http%3a%2f%2fnwzimg.wezhan.cn%2fcontents%2fsitefiles2002%2f10013195%2fimages%2f16873206.jpg&ehk=DWYUFHkCG2JhZx59eiTodVI8cRoZUISDCrsEWsrjO8U%3d&risl=&pid=ImgRaw&r=0',
+      src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[1].photo1}`,
 
       x: 291,
       y: 326,
@@ -86,7 +86,7 @@ const Temp1: PosterData = {
     },
     {
       id: 2,
-      src: 'https://ts1.cn.mm.bing.net/th/id/R-C.16772d9f53053d1b4fd634ef849748c2?rik=A%2fLly4dMRIWEQw&riu=http%3a%2f%2fnwzimg.wezhan.cn%2fcontents%2fsitefiles2002%2f10013195%2fimages%2f16873206.jpg&ehk=DWYUFHkCG2JhZx59eiTodVI8cRoZUISDCrsEWsrjO8U%3d&risl=&pid=ImgRaw&r=0',
+      src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[1].photo2}`,
 
       x: 276,
       y: 446,
@@ -99,7 +99,7 @@ const Temp1: PosterData = {
     },
     {
       id: 3,
-      src: 'https://ts1.cn.mm.bing.net/th/id/R-C.16772d9f53053d1b4fd634ef849748c2?rik=A%2fLly4dMRIWEQw&riu=http%3a%2f%2fnwzimg.wezhan.cn%2fcontents%2fsitefiles2002%2f10013195%2fimages%2f16873206.jpg&ehk=DWYUFHkCG2JhZx59eiTodVI8cRoZUISDCrsEWsrjO8U%3d&risl=&pid=ImgRaw&r=0',
+      src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[1].photo2}`,
 
       x: 121,
       y: 575,

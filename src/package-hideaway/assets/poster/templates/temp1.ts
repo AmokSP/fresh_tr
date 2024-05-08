@@ -4,7 +4,7 @@ import AllStickers from '../stickers';
 const Temp1: PosterData = {
   id: 'tmp1',
   preview: preview,
-  background: 'https://develop-env.valtech.com.cn/freshcms/uploads/bg1_2d6990422c.png',
+  background: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].bg}`,
   desc: '这是模板1的文字',
   textfields: [
     {
@@ -116,7 +116,7 @@ const Temp1: PosterData = {
   photos: [
     {
       id: 1,
-      src: 'https://develop-env.valtech.com.cn/freshcms/uploads/Rectangle_5321_db9ea8c02d.png',
+      src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].photo1}`,
 
       x: 294,
       y: 382,
@@ -128,8 +128,8 @@ const Temp1: PosterData = {
     },
     {
       id: 2,
-      src: 'https://develop-env.valtech.com.cn/freshcms/uploads/Rectangle_5322_c7cd8fac15.png',
 
+      src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].photo2}`,
       x: 251,
       y: 575,
       width: 100,
@@ -141,7 +141,7 @@ const Temp1: PosterData = {
     },
     {
       id: 3,
-      src: 'https://develop-env.valtech.com.cn/freshcms/uploads/Rectangle_5322_c7cd8fac15.png',
+      src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].photo3}`,
 
       x: 59,
       y: 235,

@@ -35,5 +35,8 @@ export default function useShareStatusQuery(): { receivedCount: number; giftCoun
   useDidHide(() => {
     clearInterval(timer.current);
   });
-  return { receivedCount: result?.receivedCount ?? 0, giftCount: result?.giftCount ?? 0 };
+  return {
+    receivedCount: result?.receivedCount ?? 0,
+    giftCount: (result?.giftCount ?? 0) + (result?.couponCount ?? 0),
+  };
 }

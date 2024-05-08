@@ -23,6 +23,7 @@ declare const HIDEAWAY_ASSETS: {
     }>;
   };
   shareTitle: string;
+  templates: any[];
   stickers: {
     [K: string]: string;
   };

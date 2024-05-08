@@ -18,7 +18,7 @@ export default function Index() {
         <Header title='brand_logo'></Header>
       </Navbar>
       <Video
-        autoplay
+        autoplay={false}
         controls={false}
         src={
           'http://tr-media-cdn.fresh-cn.com/f0c618ee0c2171efbfea5017e1e90102/39aa383261874230ae078436ff993357.m3u8'
