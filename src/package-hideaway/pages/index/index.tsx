@@ -1,5 +1,5 @@
 import { View, Image, Text, Canvas, Block } from '@tarojs/components';
-import Taro, { useDidHide, useDidShow, useLoad, useUnload } from '@tarojs/taro';
+import Taro, { useDidHide, useDidShow, useLoad, useShareAppMessage, useUnload } from '@tarojs/taro';
 import gsap from 'gsap';
 import './index.scss';
 import { useRef, useState } from 'react';
@@ -42,7 +42,7 @@ export default function Index() {
   const freshBook = useRef<any>();
   const platform = useRef<WechatPlatform>();
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
-  const { receivedCount, summary } = useShareStatusQuery();
+  const { receivedCount, giftCount } = useShareStatusQuery();
   const [swipeGuideFlag, showSwipeGuide] = useBoolean(false);
   const [isLandscape, setLandscape] = useState(false);
   const [cityIndex, setCityIndex] = useState(0);
@@ -73,6 +73,12 @@ export default function Index() {
 
         freshBook.current = new FressBook(canvas);
       });
+  });
+  useShareAppMessage(() => {
+    return {
+      title: HIDEAWAY_ASSETS.shareTitle,
+      path: HIDEAWAY.INDEX,
+    };
   });
   useDidShow(() => {
     freshBook.current?.startRender();
@@ -369,7 +375,7 @@ export default function Index() {
       <SwipeGuide show={swipeGuideFlag}></SwipeGuide>
 
       <HideawaySharePanel
-        summary={summary}
+        giftCount={giftCount}
         receivedCount={receivedCount}
         show={sharePanelFlag}
         onClose={hideSharePanel}

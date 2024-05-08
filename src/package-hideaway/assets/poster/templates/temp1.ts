@@ -100,7 +100,7 @@ const Temp1: PosterData = {
     {
       id: 7,
       content: `你分享的城市？\nby: fresh`,
-      limit: 10,
+      limit: 15,
       x: 296,
       y: 712,
       width: 98,

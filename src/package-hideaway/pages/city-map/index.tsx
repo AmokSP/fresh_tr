@@ -2,12 +2,12 @@ import Header from '@components/Basic/Header';
 import Navbar from '@components/Basic/Navbar';
 import cx from 'classnames';
 import { View, Image, Text, Swiper, SwiperItem } from '@tarojs/components';
-import Taro, { useDidShow, useLoad, useRouter } from '@tarojs/taro';
+import Taro, { useDidShow, useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import Bell from '@hideaway/assets/book/bell.svg';
 import './index.scss';
 import HideawaySharePanel from '@hideaway/components/HideawaySharePanel';
 import useBoolean from '@hooks/useBoolean';
-import { goto } from '@utils';
+import { goto, hideLoading, showLoading, showToast } from '@utils';
 import { HIDEAWAY, PAGES } from '@app.config';
 import { COUPON_STATUS } from '@constants/coupon';
 import useShareStatusQuery from '@hideaway/useShareStatusQuery';
@@ -18,9 +18,11 @@ import Pin from '@hideaway/assets/pin.svg';
 import Arrow from '@hideaway/assets/swiper-arrow.svg';
 import CardBG from '@hideaway/assets/card.png';
 import Info from '@hideaway/assets/info.svg';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Cities from './cities';
 import gsap from 'gsap';
+import useAsync from '@hooks/useAsync';
+import HideawayService from '@api/hideaway.service';
 const { windowWidth } = Taro.getSystemInfoSync();
 const SWIPETHRESHOLD = windowWidth * 0.5;
 const scale = windowWidth / 375;
@@ -42,17 +44,26 @@ let prevX = 0;
 
 const SubscribeKey = 'hideaway_subscribed';
 export default function Index() {
-  useLoad(() => {});
+  const { value: hideawayAssets, execute: fetchAsset } = useAsync(HideawayService.getHidewayAsset);
   const progress = useRef(0);
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
-  const { receivedCount, summary } = useShareStatusQuery();
+  const { receivedCount, giftCount } = useShareStatusQuery();
   const {
     params: { city = '0' },
   } = useRouter();
   const [currentKol, setCurrentKol] = useState(parseInt(city));
   const [transition, setTransition] = useState(0);
   const [subscribed, setSubscribed] = useState<boolean>(Taro.getStorageSync(SubscribeKey) ?? false);
+  useShareAppMessage(() => {
+    return {
+      title: HIDEAWAY_ASSETS.shareTitle,
+      path: HIDEAWAY.INDEX,
+    };
+  });
+
   useLoad(() => {
+    showLoading();
+    fetchAsset().then(hideLoading);
     gsap.fromTo(
       progress,
       { current: -currentKol * windowWidth + windowWidth * 0.2 },
@@ -129,13 +140,63 @@ export default function Index() {
   const moveNext = () => {
     moveTo(currentKol + 1);
   };
-  const onBellClick = () => {
-    setSubscribed(true);
-    Taro.setStorageSync(SubscribeKey, true);
+  const onBellClick = async () => {
+    subscribeMessage(true).then(() => {
+      showToast({
+        title: '订阅成功',
+        icon: 'success',
+      });
+    });
   };
   const onCardClick = (index) => {
-    goto({
-      url: `${HIDEAWAY.KOL_STORY}?id=${index}`,
+    subscribeMessage(false).finally(() => {
+      goto({
+        url: `${HIDEAWAY.KOL_STORY}?id=${index}`,
+      });
+    });
+  };
+
+  const subscribeMessage = async (force: boolean) => {
+    return new Promise((resolve, reject) => {
+      const tid: string = hideawayAssets?.data?.attributes?.templateId;
+      if (tid) {
+        if (force) {
+          Taro.getSetting({
+            withSubscriptions: true,
+            success: (res) => {
+              console.log(res);
+              if (
+                !res.subscriptionsSetting?.mainSwitch ||
+                res.subscriptionsSetting?.itemSettings?.[tid] === 'reject'
+              ) {
+                Taro.showModal({
+                  title: '提示',
+                  content: '您已关闭消息订阅，请在设置中打开',
+                  showCancel: true,
+                  confirmText: '去打开',
+                  success: (res) => {
+                    if (res.confirm) {
+                      Taro.openSetting();
+                    }
+                  },
+                });
+                return reject('rejected');
+              }
+            },
+          });
+        }
+        Taro.requestSubscribeMessage({ tmplIds: [tid] }).then((res) => {
+          console.log(res);
+          if (res[tid] === 'accept') {
+            HideawayService.subscribeNotification(tid);
+            setSubscribed(true);
+            Taro.setStorageSync(SubscribeKey, true);
+            resolve(null);
+          } else {
+            reject('reject');
+          }
+        });
+      }
     });
   };
 
@@ -275,7 +336,7 @@ export default function Index() {
         <Image src={Map} className='bg' mode='aspectFit'></Image>
       </View>
       <HideawaySharePanel
-        summary={summary}
+        giftCount={giftCount}
         receivedCount={receivedCount}
         show={sharePanelFlag}
         onClose={hideSharePanel}

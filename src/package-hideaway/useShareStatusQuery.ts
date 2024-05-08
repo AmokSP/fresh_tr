@@ -1,9 +1,9 @@
 import HideawayService from '@api/hideaway.service';
 import useAsync from '@hooks/useAsync';
 import Taro, { useDidHide, useDidShow } from '@tarojs/taro';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import useStore from '@stores';
-export default function useShareStatusQuery(): { receivedCount: number; summary: number } {
+export default function useShareStatusQuery(): { receivedCount: number; giftCount: number } {
   const timer = useRef<NodeJS.Timeout>();
   const isLogin = useStore((state) => {
     return state.isLogin;
@@ -35,5 +35,5 @@ export default function useShareStatusQuery(): { receivedCount: number; summary:
   useDidHide(() => {
     clearInterval(timer.current);
   });
-  return { receivedCount: result?.receivedCount ?? 0, summary: result?.receivedCount ?? 0 };
+  return { receivedCount: result?.receivedCount ?? 0, giftCount: result?.giftCount ?? 0 };
 }

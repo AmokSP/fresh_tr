@@ -22,6 +22,7 @@ declare const HIDEAWAY_ASSETS: {
       layer5: string;
     }>;
   };
+  shareTitle: string;
   stickers: {
     [K: string]: string;
   };

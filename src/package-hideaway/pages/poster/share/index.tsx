@@ -25,7 +25,7 @@ export default function Index() {
   const [sharePopup, showSharePopup, hideSharePopup] = useBoolean(false);
   const [guideRead, setGuideRead] = useBoolean(Taro.getStorageSync('share_guide_read') ?? false);
   const { params } = useRouter();
-  const { receivedCount, summary } = useShareStatusQuery();
+  const { receivedCount, giftCount } = useShareStatusQuery();
   useLoad(async () => {
     try {
       showLoading();
@@ -39,7 +39,7 @@ export default function Index() {
   useShareAppMessage(() => {
     showSharePopup();
     return {
-      title: '感官逸游 馥已焕新',
+      title: HIDEAWAY_ASSETS.shareTitle,
       path: `${HIDEAWAY.POSTER_VIEW}?token=${params.token}`,
     };
   });
@@ -130,7 +130,7 @@ export default function Index() {
       <View>{!guideRead && <ShareGuide></ShareGuide>}</View>
       <HideawaySharePanel
         receivedCount={receivedCount}
-        summary={summary}
+        giftCount={giftCount}
         show={sharePopup}
         onClose={hideSharePopup}
       >

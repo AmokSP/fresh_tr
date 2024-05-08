@@ -8,11 +8,11 @@ import './index.scss';
 import { goto } from '@utils';
 import { HIDEAWAY } from '@app.config';
 interface SharePanelProps extends HideawayPopupProps {
-  summary?: number;
+  giftCount?: number;
   receivedCount?: number;
 }
 export default React.memo((props: SharePanelProps) => {
-  const { receivedCount = 0, summary = 0 } = props;
+  const { receivedCount = 0, giftCount = 0 } = props;
   return (
     <HideawayPopup show={props.show} onClose={props.onClose}>
       <View className='share-panel'>
@@ -26,11 +26,11 @@ export default React.memo((props: SharePanelProps) => {
           <View className='share-panel__title'>好友接受状态</View>
           <View className='share-panel__friends'>
             <View className='share-panel__friends__friend'>
-              <Image src={summary % 3 >= 1 ? IconOn : IconOff}></Image>
+              <Image src={receivedCount % 3 >= 1 ? IconOn : IconOff}></Image>
               <View>好友1</View>
             </View>
             <View className='share-panel__friends__friend'>
-              <Image src={summary % 3 >= 2 ? IconOn : IconOff}></Image>
+              <Image src={receivedCount % 3 >= 2 ? IconOn : IconOff}></Image>
               <View>好友2</View>
             </View>
             <View className='share-panel__friends__friend'>
@@ -40,7 +40,7 @@ export default React.memo((props: SharePanelProps) => {
           </View>
           <View className='share-panel__redeemed'>
             <Text>已获礼券数：</Text>
-            <Text className='share-panel__redeemed__count'>{receivedCount}</Text>
+            <Text className='share-panel__redeemed__count'>{giftCount ?? 0}</Text>
             <Text>张</Text>
           </View>
         </View>

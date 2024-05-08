@@ -30,6 +30,7 @@ module.exports = {
       argarden: 'https://develop-env.valtech.com.cn/argarden2024/',
     }),
     HIDEAWAY_ASSETS: JSON.stringify({
+      shareTitle: '感官逸游 馥已焕新',
       stickers: {
         sticker1: '/uploads/1_70d9eaae45.png',
         sticker2: '/uploads/2_0e58348f14.png',

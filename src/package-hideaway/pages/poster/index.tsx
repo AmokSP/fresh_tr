@@ -1,5 +1,5 @@
 import { Text, Image, View, Block, MovableArea, MovableView } from '@tarojs/components';
-import Taro, { useLoad, useShareAppMessage } from '@tarojs/taro';
+import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import getTransformedData from './utils/getTransformedData';
@@ -34,13 +34,16 @@ let edited = false;
 let tempId = -1;
 
 export default function Editor() {
+  const { params } = useRouter();
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
   const [contentInCheckFlag, showContentIncheck, hideContentIncheck] = useBoolean(false);
   const [templateSwitchPopup, showTempalteSwitch, hideTemplateSwitch] = useBoolean(false);
-  const { receivedCount, summary } = useShareStatusQuery();
+  const { receivedCount, giftCount } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
+  const [templateId, setTemplateId] = useState(
+    Taro.getStorageSync('posterData').id ?? params?.template ?? 'tmp1'
+  );
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -49,8 +52,8 @@ export default function Editor() {
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
   useShareAppMessage(() => {
     return {
-      title: 'FRESH HIDEAWAY',
-      path: '/package-hideaway/index/index',
+      title: HIDEAWAY_ASSETS.shareTitle,
+      path: HIDEAWAY.INDEX,
     };
   });
   useEffect(() => {
@@ -242,14 +245,23 @@ export default function Editor() {
       ]);
     } catch (error) {
       console.log(error);
-      if (error.errMsg === 'chooseImage:fail cancel') return;
-      if (error.errMsg === 'cropImage:fail cancel') return;
-      hideLoading();
-      showToast({
-        title: '上传失败，请重试',
-        mask: true,
-        icon: 'error',
-      });
+      switch (error.errMsg) {
+        case 'chooseImage:fail cancel':
+        case 'cropImage:fail cancel':
+        case 'chooseImage:fail privacy permission is not authorized':
+          return;
+        case 'chooseImage:fail privacy permission is not authorized in gap':
+          return showToast({
+            title: '操作过于频繁，请稍后再试',
+          });
+        default:
+          hideLoading();
+          showToast({
+            title: '上传失败，请重试',
+            mask: true,
+            icon: 'error',
+          });
+      }
     }
   };
   const addSticker = (id) => {
@@ -304,7 +316,9 @@ export default function Editor() {
     Taro.setStorageSync('posterData', template);
   };
   const handleGenerate = async () => {
+    showLoading();
     if (photos.some((i) => i.touched)) {
+      Taro.showLoading();
       const checkRres = await HideawayService.checkPhotos(photos.filter((i) => i.touched));
       if (!checkRres.every((i) => i.status === 'success')) {
         if (checkRres.some((i) => i.status === 'invalid_content')) {
@@ -312,6 +326,7 @@ export default function Editor() {
         } else if (checkRres.some((i) => i.status === 'in_check')) {
           showContentIncheck();
         }
+        hideLoading();
         return setPhotos((ps) => {
           checkRres.forEach((res) => {
             const target = ps.find((i) => i.id === res.id);
@@ -320,12 +335,17 @@ export default function Editor() {
           return ps;
         });
       }
+      setPhotos((ps) => {
+        ps.forEach((photo) => {
+          photo.status = 'success';
+        });
+        return ps;
+      });
     }
     if (texts.some((i) => i.error)) {
       return showContentError();
     }
     try {
-      showLoading();
       const { releaseToken, success } = await HideawayService.createPoster(
         Taro.getStorageSync('posterData')
       );
@@ -474,7 +494,7 @@ export default function Editor() {
         </View>
       </HideawayPopup>
       <HideawaySharePanel
-        summary={summary}
+        giftCount={giftCount}
         receivedCount={receivedCount}
         show={sharePanelFlag}
         onClose={hideSharePanel}

@@ -3,6 +3,12 @@ import cmsRequest from '@utils/cmsRequest';
 import storage from '@utils/storage';
 import Taro from '@tarojs/taro';
 export class HideawayService {
+  public static subscribeNotification(templateId: string): Promise<any> {
+    return request({
+      method: 'PUT',
+      url: `${API_URL}/account/notice/${templateId}/subscribe`,
+    });
+  }
   public static async getHidewayAsset(): Promise<any> {
     return cmsRequest({
       method: 'GET',

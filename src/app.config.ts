@@ -60,6 +60,7 @@ export default {
     navigationBarTextStyle: 'black',
     navigationStyle: 'custom',
   },
+  officialPrivacyAuthorizationShowingGap: 1,
 
   tabBar: {
     custom: true,
