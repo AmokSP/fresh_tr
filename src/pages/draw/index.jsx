@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Taro, { useRouter, useDidShow } from '@tarojs/taro';
 import { LuckyService } from '@api/lucky.services';
-import { goto, showLoading, hideLoading, showToast } from '@utils/index';
+import { goto, showLoading, hideLoading, showToast, delay } from '@utils/index';
 import { PAGES } from '@app.config';
 import useStore from '@stores';
 import { Tracking } from '@utils/tracking';
@@ -118,17 +118,26 @@ export default function Draw() {
     ) {
       return showToast({ title: t('coupon.invalid') });
     }
+    if (!isRegister) return showSignup();
     goto({
       url: PAGES.MY_GIFT,
     });
   };
 
-  const handleRegisterSuccess = () => {
-    setTimeout(async () => {
-      Tracking.trackEvent('o_lucky2');
-      await drawPrize(luckyDrawData.name);
-      getDrawnCoupon();
-    }, 2200);
+  const handleRegisterSuccess = async () => {
+    await delay(2200);
+    switch (drawnCoupon?.status) {
+      case COUPON_STATUS.TO_BE_COLLECTED:
+        Tracking.trackEvent('o_lucky2');
+        await drawPrize(luckyDrawData.name);
+        getDrawnCoupon();
+        break;
+      case COUPON_STATUS.COLLECTED:
+        goto({
+          url: PAGES.MY_GIFT,
+        });
+        break;
+    }
   };
 
   const buttonClass = cx([
@@ -154,7 +163,9 @@ export default function Draw() {
         {drawnCoupon && (
           <View
             className={buttonClass}
-            onClick={drawnCoupon?.status === 'collected' ? handleToUse : handleDrawPrice}
+            onClick={
+              drawnCoupon?.status === COUPON_STATUS.COLLECTED ? handleToUse : handleDrawPrice
+            }
           >
             {luckyDrawData?.luckyDraw
               ? t(`draw.button.${drawnCoupon?.status}`)

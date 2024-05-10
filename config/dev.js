@@ -65,6 +65,12 @@ module.exports = {
         sticker18: '/uploads/18_5875a93dde.png',
         sticker19: '/uploads/19_0367aca1db.png',
       },
+      stories: [
+        {
+          video:
+            'http://tr-media-cdn.fresh-cn.com/f0c618ee0c2171efbfea5017e1e90102/39aa383261874230ae078436ff993357.m3u8',
+        },
+      ],
     }),
   },
   mini: {},

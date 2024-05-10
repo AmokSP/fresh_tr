@@ -1,3 +1,4 @@
+import Taro from '@tarojs/taro';
 export async function getAuthorization(
   authScope: string,
   force?,
@@ -6,28 +7,19 @@ export async function getAuthorization(
   onDisagree?: () => void
 ): Promise<any> {
   return new Promise(async (resolve, reject) => {
-    const setting = await wx.getSetting();
-    const modalOpt: wx.showModal.Option = {
+    const setting = await Taro.getSetting();
+    const modalOpt: Taro.showModal.Option = {
       content: modalMsg || `需要${authScope}权限继续操作`,
     };
-    if (
-      setting.authSetting[authScope] != undefined &&
-      !setting.authSetting[authScope]
-    ) {
+    if (setting.authSetting[authScope] != undefined && !setting.authSetting[authScope]) {
       if (force) {
-        const modalResult = await wx.showModal(modalOpt);
+        const modalResult = await Taro.showModal(modalOpt);
         if (modalResult.confirm) {
-          const newSetting = await wx.openSetting();
+          const newSetting = await Taro.openSetting();
           if (newSetting.authSetting[authScope]) {
             resolve(null);
           } else {
-            console.log("open setting fail");
-            reject(null);
-          }
-        } else {
-          if (authScope === "scope.userLocation") {
-            resolve(null);
-          } else {
+            console.log('open setting fail');
             reject(null);
           }
         }
@@ -36,36 +28,23 @@ export async function getAuthorization(
       }
     } else if (setting.authSetting[authScope] === undefined) {
       try {
-        const authResult = await wx.authorize({ scope: authScope });
-        if (authResult.errMsg == "authorize:ok") {
+        const authResult = await Taro.authorize({ scope: authScope });
+        if (authResult.errMsg == 'authorize:ok') {
           onAgree && onAgree();
           resolve(null);
         } else {
           onDisagree && onDisagree();
-          if (authScope === "scope.userLocation") {
-            resolve(null);
-          } else {
-            reject(2);
-          }
+          reject(2);
         }
       } catch (e) {
-        if (
-          authScope === "scope.userLocation" &&
-          e.errMsg === "authorize:fail auth deny"
-        ) {
-          const modalResult = await wx.showModal(modalOpt);
+        if (e.errMsg === 'authorize:fail auth deny') {
+          const modalResult = await Taro.showModal(modalOpt);
           if (modalResult.confirm) {
-            const newSetting = await wx.openSetting();
+            const newSetting = await Taro.openSetting();
             if (newSetting.authSetting[authScope]) {
               resolve(null);
             } else {
-              console.log("open setting fail");
-              reject(null);
-            }
-          } else {
-            if (authScope === "scope.userLocation") {
-              resolve(null);
-            } else {
+              console.log('open setting fail');
               reject(null);
             }
           }

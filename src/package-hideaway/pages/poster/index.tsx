@@ -25,6 +25,7 @@ import HideawayPopup from '@components/HideawayPopup';
 import HideawayService from '@api/hideaway.service';
 import { COUPON_STATUS } from '@constants/coupon';
 import Plane from '@assets/plane.png';
+import PrivacyAuth from '@components/PrivacyAuth';
 
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 const MoveableSize = { width: posterToView(POSTER_WIDTH), height: posterToView(POSTER_HEIGHT) };
@@ -41,9 +42,7 @@ export default function Editor() {
   const { receivedCount, giftCount } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(
-    Taro.getStorageSync('posterData').id ?? params?.template ?? 'tmp1'
-  );
+  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -339,6 +338,7 @@ export default function Editor() {
         ps.forEach((photo) => {
           photo.status = 'success';
         });
+        saveToLocal();
         return ps;
       });
     }
@@ -462,8 +462,8 @@ export default function Editor() {
       ></StickerPopup>
       <HideawayPopup onClose={hideTemplateSwitch} show={templateSwitchPopup}>
         <View className='template-switch-popup'>
-          <View className='title'>切换模版</View>
-          <View className='text'>切换模版将不保存之前的操作</View>
+          <View className='title'>请注意！</View>
+          <View className='text'>切换模板将不再保留之前的所有创作</View>
           <View className='pill-button primary' onClick={confirmSwitch}>
             确认
           </View>
@@ -509,10 +509,11 @@ export default function Editor() {
               goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` });
             }}
           >
-            查看礼券
+            查看豪礼
           </View>
         </View>
       </HideawaySharePanel>
+      <PrivacyAuth></PrivacyAuth>
       <Image onClick={showSharePanel} className='btn-plane' src={Plane}></Image>
     </View>
   );

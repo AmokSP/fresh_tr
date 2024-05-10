@@ -8,12 +8,12 @@ export default function PrivacyAuth({ init = false, onAuth = undefined }) {
   const resolveRef = useRef(null);
 
   useEffect(() => {
+    Taro?.onNeedPrivacyAuthorization((resovle) => {
+      resolveRef.current = resovle;
+      setShow(true);
+    });
     if (init) {
       try {
-        Taro?.onNeedPrivacyAuthorization((resovle) => {
-          resolveRef.current = resovle;
-          setShow(true);
-        });
         Taro?.getPrivacySetting({
           success: (res) => {
             console.log('privacy', res);
@@ -33,7 +33,7 @@ export default function PrivacyAuth({ init = false, onAuth = undefined }) {
   };
   const handleAgreePrivacy = () => {
     if (resolveRef.current) {
-      resolveRef.current({ event: 'agree' });
+      resolveRef.current({ buttonId: 'agree-btn', event: 'agree' });
     }
     setShow(false);
     onAuth && onAuth();
@@ -58,6 +58,7 @@ export default function PrivacyAuth({ init = false, onAuth = undefined }) {
                 ，请点击“同意”开始使用Fresh馥蕾诗悦享之旅小程序服务。
               </View>
               <Button
+                id='agree-btn'
                 openType='agreePrivacyAuthorization'
                 className={styles['privacyAuth__panel__button']}
                 onAgreePrivacyAuthorization={handleAgreePrivacy}

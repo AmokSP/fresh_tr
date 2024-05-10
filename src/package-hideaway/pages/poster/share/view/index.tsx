@@ -3,6 +3,8 @@ import Taro, { useDidHide, useDidShow, useLoad, useRouter } from '@tarojs/taro';
 import { getAuthorization } from '../../utils/getAuth';
 import Templates from '@hideaway/assets/poster/templates';
 import IconDownload from '@hideaway/assets/poster/icons/download.svg';
+import IconEdit from '@hideaway/assets/poster/icons/edit.svg';
+import IconExplore from '@hideaway/assets/poster/icons/explore.svg';
 import useAsync from '@hooks/useAsync';
 import './index.scss';
 import Navbar from '@components/Basic/Navbar';
@@ -20,7 +22,8 @@ import PrivacyAuth from '@components/PrivacyAuth';
 export default function Index() {
   // const posterData: PosterData = Taro.getStorageSync('posterData');
   const [savePopup, showSavePopup, hideSavePopup] = useBoolean(false);
-  const [errorPopup, showErrorPopup, hideErrorPopup] = useBoolean(false);
+  const [expirePopup, showExpirePopup] = useBoolean(false);
+  const [errorPopup, showErrorPopup] = useBoolean(false);
   const { params } = useRouter();
   const { isLogin } = useStore((state) => state);
 
@@ -33,7 +36,6 @@ export default function Index() {
   });
 
   useEffect(() => {
-    console.log(params.token);
     if (isLogin) {
       showLoading();
       fetchPoster(params.token);
@@ -51,47 +53,56 @@ export default function Index() {
   useEffect(() => {
     if (posterData) {
       console.log(posterData);
-      if (posterData.success !== 'success') {
-        hideLoading();
-        return showErrorPopup();
+      switch (posterData.success) {
+        case 'expired':
+          hideLoading();
+          return showExpirePopup();
+        case 'invalid_content':
+        case 'in_check':
+          hideLoading();
+          return showErrorPopup();
+        default:
+          draw(posterData.content).finally(hideLoading);
       }
-      draw(posterData.content).finally(hideLoading);
     }
   }, [posterData]);
 
   const { value: drawnImageUrl, execute: draw } = useAsync(drawPoster);
 
   const saveImage = () => {
-    getAuthorization('scope.writePhotosAlbum', '需要开启相册授权才能保存至相册', () => {}).then(
-      async () => {
-        Taro.showLoading({ title: '图片保存中...', mask: true });
-        try {
-          let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
-          Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
-          const imageUrl = await drawSaveImage(temp, Templates[posterData!.content.id].desc);
-          const saveRes = await Taro.saveImageToPhotosAlbum({
-            filePath: imageUrl!,
-          });
+    getAuthorization(
+      'scope.writePhotosAlbum',
+      true,
+      '需要开启相册授权才能保存图片至相册',
+      () => {}
+    ).then(async () => {
+      Taro.showLoading({ title: '图片保存中...', mask: true });
+      try {
+        let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
+        Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
+        const imageUrl = await drawSaveImage(temp, Templates[posterData!.content.id].desc);
+        const saveRes = await Taro.saveImageToPhotosAlbum({
+          filePath: imageUrl!,
+        });
 
-          if (saveRes.errMsg === 'saveImageToPhotosAlbum:ok') {
-            Taro.hideLoading();
-            showSavePopup();
-            Taro.getFileSystemManager().removeSavedFile({
-              filePath: temp,
-            });
-          } else {
-            Taro.hideLoading();
-            Taro.showToast({
-              icon: 'error',
-              title: '图片保存失败',
-              duration: 1000,
-            });
-          }
-        } catch (error) {
+        if (saveRes.errMsg === 'saveImageToPhotosAlbum:ok') {
           Taro.hideLoading();
+          showSavePopup();
+          Taro.getFileSystemManager().removeSavedFile({
+            filePath: temp,
+          });
+        } else {
+          Taro.hideLoading();
+          Taro.showToast({
+            icon: 'error',
+            title: '图片保存失败',
+            duration: 1000,
+          });
         }
+      } catch (error) {
+        Taro.hideLoading();
       }
-    );
+    });
   };
   return (
     <View className={'poster-share'}>
@@ -117,6 +128,22 @@ export default function Index() {
             <Button onClick={saveImage}>
               <Image src={IconDownload}></Image>
               <Text>下载到相册</Text>
+            </Button>
+            <Button
+              onClick={() => {
+                goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
+              }}
+            >
+              <Image src={IconEdit}></Image>
+              <Text>前往制作</Text>
+            </Button>
+            <Button
+              onClick={() => {
+                goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
+              }}
+            >
+              <Image src={IconExplore}></Image>
+              <Text>即刻探索</Text>
             </Button>
           </View>
         </Block>
@@ -175,7 +202,36 @@ export default function Index() {
           </View>
         </View>
       </HideawayPopup>
-      <PrivacyAuth init></PrivacyAuth>
+      <HideawayPopup
+        show={expirePopup}
+        onClose={() => {
+          goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
+        }}
+      >
+        <View className='save-popup'>
+          <View className='title'>提醒</View>
+          <View className='text'>
+            很抱歉，您的好友分享的内容已过期。您可以前往制作心仪的海报或探索更多其他内容。
+          </View>
+          <View
+            className='pill-button primary'
+            onClick={() => {
+              goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
+            }}
+          >
+            前往制作
+          </View>
+          <View
+            onClick={() => {
+              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+            }}
+            className='underline'
+          >
+            继续探索
+          </View>
+        </View>
+      </HideawayPopup>
+      <PrivacyAuth onAuth={saveImage}></PrivacyAuth>
     </View>
   );
 }

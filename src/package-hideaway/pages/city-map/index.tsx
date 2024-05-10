@@ -291,7 +291,7 @@ export default function Index() {
                 >
                   <View className='kol-desc'>{i.text}</View>
                   <View className='pill-button primary outline' onClick={() => onCardClick(index)}>
-                    即刻探索
+                    立即查看
                   </View>
                   <Image src={CardBG} className='bg'></Image>
                 </View>
@@ -349,7 +349,7 @@ export default function Index() {
               goto({ url: `${HIDEAWAY.POSTER}?id=${1}` });
             }}
           >
-            制作海报
+            制作手账
           </View>
           <View
             className={cx('underline', {
@@ -357,7 +357,7 @@ export default function Index() {
             })}
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
           >
-            查看礼券
+            查看豪礼
           </View>
         </View>
       </HideawaySharePanel>

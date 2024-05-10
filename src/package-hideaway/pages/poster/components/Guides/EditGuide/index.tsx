@@ -37,10 +37,10 @@ export default React.memo(() => {
             <Image className='finger panel-finger' src={IconFinger}></Image>
             <View className='text1'>
               <View>
-                点击这里，下方会出现<Text className='span'>模版编辑，</Text>
+                点击<Text className='span'>手账制作</Text>
               </View>
-              <View>您可以选择您喜欢的模版，</View>
-              <View>添加您喜欢的贴纸。</View>
+              <View>选择你喜欢的模板和贴纸</View>
+              <View>设计属于你独一无二的旅行手账</View>
             </View>
             <View className='rnd-btn btn-next' onClick={() => setStep(1)}>
               下一步
@@ -59,7 +59,7 @@ export default React.memo(() => {
             <Image className='finger text-finger' src={IconFinger}></Image>
             <View className='texts text-text'>文案编辑</View>
 
-            <Text className='text-done'>{`学会了\n开始制作自己的海报吧~`}</Text>
+            <Text className='text-done'>{`学习完毕\n开始创作属于你的旅行手账吧！`}</Text>
             <View
               className='rnd-btn btn-start'
               onClick={() => {
@@ -68,7 +68,7 @@ export default React.memo(() => {
                 Taro.setStorageSync('edit_guide_read', true);
               }}
             >
-              开始制作
+              开始创作
             </View>
             <View className={'policy'} onClick={togglePolicy}>
               <View

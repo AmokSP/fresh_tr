@@ -3,7 +3,7 @@ user/pwd
 fresh@dev.com /  Fresh0616
 
 https://develop-env.valtech.com.cn/freshcmsuat/admin/content-manager/collectionType/api::product.product/1?plugins[i18n][locale]=zh-CN
-
+https://develop-env.valtech.com.cn/freshtrBackend/test/delete/15900424219
 http://ec2-3-0-43-2.ap-southeast-1.compute.amazonaws.com/freshtrBackend/test/delete/18616520720
 https://tr-mp-uat.fresh-cn.com/backend/test/delete/18616520720
 

@@ -115,31 +115,38 @@ export default function CouponDetail() {
         ) {
           return showToast({ title: t('coupon.invalid') });
         }
+        if (!isRegister) return showSignup();
         setCouponToRedeem(userCoupon.couponId);
         break;
     }
   };
-  const handleRegisterSuccess = () => {
-    setTimeout(async () => {
-      try {
-        const data = await CouponService.bindCoupon({ name: couponName });
-        if (!data.success) {
-          return showToast({
+  const handleRegisterSuccess = async () => {
+    await delay(2200);
+    switch (status) {
+      case COUPON_STATUS.TO_BE_COLLECTED:
+        try {
+          const data = await CouponService.bindCoupon({ name: couponName });
+          if (!data.success) {
+            return showToast({
+              title: t('coupon.collectFail'),
+            });
+          }
+          await getUserCoupon(data.couponId);
+          setCouponToRedeem(data.couponId);
+          showToast({
+            title: t('coupon.collectSuccess'),
+            mask: true,
+          });
+        } catch (error) {
+          showToast({
             title: t('coupon.collectFail'),
           });
         }
-        await getUserCoupon(data.couponId);
-        setCouponToRedeem(data.couponId);
-        showToast({
-          title: t('coupon.collectSuccess'),
-          mask: true,
-        });
-      } catch (error) {
-        showToast({
-          title: t('coupon.collectFail'),
-        });
-      }
-    }, 2200);
+        break;
+      case COUPON_STATUS.COLLECTED:
+        setCouponToRedeem(userCoupon.couponId);
+        break;
+    }
   };
   const buttonClass = cx([
     styles['couponDetail__button'],

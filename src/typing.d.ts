@@ -27,4 +27,5 @@ declare const HIDEAWAY_ASSETS: {
   stickers: {
     [K: string]: string;
   };
+  stories: any[];
 };

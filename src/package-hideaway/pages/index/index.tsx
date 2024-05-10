@@ -349,17 +349,18 @@ export default function Index() {
       </View>
       <Image onClick={showSharePanel} src={Plane} className={'btn-plane'}></Image>
       <Image className='title' src={Title}></Image>
-      <Image
+      <View
         onClick={() => {
           phase === 'cover' ? coverOut() : bookOut();
         }}
         className='cta'
-        src={Cta}
-      ></Image>
+      >
+        {['book-ready', 'book-out'].includes(phase) ? '开启体验' : '开启手账'}
+      </View>
       <Image src={Orient} onClick={toggleOrient} className='orient-toggle'></Image>
       <View style={{ paddingTop: `${NAVBAR_HEIGHT}px` }} className='slogan'>
         <View>亲近自然世界</View>
-        <View className='sub'>短暂的与主线生活“脱轨”放空自己</View>
+        <View className='sub'>享一杯悠闲漫时光 寻fresh茶粹的力量</View>
       </View>
       <View className='paginator'>
         <View
@@ -404,7 +405,7 @@ export default function Index() {
               goto({ url: `${HIDEAWAY.POSTER}?id=${1}` });
             }}
           >
-            制作海报
+            制作手账
           </View>
           <View
             className={cx('underline', {
@@ -412,7 +413,7 @@ export default function Index() {
             })}
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
           >
-            查看礼券
+            查看豪礼
           </View>
         </View>
       </HideawaySharePanel>

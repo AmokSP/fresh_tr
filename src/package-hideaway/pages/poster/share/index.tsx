@@ -18,6 +18,7 @@ import { drawPoster, drawSaveImage } from './ui/draw';
 import { COUPON_STATUS } from '@constants/coupon';
 import useShareStatusQuery from '@hideaway/useShareStatusQuery';
 import cx from 'classnames';
+import PrivacyAuth from '@components/PrivacyAuth';
 
 export default function Index() {
   const posterData: PosterData = Taro.getStorageSync('posterData');
@@ -39,15 +40,15 @@ export default function Index() {
   useShareAppMessage(() => {
     showSharePopup();
     return {
-      title: HIDEAWAY_ASSETS.shareTitle,
+      title: '收到一封来自好友的旅行手账，点击查看',
       path: `${HIDEAWAY.POSTER_VIEW}?token=${params.token}`,
     };
   });
   const { value: drawnImageUrl, execute: draw } = useAsync(drawPoster);
 
   const saveImage = () => {
-    getAuthorization('scope.writePhotosAlbum', '需要开启相册授权才能保存至相册', () => {}).then(
-      async () => {
+    getAuthorization('scope.writePhotosAlbum', true, '需要开启相册授权才能保存图片至相册', () => {})
+      .then(async () => {
         Taro.showLoading({ title: '图片保存中...', mask: true });
         try {
           let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
@@ -74,8 +75,8 @@ export default function Index() {
         } catch (error) {
           Taro.hideLoading();
         }
-      }
-    );
+      })
+      .catch();
   };
   const backToMap = () => {
     const pages = Taro.getCurrentPages();
@@ -118,7 +119,7 @@ export default function Index() {
       <HideawayPopup show={savePopup} onClose={hideSavePopup}>
         <View className='save-popup'>
           <View className='title'>保存成功</View>
-          <View className='text'>图片已保存到相册，赶紧分享给朋友吧~</View>
+          <View className='text'>图片已经保存到相册，快和好友一同分享精彩吧~</View>
           <View className='pill-button primary' onClick={() => Taro.navigateBack({ delta: 1 })}>
             返回制作
           </View>
@@ -139,11 +140,11 @@ export default function Index() {
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
             className={cx('pill-button primary', { disabled: receivedCount === 0 })}
           >
-            查看礼券
+            查看豪礼
           </View>
           <View className='more'>
             <View className='underline' onClick={backToMap}>
-              继续探索
+              继续制作手账
             </View>
             <View className='line'></View>
             <Button openType='share' className='underline'>
@@ -152,6 +153,7 @@ export default function Index() {
           </View>
         </View>
       </HideawaySharePanel>
+      <PrivacyAuth></PrivacyAuth>
     </View>
   );
 }

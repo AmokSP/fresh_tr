@@ -17,13 +17,7 @@ export default function Index() {
       <Navbar transparent holdPlace>
         <Header title='brand_logo'></Header>
       </Navbar>
-      <Video
-        autoplay={false}
-        controls={false}
-        src={
-          'http://tr-media-cdn.fresh-cn.com/f0c618ee0c2171efbfea5017e1e90102/39aa383261874230ae078436ff993357.m3u8'
-        }
-      ></Video>
+      <Video autoplay={false} controls={false} src={HIDEAWAY_ASSETS.stories[0].video}></Video>
       <View
         className='pill-button primary'
         onClick={() =>
