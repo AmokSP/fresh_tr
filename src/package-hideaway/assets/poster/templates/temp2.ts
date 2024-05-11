@@ -57,7 +57,7 @@ const Temp1: PosterData = {
     {
       id: 4,
       content: '你分享的\n城市？\nby: fresh',
-      limit: 30,
+      limit: 20,
       x: 300,
       y: 714,
       width: 72,

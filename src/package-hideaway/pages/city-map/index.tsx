@@ -51,7 +51,7 @@ export default function Index() {
   const {
     params: { city = '0' },
   } = useRouter();
-  const [currentKol, setCurrentKol] = useState(parseInt(city));
+  const [currentKol, setCurrentKol] = useState(parseInt(city) * 2);
   const [transition, setTransition] = useState(0);
   const [subscribed, setSubscribed] = useState<boolean>(Taro.getStorageSync(SubscribeKey) ?? false);
   useShareAppMessage(() => {
@@ -259,6 +259,7 @@ export default function Index() {
           className='kol-swiper'
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
+          catchMove={true}
           onTouchEnd={onTouchEnd}
           style={{
             transform: `translateX(${transition}px)`,
@@ -346,14 +347,14 @@ export default function Index() {
             className='pill-button primary'
             onClick={() => {
               hideSharePanel();
-              goto({ url: `${HIDEAWAY.POSTER}?id=${1}` });
+              goto({ url: `${HIDEAWAY.POSTER}` });
             }}
           >
             制作手账
           </View>
           <View
             className={cx('underline', {
-              disabled: receivedCount === 0,
+              disabled: giftCount === 0,
             })}
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
           >

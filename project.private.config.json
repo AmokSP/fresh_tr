@@ -4,6 +4,27 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/my/coupon/index",
+          "pathName": "pages/my/coupon/index",
+          "query": "status=collected",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/city-map/index",
+          "pathName": "package-hideaway/pages/city-map/index",
+          "query": "city=2",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/signup/index/index",
+          "pathName": "pages/signup/index/index",
+          "query": "city=2",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "package-hideaway/pages/poster/share/view/index",
           "pathName": "package-hideaway/pages/poster/share/view/index",
           "query": "token=postcard_23nva3_wLrv5L",
@@ -11,22 +32,8 @@
           "scene": null
         },
         {
-          "name": "pages/signup/index/index",
-          "pathName": "pages/signup/index/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
           "name": "package-hideaway/pages/poster/index",
           "pathName": "package-hideaway/pages/poster/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "package-hideaway/pages/city-map/index",
-          "pathName": "package-hideaway/pages/city-map/index",
           "query": "",
           "launchMode": "default",
           "scene": null

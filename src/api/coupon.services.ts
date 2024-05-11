@@ -11,7 +11,7 @@ export class CouponService {
       url: `${API_URL}/coupon/list/${params.type}`,
       data: {
         page: params.page || 1,
-        pageSize: params.pageSize || 10,
+        pageSize: params.pageSize || 20,
       },
     });
   }

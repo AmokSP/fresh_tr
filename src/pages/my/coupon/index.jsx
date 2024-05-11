@@ -29,16 +29,18 @@ const PAGE_SIZE = 10;
 let actionAfterRegister = '';
 
 export default function Coupon() {
+  const router = useRouter();
+  const { status: defaultStatus } = router.params;
   const { COUPON_STATUS_DATA } = getCouponData();
-  const [status, setStatus] = useState(COUPON_STATUS_DATA[0]);
+  const [status, setStatus] = useState(
+    COUPON_STATUS_DATA.find((i) => i.value === router.params.status) ?? COUPON_STATUS_DATA[0]
+  );
   const [signupPageFlag, showSignup, hideSignup] = useBoolean(false);
   const [couponToRedeem, setCouponToRedeem] = useState();
 
   const { userInfo, isLogin, isFromDFS } = useStore((state) => state);
   const isRegister = userInfo?.profile?.status === 'Registered';
 
-  const router = useRouter();
-  const { status: defaultStatus } = router.params;
   const { t } = useTranslation();
 
   // const checking = useRef(false);
@@ -71,15 +73,6 @@ export default function Coupon() {
         .finally(hideLoading);
     });
   });
-
-  useEffect(() => {
-    if (defaultStatus) {
-      const index = COUPON_STATUS_DATA.findIndex((item) => item.value === defaultStatus);
-      if (index !== -1) {
-        setStatus(COUPON_STATUS_DATA[index]);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (isLogin && status) {

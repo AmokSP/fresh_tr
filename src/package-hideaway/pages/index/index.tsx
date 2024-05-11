@@ -402,14 +402,14 @@ export default function Index() {
             className='pill-button primary'
             onClick={() => {
               hideSharePanel();
-              goto({ url: `${HIDEAWAY.POSTER}?id=${1}` });
+              goto({ url: `${HIDEAWAY.POSTER}` });
             }}
           >
             制作手账
           </View>
           <View
             className={cx('underline', {
-              disabled: receivedCount === 0,
+              disabled: giftCount === 0,
             })}
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
           >

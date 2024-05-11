@@ -9,7 +9,7 @@ type EditorProps = {
   onCancel?: () => void;
 };
 export default React.memo(({ target, onConfirm, onCancel }: EditorProps) => {
-  const [value, setValue] = useState(target.content);
+  const [value, setValue] = useState(target.content.slice(0, target.limit));
   const onConfirmClick = async () => {
     onConfirm?.(value);
   };

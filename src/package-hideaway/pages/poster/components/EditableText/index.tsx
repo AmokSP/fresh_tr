@@ -5,9 +5,9 @@ import { posterToView } from '../../utils/scale';
 import { degToRad } from '../../utils/rotations';
 
 export default React.memo((props: TextField & { onClick?: () => void }) => {
-  const { content, x, y, fontSize, lineHeight, error, rotation } = props;
-  const cosV = Math.cos(degToRad(rotation)??0);
-  const sinV = Math.sin(degToRad(rotation)??0);
+  const { content, x, y, fontSize, lineHeight, error, rotation, limit } = props;
+  const cosV = Math.cos(degToRad(rotation) ?? 0);
+  const sinV = Math.sin(degToRad(rotation) ?? 0);
   return (
     <View
       style={{
@@ -27,12 +27,13 @@ export default React.memo((props: TextField & { onClick?: () => void }) => {
           color: props.color,
           fontWeight: props.fontWeight,
           textAlign: props.textAlign,
+          wordBreak: 'break-all',
           lineHeight: lineHeight === undefined ? '1.5' : posterToView(lineHeight) + 'px',
           fontSize: posterToView(fontSize ?? 24),
         }}
         className='custom-text'
       >
-        {content}
+        {content.slice(0, limit)}
       </Text>
     </View>
   );

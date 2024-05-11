@@ -72,7 +72,9 @@ export default function Editor() {
       textArr = JSON.parse(JSON.stringify(Templates[templateId].textfields));
       stickerArr = JSON.parse(JSON.stringify(Templates[templateId].stickers));
     }
-
+    textArr.forEach((item) => {
+      item.content = item.content.slice(0, item.limit);
+    });
     [...photoArr, ...textArr, ...stickerArr].forEach((i) => {
       i.x = posterToView(i.x);
       i.y = posterToView(i.y);
@@ -502,7 +504,7 @@ export default function Editor() {
         <View className='ctas'>
           <View
             className={cx('pill-button primary', {
-              disabled: receivedCount === 0,
+              disabled: giftCount === 0,
             })}
             onClick={() => {
               hideSharePanel();

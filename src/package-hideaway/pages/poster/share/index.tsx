@@ -138,12 +138,12 @@ export default function Index() {
         <View className='share-popup-ctas'>
           <View
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
-            className={cx('pill-button primary', { disabled: receivedCount === 0 })}
+            className={cx('pill-button primary', { disabled: giftCount === 0 })}
           >
             查看豪礼
           </View>
           <View className='more'>
-            <View className='underline' onClick={backToMap}>
+            <View className='underline' onClick={() => Taro.navigateBack({ delta: 1 })}>
               继续制作手账
             </View>
             <View className='line'></View>
