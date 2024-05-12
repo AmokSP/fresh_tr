@@ -58,9 +58,9 @@ export default function Category() {
     setPlaceholder(ph?.attributes?.notificationOnSearchbar);
     const { data } = await ProductService.getCategories();
 
-    setCategories(data?.map((category) => category?.attributes?.displayName));
-    setSubCategories(data?.map((category) => category?.attributes?.categories?.data));
-    setProducts(data?.map((category) => category?.attributes?.prods?.data));
+    setCategories(data?.map((category) => category?.attributes?.displayName)??[]);
+    setSubCategories(data?.map((category) => category?.attributes?.categories?.data)??[]);
+    setProducts(data?.map((category) => category?.attributes?.prods?.data)??[]);
 
     // const { data: allProducts } =
     //   await ProductService.getAllProductsFromCategory();

@@ -87,10 +87,10 @@ export default function Detail() {
       </CustomNavbar>
       <View className={styles['detail']}>
         <View className={styles['detail__body']}>
-          {products.map((item, index) => (
+          {products?.map((item, index) => (
             <ProductBlock item={item} index={index} onOpenRetailer={(ri) => setRetailerInfos(ri)} />
           ))}
-          {products.length % 2 === 1 && <View style={{ flexBasis: '328rpx' }}></View>}
+          {products?.length % 2 === 1 && <View style={{ flexBasis: '328rpx' }}></View>}
         </View>
       </View>
       {retailerInfos.length > 0 && (
