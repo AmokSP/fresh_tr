@@ -64,6 +64,12 @@ module.exports = {
           photo2: '/uploads/Rectangle_5321_27b98b7384.png',
           photo3: '/uploads/Rectangle_5321_27b98b7384.png',
         },
+        {
+          bg: '/uploads/20240513151942_3b75ac3b29.png',
+          photo1: '/uploads/Rectangle_5321_27b98b7384.png',
+          photo2: '/uploads/Rectangle_5322_171c6410a5.png',
+          photo3: '/uploads/Rectangle_5322_171c6410a5.png',
+        },
       ],
       stickers: {
         sticker1: '/uploads/1_5c77b0ff11.png',

@@ -28,6 +28,7 @@ export default React.memo((props: TextField & { onClick?: () => void }) => {
           fontWeight: props.fontWeight,
           textAlign: props.textAlign,
           wordBreak: 'break-all',
+          letterSpacing: 0,
           lineHeight: lineHeight === undefined ? '1.5' : posterToView(lineHeight) + 'px',
           fontSize: posterToView(fontSize ?? 24),
         }}

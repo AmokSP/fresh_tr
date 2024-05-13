@@ -40,7 +40,7 @@ export default function Tabbar() {
     <View className={tabbarClass}>
       <View className={styles['tabbar__wrap']}>
         {tabbarItems.map((item, index) => {
-          const isActive = index === store.tabbar.activeIndex;
+          const isActive = item.index === store.tabbar.activeIndex;
           const isNews = item.pagePath === PAGES.NEWS;
 
           const toggleClass = cx(styles['tabbar__item'], {

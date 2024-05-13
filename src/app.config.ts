@@ -6,9 +6,9 @@ export enum PAGES {
   PRODUCT = '/pages/product/index',
   POLICY = '/pages/policy/index',
   POLICY_STORE = '/pages/policy/store/index',
-  // NEWS = '/pages/news/index/index',
-  // NEWS_DETAIL = '/pages/news/detail/index',
-  // NEWS_KOL_DETAIL = '/pages/news/koldetail/index',
+  NEWS = '/pages/news/index/index',
+  NEWS_DETAIL = '/pages/news/detail/index',
+  NEWS_KOL_DETAIL = '/pages/news/koldetail/index',
   WEBVIEW = '/pages/webview/index',
   SIGNUP = '/pages/signup/index/index',
   EDIT_PROFILE = '/pages/signup/edit/index',
@@ -73,10 +73,10 @@ export default {
         pagePath: PAGES.CATEGORY.slice(1),
         text: '产品',
       },
-      // {
-      //   pagePath: PAGES.NEWS.slice(1),
-      //   text: '资讯',
-      // },
+      {
+        pagePath: PAGES.NEWS.slice(1),
+        text: '资讯',
+      },
       {
         pagePath: PAGES.STORE.slice(1),
         text: '门店',

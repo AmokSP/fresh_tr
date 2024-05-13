@@ -14,6 +14,7 @@ export class Tracking {
         taro: Taro,
         debug: true,
         forceLogin: true,
+        compress: true,
       });
   }
 
