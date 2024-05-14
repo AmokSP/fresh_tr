@@ -252,10 +252,8 @@ export default class FressBook {
     this.scene.add(dirLight);
 
     this.bookWrapper = new Object3D();
-    const COVER_WIDTH = 7.9;
-    const COVER_HEIGHT = 12.7;
     this.cover = new Mesh(
-      new PlaneGeometry(COVER_WIDTH, COVER_HEIGHT),
+      new PlaneGeometry(8, 12.7),
       new MeshStandardMaterial({
         transparent: false,
         map: coverTex,
@@ -272,11 +270,11 @@ export default class FressBook {
     );
     let pos = this.cover.geometry.attributes.position;
     for (let index = 0; index < 4; index++) {
-      pos.setX(index, pos.array[index * 3] + COVER_WIDTH * 0.5);
+      pos.setX(index, pos.array[index * 3] + 8 * 0.5);
       pos.setZ(index, 0.01);
     }
     this.back = new Mesh(
-      new PlaneGeometry(COVER_WIDTH, 14),
+      new PlaneGeometry(8.5, 14.5),
 
       new MeshStandardMaterial({
         transparent: true,
@@ -292,7 +290,7 @@ export default class FressBook {
     );
     pos = this.back.geometry.attributes.position;
     for (let index = 0; index < 4; index++) {
-      pos.setX(index, pos.array[index * 3] + COVER_WIDTH * 0.5);
+      pos.setX(index, pos.array[index * 3] + 8.5 * 0.5);
       pos.setZ(index, 0.01);
     }
     // this.back.geometry.vertices.forEach((v) => {
