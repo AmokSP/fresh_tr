@@ -17,7 +17,8 @@ import { PAGES } from '@app.config';
 export default React.memo(() => {
   // const [guideRead, setGuideRead] = useBoolean(false);
   const [policyChecked, , , togglePolicy] = useBoolean(false);
-  const [guideRead, setGuideRead] = useBoolean(Taro.getStorageSync('edit_guide_read') ?? false);
+  // const [guideRead, setGuideRead] = useBoolean(Taro.getStorageSync('edit_guide_read') ?? false);
+  const [guideRead, setGuideRead] = useBoolean(true);
   const [step, setStep] = useState(0);
   const { t } = useTranslation();
   return guideRead ? (

@@ -121,6 +121,9 @@ export default function Index() {
     if (freshBook.current.progress.current > 158) {
       freshBook.current.progress.current = 158;
     }
+    if (phase === 'book-ready' && freshBook.current.progress.current < 38) {
+      freshBook.current.progress.current = 38;
+    }
     prevTouch = isLandscape ? pageY : pageX;
   };
   const touchEndHandler = (e) => {

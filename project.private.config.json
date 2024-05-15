@@ -4,6 +4,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "package-hideaway/pages/kol-story/index",
+          "pathName": "package-hideaway/pages/kol-story/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/my/coupon/index",
           "pathName": "pages/my/coupon/index",
           "query": "status=collected",

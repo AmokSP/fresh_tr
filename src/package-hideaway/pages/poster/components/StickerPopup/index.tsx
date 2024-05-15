@@ -24,9 +24,9 @@ export default React.memo((props: StickerPopupProps) => {
     if (selectedStickers.includes(sticker.id)) {
       onRemoveSticker?.(sticker.id);
     } else {
-      if (selectedStickers.length >= 6) {
-        return Taro.showToast({ icon: 'none', title: '最多可选择6个贴纸' });
-      }
+      // if (selectedStickers.length >= 6) {
+      //   return Taro.showToast({ icon: 'none', title: '最多可选择6个贴纸' });
+      // }
       onAddSticker?.(sticker.id);
     }
   };
@@ -66,7 +66,7 @@ export default React.memo((props: StickerPopupProps) => {
       {view === 'sticker' && (
         <ScrollView scrollY className={cx('options', view)}>
           <View className='stickers'>
-            {Object.values(AllStickers).map((i) => (
+            {Object.values(AllStickers[selectedTemplate]).map((i) => (
               <View
                 onClick={() => toggleSticker(i)}
                 className={cx('option s-option', { active: selectedStickers.includes(i.id) })}

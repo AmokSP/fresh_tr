@@ -42,7 +42,8 @@ export default function Editor() {
   const { receivedCount, giftCount } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
+  // const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
+  const [templateId, setTemplateId] = useState('tmp3');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -61,17 +62,17 @@ export default function Editor() {
     let photoArr: Photo[];
     let textArr: TextField[];
     let stickerArr: Sticker[];
-    if (localData && templateId === localData?.id) {
-      edited = true;
-      photoArr = localData.photos;
-      textArr = localData.textfields;
-      stickerArr = localData.stickers;
-    } else {
-      edited = false;
-      photoArr = JSON.parse(JSON.stringify(Templates[templateId].photos));
-      textArr = JSON.parse(JSON.stringify(Templates[templateId].textfields));
-      stickerArr = JSON.parse(JSON.stringify(Templates[templateId].stickers));
-    }
+    // if (localData && templateId === localData?.id) {
+    //   edited = true;
+    //   photoArr = localData.photos;
+    //   textArr = localData.textfields;
+    //   stickerArr = localData.stickers;
+    // } else {
+    edited = false;
+    photoArr = JSON.parse(JSON.stringify(Templates[templateId].photos));
+    textArr = JSON.parse(JSON.stringify(Templates[templateId].textfields));
+    stickerArr = JSON.parse(JSON.stringify(Templates[templateId].stickers));
+    // }
     textArr.forEach((item) => {
       item.content = item.content.slice(0, item.limit);
     });
@@ -267,7 +268,7 @@ export default function Editor() {
   };
   const addSticker = (id) => {
     edited = true;
-    const targetSticker = AllStickers[id];
+    const targetSticker = AllStickers[templateId][id];
 
     setFocusItemId(targetSticker!.id);
     setStickers([...stickers, { ...targetSticker!, rotation: 0, x: windowWidth * 0.5, y: 250 }]);

@@ -21,13 +21,13 @@ export default function Index() {
       {/* <Video autoplay={false} controls={false} src={HIDEAWAY_ASSETS.stories[0].video}></Video> */}
 
       <Image
-        src={`${BUCKET_URL}/uploads/123_d2fedb6827.gif`}
+        src={`${BUCKET_URL}/uploads/123_c391a9fbb8.gif`}
         className='w-100 gif'
         mode='widthFix'
       ></Image>
       <Image
         className='w-100'
-        src={`${BUCKET_URL}/uploads/Chengdu_KOL_1_9c3a640305.png`}
+        src={`${BUCKET_URL}/uploads/KOL_2_f1a0ff6183.png`}
         mode='widthFix'
         onClick={() =>
           goto({
