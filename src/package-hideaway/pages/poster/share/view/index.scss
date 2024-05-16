@@ -56,6 +56,13 @@
       text-align: left;
       margin-left: 26px;
     }
+    .qr-code {
+      position: absolute;
+      width: 78 * 2px;
+      height: 78 * 2px;
+      top: 498 * 2px;
+      left: 223 * 2px;
+    }
   }
   .buttons {
     position: relative;

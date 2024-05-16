@@ -22,6 +22,7 @@ declare const HIDEAWAY_ASSETS: {
       layer5: string;
     }>;
   };
+  campaignQrCode: string;
   shareTitle: string;
   templates: {
     bg: string;

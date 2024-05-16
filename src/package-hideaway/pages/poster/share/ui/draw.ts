@@ -124,6 +124,15 @@ export async function drawSaveImage(url: string, title: string) {
     height: 587,
     mode: 'aspectFill',
   });
+  await drawImage({
+    canvas,
+    url: `${BUCKET_URL}${HIDEAWAY_ASSETS.campaignQrCode}`,
+    x: 223,
+    y: 612,
+    width: 78,
+    height: 78,
+    mode: 'aspectFill',
+  });
   context.fillStyle = '#323d47';
   context.font = `500 18px PingFang SC`;
   context.textBaseline = 'top';

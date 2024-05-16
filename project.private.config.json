@@ -4,6 +4,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "package-hideaway/pages/poster/share/view/index",
+          "pathName": "package-hideaway/pages/poster/share/view/index",
+          "query": "token=postcard_23nva3_eLReBp",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "package-hideaway/pages/rules/index",
           "pathName": "package-hideaway/pages/rules/index",
           "query": "",
@@ -21,13 +28,6 @@
           "name": "package-hideaway/pages/city-map/index",
           "pathName": "package-hideaway/pages/city-map/index",
           "query": "city=2",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "package-hideaway/pages/poster/share/view/index",
-          "pathName": "package-hideaway/pages/poster/share/view/index",
-          "query": "token=postcard_23nva3_wLrv5L",
           "launchMode": "default",
           "scene": null
         },

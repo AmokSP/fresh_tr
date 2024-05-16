@@ -9,8 +9,8 @@ const Temp1: PosterData = {
   textfields: [
     {
       id: 1,
-      content: '仓木繁叶将热烈与喧嚣阻挡\n无数生命在此蔓延生长\n喧嚣阻挡',
-      limit: 30,
+      content: `逸游茶境 赏景悦己\n旅行的意义是沉浸美景之中\n与更美好的自己不期而遇`,
+      limit: 40,
       x: 87,
       y: 334,
       width: 134,
@@ -24,9 +24,8 @@ const Temp1: PosterData = {
     },
     {
       id: 2,
-      content:
-        '仓木繁叶将热烈与喧嚣阻挡 无数生命在此蔓延生长 青苔在寂静、潮湿的空气中\n为大地盛开一片柔软湿凉\n微小又顽强的力量',
-      limit: 100,
+      content: `享受旅途中的悠然惬意\n和每一棵树握手，和每一株草私语\n方知宇宙浩瀚，自然可畏`,
+      limit: 45,
       x: 92,
       y: 424,
       width: 140,
@@ -40,9 +39,8 @@ const Temp1: PosterData = {
     },
     {
       id: 3,
-      content:
-        '仓木繁叶将热烈与 喧嚣阻挡 无数\n生命在此蔓延生长 青苔在寂静、潮湿的空气中 仓木繁叶将热烈',
-      limit: 30,
+      content: `漫游古镇，小桥流水\n手捧一杯热茶，享受安逸时光\n在风光旖旎的风景中，感受生活的美好向往`,
+      limit: 50,
       x: 315,
       y: 560,
       width: 100,
@@ -56,8 +54,8 @@ const Temp1: PosterData = {
     },
     {
       id: 4,
-      content: '你分享的\n城市？\nby: fresh',
-      limit: 20,
+      content: '你分享的\ncitywalk\nby: fresh',
+      limit: 25,
       x: 300,
       y: 714,
       width: 72,

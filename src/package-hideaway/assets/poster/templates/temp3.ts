@@ -9,8 +9,8 @@ const Temp1: PosterData = {
   textfields: [
     {
       id: 1,
-      content: '仓木繁叶将热烈与喧嚣阻挡。',
-      limit: 20,
+      content: '等风来，不如出发去有风的地方',
+      limit: 12,
       x: 93,
       y: 221,
       width: 72,
@@ -25,8 +25,10 @@ const Temp1: PosterData = {
 
     {
       id: 2,
-      content:
-        '仓木繁叶将热烈与 喧嚣阻挡 无数生命在此蔓延生长 青苔在寂静、潮湿。仓木繁叶将热烈与 喧嚣阻挡 无数生命在此。仓木繁叶将热烈与 喧嚣阻挡 无数生命在此蔓延生长 青苔在寂静、潮湿。',
+      content: `在微风轻拂的季节里，享受旅途的美景
+        我喜欢旅行中带上爱用好物Fresh Black Tea
+        让我在旅途中也可以保持肌肤活力好状态
+        用相机记录每时每刻的精彩`,
       limit: 100,
       x: 211,
       y: 255,
@@ -41,8 +43,9 @@ const Temp1: PosterData = {
     },
     {
       id: 3,
-      content:
-        '仓木繁叶将热烈与 喧嚣阻挡 无数生命在此蔓延生长 青苔在寂静、潮湿。  仓木繁叶将热烈与 喧嚣阻挡 无数生命在此蔓延。',
+      content: `理想的生活需要热爱和心动
+        试着倾听河谷里的回响，赴一场与大自然的约会
+        拥抱蓝天白云，治愈时间治愈自己`,
       limit: 70,
       x: 306,
       y: 408,
@@ -57,9 +60,12 @@ const Temp1: PosterData = {
     },
     {
       id: 4,
-      content:
-        '仓木繁叶将热烈与 喧嚣阻挡 无数生命在此蔓延生长 无数生命在此蔓延生无数生命在此蔓延生。仓木繁叶将热烈与 喧嚣阻挡 无数生命在此蔓延生长 无数生命在此蔓延生。',
-      limit: 80,
+      content: `享受慢下来的自在旅行
+        不用追赶时间，用心感受美景
+        “行到山穷水尽处，坐看风气云卷时”
+        静静地品茶赏景，体会生活的诗意
+        `,
+      limit: 100,
       x: 86,
       y: 586,
       width: 128,
@@ -73,8 +79,23 @@ const Temp1: PosterData = {
     },
     {
       id: 5,
-      content: '你分享的城市？\nby: fresh',
+      content: `Sensorial\nHideaway`,
       limit: 20,
+      x: 86,
+      y: 533,
+      width: 128,
+      height: 37,
+      fontSize: 16,
+      fontWeight: '600',
+      rotation: 0,
+      textAlign: 'left',
+      color: 'white',
+      lineHeight: 16,
+    },
+    {
+      id: 6,
+      content: '你分享的\ncitywalk\nby: fresh',
+      limit: 25,
       x: 310,
       y: 748,
       width: 59,
@@ -138,8 +159,8 @@ const Temp1: PosterData = {
       ...AllStickers.tmp3[0],
       width: 26,
       height: 26,
-      x: 179,
-      y: 136,
+      x: 140,
+      y: 179,
       rotation: degToRad(0),
     },
     {

@@ -29,6 +29,7 @@ module.exports = {
       argarden: 'https://develop-env.valtech.com.cn/argarden2024/',
     }),
     HIDEAWAY_ASSETS: JSON.stringify({
+      campaignQrCode: '',
       shareTitle: '感官逸游 馥已焕新',
       templates: [
         {
