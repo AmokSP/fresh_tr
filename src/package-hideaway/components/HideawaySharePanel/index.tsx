@@ -18,7 +18,7 @@ export default React.memo((props: SharePanelProps) => {
       <View className='share-panel'>
         <View>
           <View className='share-panel__desc'>
-            分享旅行手账至微信好友，每三位好友打卡成功即可获得惊喜好礼。
+            分享旅行手账至微信好友，每三位好友打卡成功即可获得惊喜豪礼。
             <Text className='underline' onClick={() => goto({ url: HIDEAWAY.GAME_RULE })}>
               详细规则
             </Text>

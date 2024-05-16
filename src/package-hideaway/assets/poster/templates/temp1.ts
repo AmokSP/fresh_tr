@@ -270,6 +270,14 @@ const Temp1: PosterData = {
       y: 690,
       rotation: degToRad(-6.83),
     },
+    {
+      ...AllStickers.tmp1[7],
+      width: 68,
+      height: 68,
+      x: 43,
+      y: 111,
+      rotation: 0,
+    },
   ],
 };
 export default Temp1;

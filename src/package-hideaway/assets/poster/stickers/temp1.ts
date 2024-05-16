@@ -86,10 +86,10 @@ export default {
     width: 174 / 2,
     height: 76 / 2,
   },
-  '14': {
-    id: idCount++,
-    src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].stickers[14]}`,
-    width: 186 / 2,
-    height: 112 / 2,
-  },
+  // '14': {
+  //   id: idCount++,
+  //   src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].stickers[14]}`,
+  //   width: 186 / 2,
+  //   height: 112 / 2,
+  // },
 };

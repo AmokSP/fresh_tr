@@ -141,7 +141,7 @@ export default function Index() {
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
             className={cx('pill-button primary', { disabled: giftCount === 0 })}
           >
-            查看豪礼
+            查看礼券
           </View>
           <View className='more'>
             <View className='underline' onClick={() => Taro.navigateBack({ delta: 1 })}>

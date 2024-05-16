@@ -359,7 +359,7 @@ export default function Index() {
             })}
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
           >
-            查看豪礼
+            查看礼券
           </View>
         </View>
       </HideawaySharePanel>

@@ -104,6 +104,26 @@ export default function Index() {
       }
     });
   };
+  const ctas = (
+    <Block>
+      <View
+        className='pill-button primary'
+        onClick={() => {
+          goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
+        }}
+      >
+        手账制作
+      </View>
+      <View
+        onClick={() => {
+          goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+        }}
+        className='underline'
+      >
+        探索更多
+      </View>
+    </Block>
+  );
   return (
     <View className={'poster-share'}>
       <Navbar transparent holdPlace={true}>
@@ -158,22 +178,7 @@ export default function Index() {
           <View className='text'>
             图片已保存至相册，请前往您的手机相册查看或制作一张您心仪的海报分享给好友把~
           </View>
-          <View
-            className='pill-button primary'
-            onClick={() => {
-              goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
-            }}
-          >
-            前往制作
-          </View>
-          <View
-            onClick={() => {
-              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
-            }}
-            className='underline'
-          >
-            继续探索
-          </View>
+          {ctas}
         </View>
       </HideawayPopup>
       <HideawayPopup
@@ -188,22 +193,7 @@ export default function Index() {
             很抱歉，您的好友分享的内容因涉及
             违规暂不可查看。您可以前往制作心仪的海报或探索更多其他内容。
           </View>
-          <View
-            className='pill-button primary'
-            onClick={() => {
-              goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
-            }}
-          >
-            前往制作
-          </View>
-          <View
-            onClick={() => {
-              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
-            }}
-            className='underline'
-          >
-            继续探索
-          </View>
+          {ctas}
         </View>
       </HideawayPopup>
       <HideawayPopup
@@ -217,25 +207,10 @@ export default function Index() {
           <View className='text'>
             很抱歉，您的好友分享的内容已过期。您可以前往制作心仪的海报或探索更多其他内容。
           </View>
-          <View
-            className='pill-button primary'
-            onClick={() => {
-              goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
-            }}
-          >
-            前往制作
-          </View>
-          <View
-            onClick={() => {
-              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
-            }}
-            className='underline'
-          >
-            继续探索
-          </View>
+          {ctas}
         </View>
       </HideawayPopup>
-      <PrivacyAuth onAuth={saveImage}></PrivacyAuth>
+      <PrivacyAuth></PrivacyAuth>
     </View>
   );
 }
