@@ -217,13 +217,14 @@ export default function Index() {
         ></Header>
       </Navbar>
       <View className='texts'>
-        <View className='title'>跟随达人体验城市</View>
+        <View className='title'>挖掘每个城市的茶萃之力</View>
         <View>
-          <View className='desc1'>制作海报分享好友</View>
+          <View className='desc1'>解锁小众打卡点</View>
           <View className='desc2'>
-            每分享3位
+            {/* 每分享3位
             <Text>好友即可</Text>
-            获得优惠券
+            获得优惠券 */}
+            参与互动体验，赢取惊喜豪礼
             <Image onClick={() => goto({ url: HIDEAWAY.GAME_RULE })} src={Info}></Image>
           </View>
         </View>
@@ -292,7 +293,7 @@ export default function Index() {
                 >
                   <View className='kol-desc'>{i.text}</View>
                   <View className='pill-button primary outline' onClick={() => onCardClick(index)}>
-                    立即查看
+                    点击查看
                   </View>
                   <Image src={CardBG} className='bg'></Image>
                 </View>

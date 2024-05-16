@@ -42,8 +42,8 @@ export default function Editor() {
   const { receivedCount, giftCount } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  // const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
-  const [templateId, setTemplateId] = useState('tmp3');
+  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
+  // const [templateId, setTemplateId] = useState('tmp3');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -62,17 +62,17 @@ export default function Editor() {
     let photoArr: Photo[];
     let textArr: TextField[];
     let stickerArr: Sticker[];
-    // if (localData && templateId === localData?.id) {
-    //   edited = true;
-    //   photoArr = localData.photos;
-    //   textArr = localData.textfields;
-    //   stickerArr = localData.stickers;
-    // } else {
-    edited = false;
-    photoArr = JSON.parse(JSON.stringify(Templates[templateId].photos));
-    textArr = JSON.parse(JSON.stringify(Templates[templateId].textfields));
-    stickerArr = JSON.parse(JSON.stringify(Templates[templateId].stickers));
-    // }
+    if (localData && templateId === localData?.id) {
+      edited = true;
+      photoArr = localData.photos;
+      textArr = localData.textfields;
+      stickerArr = localData.stickers;
+    } else {
+      edited = false;
+      photoArr = JSON.parse(JSON.stringify(Templates[templateId].photos));
+      textArr = JSON.parse(JSON.stringify(Templates[templateId].textfields));
+      stickerArr = JSON.parse(JSON.stringify(Templates[templateId].stickers));
+    }
     textArr.forEach((item) => {
       item.content = item.content.slice(0, item.limit);
     });
@@ -82,7 +82,7 @@ export default function Editor() {
       i.width = posterToView(i.width);
       i.height = posterToView(i.height);
     });
-
+    console.log(stickerArr);
     setPhotos(photoArr);
     setTexts(textArr);
     setStickers(stickerArr);
@@ -371,6 +371,7 @@ export default function Editor() {
       });
     }
   };
+  // console.log(AllStickers['tmp1']);
   return (
     <View className='hideaway-poster'>
       <Navbar transparent={true} holdPlace={false}>
@@ -408,7 +409,7 @@ export default function Editor() {
           <View>
             {photos.map((i) => (
               <EditablePhoto
-                key={'photo' + i.id}
+                key={templateId + 'photo' + i.id}
                 {...i}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -422,7 +423,7 @@ export default function Editor() {
           <View>
             {texts.map((i) => (
               <EditableText
-                key={'text' + i.id}
+                key={templateId + 'text' + i.id}
                 {...i}
                 onClick={() => onTextClick(i)}
               ></EditableText>
@@ -432,7 +433,7 @@ export default function Editor() {
             {stickers.map((i) => (
               <EditableItem
                 {...i}
-                key={'sticker' + i.id}
+                key={templateId + 'sticker' + i.id}
                 active={i.id === focusItemId}
                 onTouchStart={onItemTouch}
                 onDelete={removeSticker}

@@ -241,15 +241,7 @@ const Temp1: PosterData = {
       width: 24,
       height: 26,
       x: 31,
-      y: 636,
-      rotation: 0,
-    },
-    {
-      ...AllStickers.tmp1[6],
-      width: 24,
-      height: 26,
-      x: 31,
-      y: 636,
+      y: 623,
       rotation: degToRad(-9.33),
     },
     {
@@ -264,7 +256,7 @@ const Temp1: PosterData = {
     {
       ...AllStickers.tmp1[13],
       width: 60,
-      height: 40,
+      height: 29,
       x: 196,
       y: 434,
       rotation: degToRad(-9.33),

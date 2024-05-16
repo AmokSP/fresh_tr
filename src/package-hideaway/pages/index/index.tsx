@@ -362,7 +362,7 @@ export default function Index() {
       </View>
       <Image src={Orient} onClick={toggleOrient} className='orient-toggle'></Image>
       <View style={{ paddingTop: `${NAVBAR_HEIGHT}px` }} className='slogan'>
-        <View>亲近自然世界</View>
+        <View>逸游茶境 悠然阅己</View>
         <View className='sub'>享一杯悠闲漫时光 寻fresh茶粹的力量</View>
       </View>
       <View className='paginator'>

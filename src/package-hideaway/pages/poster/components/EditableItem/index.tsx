@@ -60,7 +60,7 @@ const EditableItem = React.memo(
         style={{
           transform: `matrix(${cosV},${sinV},${-sinV},${cosV},${Math.round(x)},${Math.round(y)})`,
         }}
-        className={cx('editable-item', { active })}
+        className={cx('editable-item', `sticker__${id}`, { active })}
       >
         {active && (
           <Block>

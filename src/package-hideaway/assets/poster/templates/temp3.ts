@@ -185,7 +185,7 @@ const Temp1: PosterData = {
     {
       ...AllStickers.tmp3[2],
       width: 101,
-      height: 65,
+      height: 73,
       x: 171,
       y: 691,
       rotation: degToRad(0),

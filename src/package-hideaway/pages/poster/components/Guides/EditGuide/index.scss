@@ -79,16 +79,16 @@
       transform: translateX(-50%);
     }
     .photo-finger {
-      top: 454 * 2px;
-      left: 290 * 2px;
+      top: 948px;
+      left: 520px;
     }
     .sticker-finger {
-      top: 288 * 2px;
-      left: 86 * 2px;
+      top: 326px;
+      left: 322px;
     }
     .text-finger {
-      top: 553 * 2px;
-      left: 77 * 2px;
+      top: 1096px;
+      left: 104px;
     }
     .texts {
       position: absolute;
@@ -99,38 +99,41 @@
       color: white;
     }
     .sticker-text {
-      top: 338 * 2px;
-      left: 81 * 2px;
+      top: 416px;
+      left: 312px;
     }
     .photo-text {
-      top: 501 * 2px;
-      left: 286 * 2px;
+      top: 1042px;
+      left: 512px;
     }
     .text-text {
-      top: 607 * 2px;
-      left: 73 * 2px;
+      top: 1194px;
+      left: 96px;
     }
 
     .fake-sticker {
       position: absolute;
-      width: 95 * 2px;
-      height: 95 * 2px;
-      top: 185 * 2px;
-      left: 59 * 2px;
+      width: 92 * 2px;
+      height: 49 * 2px;
+      left: 132.5px * 2;
+      top: 105px * 2;
+
+      border: 2px solid white;
     }
     .fake-photo {
       position: absolute;
       width: 141.24px * 2;
       height: 160px * 2;
-      top: 313.5px * 2;
-      left: 229.57px * 2;
+      left: 219px * 2;
+      top: 302px * 2;
+      transform: scale(1.2);
     }
     .fake-text {
       position: absolute;
       width: 180px * 2;
       height: 180px * 2;
-      top: 444px * 2;
-      left: -12.43px * 2;
+      left: -12px * 2;
+      top: 399px * 2;
     }
     .text-done {
       position: absolute;
