@@ -34,7 +34,6 @@ export default function Index() {
       hideLoading();
     } catch (e) {
       hideLoading();
-      console.log(e);
     }
   });
   useShareAppMessage(() => {

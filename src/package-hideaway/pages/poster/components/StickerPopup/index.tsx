@@ -10,24 +10,31 @@ import AllStickers from '@hideaway/assets/poster/stickers';
 type StickerPopupProps = {
   show: boolean;
   selectedTemplate: string;
-  selectedStickers: number[];
+  selectedStickers: number[] | string[];
+  allStickers: Sticker[];
   onSelectTemplate?: (id: string) => void;
-  onAddSticker?: (id: number) => void;
-  onRemoveSticker?: (id: number) => void;
+  onAddSticker?: (id: number | string) => void;
+  onRemoveSticker?: (id: number | string) => void;
   onClose?: () => void;
 };
 export default React.memo((props: StickerPopupProps) => {
-  const { selectedTemplate, selectedStickers, onAddSticker, onRemoveSticker, onSelectTemplate } =
-    props;
+  const {
+    allStickers,
+    selectedTemplate,
+    selectedStickers,
+    onAddSticker,
+    onRemoveSticker,
+    onSelectTemplate,
+  } = props;
   const [view, setView] = useState<'sticker' | 'template'>('template');
-  const toggleSticker = (sticker) => {
-    if (selectedStickers.includes(sticker.id)) {
-      onRemoveSticker?.(sticker.id);
+  const toggleSticker = (sticker:Sticker) => {
+    if (selectedStickers.includes(sticker.name)) {
+      onRemoveSticker?.(sticker.name);
     } else {
       // if (selectedStickers.length >= 6) {
       //   return Taro.showToast({ icon: 'none', title: '最多可选择6个贴纸' });
       // }
-      onAddSticker?.(sticker.id);
+      onAddSticker?.(sticker.name);
     }
   };
   return (
@@ -66,14 +73,16 @@ export default React.memo((props: StickerPopupProps) => {
       {view === 'sticker' && (
         <ScrollView scrollY className={cx('options', view)}>
           <View className='stickers'>
-            {Object.values(AllStickers[selectedTemplate]).map((i) => (
-              <View
-                onClick={() => toggleSticker(i)}
-                className={cx('option s-option', { active: selectedStickers.includes(i.id) })}
-              >
-                <Image lazyLoad src={i.src} mode='aspectFit'></Image>
-              </View>
-            ))}
+            {allStickers
+              ?.filter((i) => i.template === selectedTemplate)
+              .map((i) => (
+                <View
+                  onClick={() => toggleSticker(i)}
+                  className={cx('option s-option', { active: selectedStickers.includes(i.name) })}
+                >
+                  <Image lazyLoad src={i.src} mode='aspectFit'></Image>
+                </View>
+              ))}
           </View>
         </ScrollView>
       )}

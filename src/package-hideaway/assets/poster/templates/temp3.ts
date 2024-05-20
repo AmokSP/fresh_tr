@@ -1,8 +1,9 @@
 import { degToRad } from '@hideaway/pages/poster/utils/rotations';
 import preview from './3.png';
 import AllStickers from '../stickers';
+let stickerId = 0;
 const Temp1: PosterData = {
-  id: 'tmp3',
+  id: 'temp3',
   preview: preview,
   background: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[2].bg}`,
   desc: '这是模板3 的文字哈哈哈',
@@ -148,7 +149,9 @@ const Temp1: PosterData = {
   ],
   stickers: [
     {
-      ...AllStickers.tmp3[1],
+      
+      id: stickerId++,
+      name:'tc2',
       width: 103,
       height: 130,
       x: 263,
@@ -156,7 +159,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[0],
+      
+      id: stickerId++,
+      name:'tc1',
       width: 26,
       height: 26,
       x: 140,
@@ -164,7 +169,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[8],
+      
+      id: stickerId++,
+      name:'tc9',
       width: 37,
       height: 104,
       x: 243,
@@ -172,7 +179,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[3],
+      
+      id: stickerId++,
+      name:'tc4',
       width: 53,
       height: 57,
       x: 191,
@@ -180,7 +189,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[7],
+      
+      id: stickerId++,
+      name:'tc8',
       width: 84,
       height: 100,
       x: 53,
@@ -188,7 +199,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[4],
+      
+      id: stickerId++,
+      name:'tc5',
       width: 33,
       height: 59,
       x: 136,
@@ -196,7 +209,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[5],
+      
+      id: stickerId++,
+      name:'tc6',
       width: 134,
       height: 66,
       x: 88,
@@ -204,7 +219,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[2],
+      
+      id: stickerId++,
+      name:'tc3',
       width: 101,
       height: 73,
       x: 171,
@@ -212,7 +229,9 @@ const Temp1: PosterData = {
       rotation: degToRad(0),
     },
     {
-      ...AllStickers.tmp3[6],
+      
+      id: stickerId++,
+      name:'tc7',
       width: 103,
       height: 42,
       x: 318,

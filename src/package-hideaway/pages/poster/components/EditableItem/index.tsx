@@ -14,6 +14,7 @@ type EditableItemProps = {
   y: number;
   width: number;
   height: number;
+  name:string;
   onTouchStart: (e: { id; target }) => void;
   onDelete: (id) => void;
   rotation: number;
@@ -22,6 +23,7 @@ type EditableItemProps = {
 const EditableItem = React.memo(
   ({
     id,
+    name,
     active,
     src,
     x,
@@ -42,7 +44,7 @@ const EditableItem = React.memo(
     };
     const _onRemoveTouchStart = (e) => {
       e.stopPropagation();
-      onDelete(id);
+      onDelete(name);
     };
     const _onScaleTouchStart = (e) => {
       e.stopPropagation();

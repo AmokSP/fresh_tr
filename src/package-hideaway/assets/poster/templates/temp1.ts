@@ -1,8 +1,10 @@
 import { degToRad } from '@hideaway/pages/poster/utils/rotations';
 import preview from './1.png';
 import AllStickers from '../stickers';
+
+let stickerId = 0;
 const Temp1: PosterData = {
-  id: 'tmp1',
+  id: 'temp1',
   preview: preview,
   background: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].bg}`,
   desc: '这是模板1的文字',
@@ -156,7 +158,8 @@ const Temp1: PosterData = {
 
   stickers: [
     {
-      ...AllStickers.tmp1[12],
+      id: stickerId++,
+      name:'ta13',
       width: 92,
       height: 49,
       x: 179,
@@ -166,7 +169,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[5],
+      id: stickerId++,
+      name:'ta6',
       width: 69,
       height: 72,
       x: 238,
@@ -175,7 +179,8 @@ const Temp1: PosterData = {
       // rotation: degToRad(-10),
     },
     {
-      ...AllStickers.tmp1[10],
+      id: stickerId++,
+      name:'ta11',
       width: 33,
       height: 28,
       x: 356,
@@ -184,7 +189,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[4],
+      id: stickerId++,
+      name:'ta5',
       width: 57,
       height: 89,
       x: 341,
@@ -193,7 +199,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[2],
+      id: stickerId++,
+      name:'ta3',
       width: 76,
       height: 95,
       x: 91,
@@ -202,7 +209,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[11],
+      id: stickerId++,
+      name:'ta12',
       width: 120,
       height: 105,
       x: 151,
@@ -211,7 +219,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[3],
+      id: stickerId++,
+      name: 'ta4',
       width: 85,
       height: 102,
       x: 37,
@@ -219,7 +228,8 @@ const Temp1: PosterData = {
       rotation: 0,
     },
     {
-      ...AllStickers.tmp1[0],
+      id: stickerId++,
+      name:'ta1',
       width: 92,
       height: 73,
       x: 150,
@@ -228,7 +238,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[8],
+      id: stickerId++,
+      name:'ta9',
       width: 75,
       height: 42,
       x: 311,
@@ -237,7 +248,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[6],
+      id: stickerId++,
+      name:'ta7',
       width: 24,
       height: 26,
       x: 31,
@@ -245,7 +257,8 @@ const Temp1: PosterData = {
       rotation: degToRad(9.33),
     },
     {
-      ...AllStickers.tmp1[9],
+      id: stickerId++,
+      name:'ta10',
       width: 35,
       height: 46,
       x: 29,
@@ -254,7 +267,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[13],
+      id: stickerId++,
+      name:'ta14',
       width: 60,
       height: 29,
       x: 196,
@@ -263,7 +277,8 @@ const Temp1: PosterData = {
     },
 
     {
-      ...AllStickers.tmp1[1],
+      id: stickerId++,
+      name:'ta2',
       width: 63,
       height: 56,
       x: 212,
@@ -271,7 +286,8 @@ const Temp1: PosterData = {
       rotation: degToRad(-6.83),
     },
     {
-      ...AllStickers.tmp1[7],
+      id: stickerId++,
+      name:'ta8',
       width: 68,
       height: 68,
       x: 43,

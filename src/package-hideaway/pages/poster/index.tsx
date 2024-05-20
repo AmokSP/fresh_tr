@@ -10,7 +10,7 @@ import EditablePhoto from './components/EditablePhoto';
 import TextEditor from './components/TextEditor';
 import useBoolean from '@hooks/useBoolean';
 import StickerPopup from './components/StickerPopup';
-import AllStickers from '@hideaway/assets/poster/stickers';
+// import AllStickers from '@hideaway/assets/poster/stickers';
 import Templates from '@hideaway/assets/poster/templates';
 import PanelBtn from '@hideaway/assets/poster/icons/panel-btn.png';
 import { POSTER_HEIGHT, POSTER_WIDTH, posterToView, viewToPoster } from './utils/scale';
@@ -26,6 +26,7 @@ import HideawayService from '@api/hideaway.service';
 import { COUPON_STATUS } from '@constants/coupon';
 import Plane from '@assets/plane.png';
 import PrivacyAuth from '@components/PrivacyAuth';
+import useAsync from '@hooks/useAsync';
 
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 const MoveableSize = { width: posterToView(POSTER_WIDTH), height: posterToView(POSTER_HEIGHT) };
@@ -42,14 +43,38 @@ export default function Editor() {
   const { receivedCount, giftCount } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
     useBoolean(false);
-  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'tmp1');
+  const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'temp1');
   // const [templateId, setTemplateId] = useState('tmp1');
   const [focusItemId, setFocusItemId] = useState(-1);
   const [textEditorTarget, setTextEditorTarget] = useState<TextField | undefined>(undefined);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [texts, setTexts] = useState<TextField[]>([]);
   const [stickers, setStickers] = useState<Sticker[]>([]);
+  const { value: cmsStickers, execute: fetchAllStickers } = useAsync(() => {
+    return new Promise((resolve) => {
+      HideawayService.getHideawayStickers().then((res) => {
+        const stickerArr = [...res.data.attributes.sticker];
+        resolve(
+          stickerArr.map((item) => {
+            const image = item.image.data.attributes;
+            const scale = image.width > 300 ? 0.3 : 0.5;
+            return {
+              ...item,
+              src: `${BUCKET_URL}${image.url}`,
+              width: image.width * scale,
+              height: image.height * scale,
+              image: undefined,
+            };
+          })
+        );
+      });
+    });
+  });
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
+
+  useLoad(() => {
+    fetchAllStickers();
+  });
   useShareAppMessage(() => {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
@@ -82,7 +107,6 @@ export default function Editor() {
       i.width = posterToView(i.width);
       i.height = posterToView(i.height);
     });
-    console.log(stickerArr);
     setPhotos(photoArr);
     setTexts(textArr);
     setStickers(stickerArr);
@@ -179,7 +203,6 @@ export default function Editor() {
     });
   };
   const canvasTouchEnd = (e) => {
-    console.log(e);
     e.changedTouches.forEach((releasedTouch) => {
       touches.delete(releasedTouch.identifier);
     });
@@ -222,7 +245,6 @@ export default function Editor() {
         sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
       });
-      console.log(newImage);
       const { tempFilePath } = await Taro.cropImage({
         src: newImage.tempFilePaths[0],
         cropScale: target.ratio ?? '1:1',
@@ -231,7 +253,6 @@ export default function Editor() {
 
       const { accessUrl } = await HideawayService.uploadPhoto(tempFilePath);
       hideLoading();
-      console.log(accessUrl);
       if (!accessUrl) {
         return showContentError();
       }
@@ -246,7 +267,6 @@ export default function Editor() {
         },
       ]);
     } catch (error) {
-      console.log(error);
       switch (error.errMsg) {
         case 'chooseImage:fail cancel':
         case 'cropImage:fail cancel':
@@ -266,20 +286,17 @@ export default function Editor() {
       }
     }
   };
-  const addSticker = (id) => {
+  const addSticker = (name) => {
     edited = true;
-    const targetSticker = AllStickers[templateId][id];
+    const targetSticker = { ...cmsStickers.find((i) => i.name === name), id: new Date().getTime() };
 
     setFocusItemId(targetSticker!.id);
     setStickers([...stickers, { ...targetSticker!, rotation: 0, x: windowWidth * 0.5, y: 250 }]);
   };
-  const removeSticker = (id) => {
+  const removeSticker = (name) => {
     edited = true;
-    console.log(id);
-    if (id === focusItemId) {
-      setFocusItemId(-1);
-    }
-    setStickers(stickers.filter((i) => i.id !== id));
+    setFocusItemId(-1);
+    setStickers(stickers.filter((i) => i.name !== name));
   };
   const selectTemplate = (id) => {
     if (id !== templateId) {
@@ -309,6 +326,9 @@ export default function Editor() {
       i.y = viewToPoster(i.y);
       i.width = viewToPoster(i.width);
       i.height = viewToPoster(i.height);
+    });
+    stickerArr.forEach((item) => {
+      item.src = cmsStickers?.find((i) => i.name === item.name).src;
     });
 
     template.photos = photoArr;
@@ -430,15 +450,21 @@ export default function Editor() {
             ))}
           </View>
           <View>
-            {stickers.map((i) => (
-              <EditableItem
-                {...i}
-                key={templateId + 'sticker' + i.id}
-                active={i.id === focusItemId}
-                onTouchStart={onItemTouch}
-                onDelete={removeSticker}
-              ></EditableItem>
-            ))}
+            {stickers.map((sticker) => {
+              const cmsSticker = cmsStickers?.find((i) => sticker.name === i.name);
+
+              const url = sticker?.src ?? cmsSticker?.src;
+              return (
+                <EditableItem
+                  {...sticker}
+                  src={url}
+                  key={templateId + 'sticker' + sticker.id}
+                  active={sticker.id === focusItemId}
+                  onTouchStart={onItemTouch}
+                  onDelete={removeSticker}
+                ></EditableItem>
+              );
+            })}
           </View>
           <View onClick={handleGenerate} className='next'>
             预览
@@ -456,9 +482,10 @@ export default function Editor() {
       </View>
       <EditGuide></EditGuide>
       <StickerPopup
+        allStickers={cmsStickers}
         show={stickerPopupFlag}
         selectedTemplate={templateId}
-        selectedStickers={stickers.map((i) => i.id)}
+        selectedStickers={stickers.map((i) => i.name)}
         onAddSticker={addSticker}
         onClose={hideStickerPopup}
         onRemoveSticker={removeSticker}

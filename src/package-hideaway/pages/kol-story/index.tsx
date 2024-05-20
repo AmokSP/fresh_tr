@@ -10,7 +10,7 @@ import HideawayService from '@api/hideaway.service';
 export default function Index() {
   const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStory);
   useLoad(() => {
-    fetchKolData('hangzhou2');
+    fetchKolData(1);
   });
 
   useShareAppMessage(() => {
