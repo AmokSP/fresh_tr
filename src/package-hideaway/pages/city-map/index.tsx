@@ -351,7 +351,7 @@ export default function Index() {
               goto({ url: `${HIDEAWAY.POSTER}` });
             }}
           >
-            制作手账
+            继续制作手账
           </View>
           <View
             className={cx('underline', {

@@ -13,7 +13,7 @@ const Temp1: PosterData = {
       limit: 40,
       x: 87,
       y: 334,
-      width: 134,
+      width: 136,
       height: 50,
       fontSize: 11,
       fontWeight: 'normal',

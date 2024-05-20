@@ -144,8 +144,8 @@ export default function Index() {
             查看礼券
           </View>
           <View className='more'>
-            <View className='underline' onClick={() => Taro.navigateBack({ delta: 1 })}>
-              继续制作手账
+            <View className='underline' onClick={backToMap}>
+              继续探索
             </View>
             <View className='line'></View>
             <Button openType='share' className='underline'>

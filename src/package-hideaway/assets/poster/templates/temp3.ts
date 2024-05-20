@@ -10,7 +10,7 @@ const Temp1: PosterData = {
     {
       id: 1,
       content: '等风来，不如出发去有风的地方',
-      limit: 12,
+      limit: 15,
       x: 93,
       y: 221,
       width: 72,
@@ -26,7 +26,7 @@ const Temp1: PosterData = {
     {
       id: 2,
       content: `在微风轻拂的季节里，享受旅途的美景
-        我喜欢旅行中带上爱用好物Fresh Black Tea
+        我喜欢旅行中带上爱用好物Fresh\nBlack Tea
         让我在旅途中也可以保持肌肤活力好状态
         用相机记录每时每刻的精彩`,
       limit: 100,
