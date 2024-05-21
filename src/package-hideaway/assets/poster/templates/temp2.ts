@@ -1,6 +1,5 @@
 import { degToRad } from '@hideaway/pages/poster/utils/rotations';
 import preview from './2.png';
-import AllStickers from '../stickers';
 let stickerId = 0;
 const Temp1: PosterData = {
   id: 'temp2',
@@ -113,7 +112,7 @@ const Temp1: PosterData = {
   stickers: [
     {
       id: stickerId++,
-      name:'tb5',
+      name: 'tb5',
       width: 196,
       height: 23,
       x: 111,
@@ -122,7 +121,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb1',
+      name: 'tb1',
       width: 110,
       height: 74,
       x: 306,
@@ -131,7 +130,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb2',
+      name: 'tb2',
       width: 67,
       height: 49,
       x: 175,
@@ -140,7 +139,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb7',
+      name: 'tb7',
       width: 157,
       height: 43,
       x: 88,
@@ -149,7 +148,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb4',
+      name: 'tb4',
       width: 52,
       height: 34,
       x: 221,
@@ -158,7 +157,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb6',
+      name: 'tb6',
       width: 124,
       height: 27,
       x: 139,
@@ -167,7 +166,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb8',
+      name: 'tb8',
       width: 64,
       height: 40,
       x: 213,
@@ -176,7 +175,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'tb3',
+      name: 'tb3',
       width: 74,
       height: 44,
       x: 65,

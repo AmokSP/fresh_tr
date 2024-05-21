@@ -1,6 +1,5 @@
 import { degToRad } from '@hideaway/pages/poster/utils/rotations';
 import preview from './1.png';
-import AllStickers from '../stickers';
 
 let stickerId = 0;
 const Temp1: PosterData = {
@@ -159,7 +158,7 @@ const Temp1: PosterData = {
   stickers: [
     {
       id: stickerId++,
-      name:'ta13',
+      name: 'ta13',
       width: 92,
       height: 49,
       x: 179,
@@ -170,7 +169,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta6',
+      name: 'ta6',
       width: 69,
       height: 72,
       x: 238,
@@ -180,7 +179,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'ta11',
+      name: 'ta11',
       width: 33,
       height: 28,
       x: 356,
@@ -190,7 +189,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta5',
+      name: 'ta5',
       width: 57,
       height: 89,
       x: 341,
@@ -200,7 +199,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta3',
+      name: 'ta3',
       width: 76,
       height: 95,
       x: 91,
@@ -210,7 +209,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta12',
+      name: 'ta12',
       width: 120,
       height: 105,
       x: 151,
@@ -229,7 +228,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'ta1',
+      name: 'ta1',
       width: 92,
       height: 73,
       x: 150,
@@ -239,7 +238,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta9',
+      name: 'ta9',
       width: 75,
       height: 42,
       x: 311,
@@ -249,7 +248,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta7',
+      name: 'ta7',
       width: 24,
       height: 26,
       x: 31,
@@ -258,7 +257,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'ta10',
+      name: 'ta10',
       width: 35,
       height: 46,
       x: 29,
@@ -268,7 +267,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta14',
+      name: 'ta14',
       width: 60,
       height: 29,
       x: 196,
@@ -278,7 +277,7 @@ const Temp1: PosterData = {
 
     {
       id: stickerId++,
-      name:'ta2',
+      name: 'ta2',
       width: 63,
       height: 56,
       x: 212,
@@ -287,7 +286,7 @@ const Temp1: PosterData = {
     },
     {
       id: stickerId++,
-      name:'ta8',
+      name: 'ta8',
       width: 68,
       height: 68,
       x: 43,

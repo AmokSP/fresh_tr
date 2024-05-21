@@ -10,11 +10,9 @@ import FakeSticker from '../assets/sticker.png';
 import FakePhoto from '../assets/Photo.png';
 import FakeText from '../assets/text.png';
 import { NAVBAR_HEIGHT } from '@components/Basic/Navbar';
-import { goto, showToast } from '@utils';
 import useBoolean from '@hooks/useBoolean';
 import cx from 'classnames';
-import { PAGES } from '@app.config';
-export default React.memo(() => {
+export default React.memo(({ onClose }: { onClose?: () => void }) => {
   const [policyChecked, , , togglePolicy] = useBoolean(false);
   const [guideRead, setGuideRead] = useBoolean(Taro.getStorageSync('edit_guide_read') ?? false);
   // const [guideRead, setGuideRead] = useBoolean(false);
@@ -63,14 +61,15 @@ export default React.memo(() => {
             <View
               className='rnd-btn btn-start'
               onClick={() => {
-                if (!policyChecked) return showToast({ title: t('signup.error.policy') });
+                // if (!policyChecked) return showToast({ title: t('signup.error.policy') });
                 setGuideRead();
                 Taro.setStorageSync('edit_guide_read', true);
+                onClose?.();
               }}
             >
               开始创作
             </View>
-            <View className={'policy'} onClick={togglePolicy}>
+            {/* <View className={'policy'} onClick={togglePolicy}>
               <View
                 className={`policy__checkbox ${policyChecked ? 'policy__checkbox__active' : ''}`}
               >
@@ -99,7 +98,7 @@ export default React.memo(() => {
                 </Text>
                 {t('signup.policy.part3')}
               </View>
-            </View>
+            </View> */}
           </Block>,
         ][step]
       }

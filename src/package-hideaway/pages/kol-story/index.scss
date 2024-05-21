@@ -1,4 +1,20 @@
 .kol-story {
+  .mask {
+    position: fixed;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    transition: all 0.8s ease-in-out;
+    &.loading {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
   .w-100 {
     width: 100%;
     height: auto;
@@ -8,6 +24,6 @@
     width: 560px;
     height: auto;
     left: 28px;
-    top: 520px
+    top: 520px;
   }
 }

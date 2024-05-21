@@ -1,14 +1,14 @@
 type CheckResult = 'success' | 'in_check' | 'invalid_content';
 type Sticker = {
   src?: string;
-  name:string;
+  name: string;
   id: number;
   x: number;
   y: number;
   width: number;
   height: number;
   rotation: number;
-  template?:string;
+  caption?: string;
 };
 type TextField = {
   id: number;

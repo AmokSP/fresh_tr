@@ -31,6 +31,12 @@ export class HideawayService {
       // url: `${CMS_API_URL}/hideaway-asset?fields[0]=bookcover&fields[1]=bookback&fields[2]=bookpage`,
     });
   }
+  public static async getKolStoryBySlug(id: string): Promise<any> {
+    return cmsRequest({
+      method: 'GET',
+      url: `${CMS_API_URL}/kol-stories?populate=deep&filters[slug][$eq]=${id}`,
+    });
+  }
 
   public static async getShareStatus(): Promise<any> {
     return request({

@@ -36,7 +36,7 @@ let edited = false;
 let tempId = -1;
 
 export default function Editor() {
-  const { params } = useRouter();
+  const [policyPopupFlag, showPolicy] = useBoolean(false);
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
   const [contentInCheckFlag, showContentIncheck, hideContentIncheck] = useBoolean(false);
   const [templateSwitchPopup, showTempalteSwitch, hideTemplateSwitch] = useBoolean(false);
@@ -53,17 +53,16 @@ export default function Editor() {
   const { value: cmsStickers, execute: fetchAllStickers } = useAsync(() => {
     return new Promise((resolve) => {
       HideawayService.getHideawayStickers().then((res) => {
-        const stickerArr = [...res.data.attributes.sticker];
+        const stickerArr = [...res.data.attributes.stickers.data];
         resolve(
           stickerArr.map((item) => {
-            const image = item.image.data.attributes;
+            const image = item.attributes;
             const scale = image.width > 300 ? 0.3 : 0.5;
             return {
-              ...item,
+              ...image,
               src: `${BUCKET_URL}${image.url}`,
               width: image.width * scale,
               height: image.height * scale,
-              image: undefined,
             };
           })
         );
@@ -480,7 +479,7 @@ export default function Editor() {
           ></TextEditor>
         )}
       </View>
-      <EditGuide></EditGuide>
+      <EditGuide onClose={showPolicy}></EditGuide>
       <StickerPopup
         allStickers={cmsStickers}
         show={stickerPopupFlag}
@@ -544,7 +543,14 @@ export default function Editor() {
           </View>
         </View>
       </HideawaySharePanel>
-      <PrivacyAuth></PrivacyAuth>
+      <PrivacyAuth init={policyPopupFlag}>
+        <View
+          style={{ lineHeight: '36rpx', fontSize: '24rpx', color: '#9AA5B0', marginTop: '36rpx' }}
+        >
+          <Text style={{ fontWeight: 'bold' }}>请注意：</Text>
+          为了制作海报，我们需要申请使用您的摄像头/相册权限并收集您的照片。请您注意周围环境和行为适当性，我们会采取严格保护措施保护您的个人信息安全。活动结束后，您的照片将被删除
+        </View>
+      </PrivacyAuth>
       <Image onClick={showSharePanel} className='btn-plane' src={Plane}></Image>
     </View>
   );

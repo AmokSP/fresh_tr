@@ -27,7 +27,7 @@ export default React.memo((props: StickerPopupProps) => {
     onSelectTemplate,
   } = props;
   const [view, setView] = useState<'sticker' | 'template'>('template');
-  const toggleSticker = (sticker:Sticker) => {
+  const toggleSticker = (sticker: Sticker) => {
     if (selectedStickers.includes(sticker.name)) {
       onRemoveSticker?.(sticker.name);
     } else {
@@ -74,13 +74,13 @@ export default React.memo((props: StickerPopupProps) => {
         <ScrollView scrollY className={cx('options', view)}>
           <View className='stickers'>
             {allStickers
-              ?.filter((i) => i.template === selectedTemplate)
+              ?.filter((i) => i.caption === selectedTemplate || i.caption === 'common')
               .map((i) => (
                 <View
                   onClick={() => toggleSticker(i)}
                   className={cx('option s-option', { active: selectedStickers.includes(i.name) })}
                 >
-                  <Image lazyLoad src={i.src} mode='aspectFit'></Image>
+                  <Image lazyLoad src={i.src!} mode='aspectFit'></Image>
                 </View>
               ))}
           </View>

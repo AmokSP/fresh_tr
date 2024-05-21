@@ -2,15 +2,20 @@ import { HIDEAWAY } from '@app.config';
 import Header from '@components/Basic/Header';
 import Navbar from '@components/Basic/Navbar';
 import { View, Image, Text, Canvas, Video } from '@tarojs/components';
-import Taro, { useLoad, useShareAppMessage } from '@tarojs/taro';
-import { goto } from '@utils';
+import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
+import { goto, hideLoading, showLoading } from '@utils';
 import './index.scss';
 import useAsync from '@hooks/useAsync';
 import HideawayService from '@api/hideaway.service';
+import { useState } from 'react';
+import cx from 'classnames';
 export default function Index() {
-  const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStory);
-  useLoad(() => {
-    fetchKolData(1);
+  const { params } = useRouter();
+  const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStoryBySlug);
+  const [loading, setLoading] = useState(true);
+  useLoad(async () => {
+    showLoading();
+    await fetchKolData(params.slug!);
   });
 
   useShareAppMessage(() => {
@@ -24,21 +29,35 @@ export default function Index() {
       <Navbar transparent holdPlace={false}>
         <Header title='brand_logo'></Header>
       </Navbar>
-      {kolData?.data?.attributes.content.map((item) => {
-        console.log(item);
+      <View className={cx('mask', { loading })}></View>
+      {kolData?.data?.[0]?.attributes.content.map((item, index) => {
+        const image = item?.image?.data?.attributes;
         return {
           'hideawaybookpage.kol-image': (
             <Image
+              lazyLoad
               className='w-100'
+              onLoad={() => {
+                if (index == 0) {
+                  hideLoading();
+                  setLoading(false);
+                }
+              }}
               mode='widthFix'
-              src={`${BUCKET_URL}${item?.url?.data?.attributes?.url}`}
+              src={`${BUCKET_URL}${image?.url}`}
+              onClick={() => {
+                if (index === (kolData?.data?.[0]?.attributes.content.length ?? 0) - 1) {
+                  goto({ url: HIDEAWAY.POSTER });
+                }
+              }}
             ></Image>
           ),
           'hideawaybookpage.kol-video': (
             <Video
               className='w-100'
               style={{
-                height: item.height ?? 350 + 'rpx',
+                height: item.height ?? 211 + 'rpx',
+                width: item.width ?? 375 + 'rpx',
               }}
               src={`${item.url}`}
             ></Video>

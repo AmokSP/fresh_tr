@@ -148,10 +148,10 @@ export default function Index() {
       });
     });
   };
-  const onCardClick = (index) => {
+  const onCardClick = (slug) => {
     subscribeMessage(false).finally(() => {
       goto({
-        url: `${HIDEAWAY.KOL_STORY}?id=${index}`,
+        url: `${HIDEAWAY.KOL_STORY}?slug=${slug}`,
       });
     });
   };
@@ -283,7 +283,7 @@ export default function Index() {
                   className='image'
                   src={i.image}
                   mode='aspectFit'
-                  onClick={() => onCardClick(index)}
+                  onClick={() => onCardClick(i.slug)}
                 ></Image>
                 <View
                   className='kol-body'
@@ -292,7 +292,7 @@ export default function Index() {
                   }}
                 >
                   <View className='kol-desc'>{i.text}</View>
-                  <View className='pill-button primary outline' onClick={() => onCardClick(index)}>
+                  <View className='pill-button primary outline' onClick={() => onCardClick(i.slug)}>
                     点击查看
                   </View>
                   <Image src={CardBG} className='bg'></Image>
