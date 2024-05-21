@@ -1,5 +1,5 @@
 import { Text, Image, View, Block, MovableArea, MovableView } from '@tarojs/components';
-import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
+import Taro, { useDidHide, useDidShow, useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import getTransformedData from './utils/getTransformedData';
@@ -34,8 +34,11 @@ let touches: Map<string, { preX: number; preY: number }> = new Map();
 let mode: 'control' | '' = '';
 let edited = false;
 let tempId = -1;
+let stickerCache: Sticker[] = [];
+let renderFlag = false;
 
 export default function Editor() {
+  const renderTimer = useRef<NodeJS.Timeout>();
   const [policyPopupFlag, showPolicy] = useBoolean(false);
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
   const [contentInCheckFlag, showContentIncheck, hideContentIncheck] = useBoolean(false);
@@ -70,7 +73,16 @@ export default function Editor() {
     });
   });
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
-
+  useDidShow(() => {
+    clearInterval(renderTimer.current);
+    console.log(renderTimer.current);
+    renderTimer.current = setInterval(() => {
+      if (renderFlag) setStickers(stickerCache);
+    }, 20);
+  });
+  useDidHide(() => {
+    clearInterval(renderTimer.current);
+  });
   useLoad(() => {
     fetchAllStickers();
   });
@@ -123,6 +135,7 @@ export default function Editor() {
     if (e.touches.length === 1 && focusItemId !== e.id) {
       setFocusItemId(e.id);
     }
+
     const { pageX, pageY } = e.changedTouches[0];
     const { target } = e;
     switch (target) {
@@ -137,11 +150,13 @@ export default function Editor() {
       preX: pageX,
       preY: pageY,
     });
+    renderFlag = true;
+    stickerCache = [...stickers];
   };
   const onTouchMove = (e) => {
     if (focusItemId < 0) return;
-    const target = stickers.find((i) => i.id === focusItemId);
-    const restItems = stickers.filter((i) => i.id !== focusItemId);
+    const target = stickerCache.find((i) => i.id === focusItemId);
+    const restItems = stickerCache.filter((i) => i.id !== focusItemId);
 
     const prevX1 = touches.get(e.touches[0].identifier)?.preX;
     const prevY1 = touches.get(e.touches[0].identifier)?.preY;
@@ -181,17 +196,15 @@ export default function Editor() {
       crtX2,
       crtY2
     );
-    setStickers(() => {
-      const newItem = {
-        ...target,
-        x: isNaN(newX) ? x : newX,
-        y: isNaN(newY) ? y : newY,
-        rotation: isNaN(deltaRotationRad) ? rotation : rotation + deltaRotationRad,
-        width: isNaN(scale) ? width : width * scale,
-        height: isNaN(scale) ? height : height * scale,
-      };
-      return [...restItems, newItem] as any;
-    });
+    const newItem = {
+      ...target,
+      x: isNaN(newX) ? x : newX,
+      y: isNaN(newY) ? y : newY,
+      rotation: isNaN(deltaRotationRad) ? rotation : rotation + deltaRotationRad,
+      width: isNaN(scale) ? width : width * scale,
+      height: isNaN(scale) ? height : height * scale,
+    };
+    stickerCache = [...restItems, newItem] as any;
 
     edited = true;
     e.touches.forEach((touch) => {
@@ -206,6 +219,7 @@ export default function Editor() {
       touches.delete(releasedTouch.identifier);
     });
     if (e.touches.length === 0) {
+      renderFlag = false;
       saveToLocal();
     }
   };
