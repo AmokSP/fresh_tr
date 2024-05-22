@@ -51,6 +51,8 @@ export default function Index() {
   const {
     params: { city = '0' },
   } = useRouter();
+  const [grabbing, setGrabbing] = useState(false);
+  const [animeFlag, startAnime, stopAnime] = useBoolean(false);
   const [currentKol, setCurrentKol] = useState(parseInt(city) * 2);
   const [transition, setTransition] = useState(0);
   const [subscribed, setSubscribed] = useState<boolean>(Taro.getStorageSync(SubscribeKey) ?? false);
@@ -73,15 +75,19 @@ export default function Index() {
         onUpdate: () => {
           setTransition(progress.current);
         },
+        onStart: startAnime,
+        onComplete: stopAnime,
       }
     );
   });
 
   const onTouchStart = (e) => {
+    if (grabbing) return;
     e.stopPropagation();
     e.preventDefault();
     prevX = e.touches[0].clientX;
     gsap.killTweensOf(progress);
+    setGrabbing(true);
   };
   const onTouchMove = (e) => {
     e.stopPropagation();
@@ -92,10 +98,12 @@ export default function Index() {
     prevX = clientX;
   };
   const onTouchEnd = (e) => {
+    setGrabbing(false);
     let target = 0;
-    const blockProgress = transition % windowWidth;
-
-    if (-blockProgress < SWIPETHRESHOLD) {
+    // const blockProgress = transition % windowWidth;
+    console.log(transition);
+    console.log(currentKol * windowWidth);
+    if (-transition > currentKol * windowWidth) {
       console.log(1);
       target = Math.floor(transition / windowWidth) * windowWidth;
     } else {
@@ -108,17 +116,19 @@ export default function Index() {
     if (-target < 0) {
       target = 0;
     }
-    console.log('target', target / windowWidth);
     setCurrentKol(Math.abs(target / windowWidth));
     gsap.fromTo(
       progress,
       { current: transition },
       {
         current: target,
-        duration: 1,
+        duration: 0.75,
         onUpdate: () => {
           setTransition(progress.current);
         },
+
+        onStart: startAnime,
+        onComplete: stopAnime,
       }
     );
   };
@@ -128,10 +138,13 @@ export default function Index() {
     setCurrentKol(index);
     gsap.to(progress, {
       current: -index * windowWidth,
-      duration: 1,
+      duration: 0.75,
       onUpdate: () => {
         setTransition(progress.current);
       },
+
+      onStart: startAnime,
+      onComplete: stopAnime,
     });
   };
   const movePrev = () => {
@@ -149,6 +162,7 @@ export default function Index() {
     });
   };
   const onCardClick = (slug) => {
+    if (animeFlag) return;
     subscribeMessage(false).finally(() => {
       goto({
         url: `${HIDEAWAY.KOL_STORY}?slug=${slug}`,

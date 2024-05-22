@@ -9,6 +9,7 @@ import useAsync from '@hooks/useAsync';
 import HideawayService from '@api/hideaway.service';
 import { useState } from 'react';
 import cx from 'classnames';
+const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 export default function Index() {
   const { params } = useRouter();
   const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStoryBySlug);
@@ -56,8 +57,8 @@ export default function Index() {
             <Video
               className='w-100'
               style={{
-                height: item.height ?? 211 + 'rpx',
-                width: item.width ?? 375 + 'rpx',
+                height: (item.height ?? 211) * (windowWidth / (item.width ?? 375)) + 'px',
+                width: ((item.width ?? 375) / 375) * windowWidth + 'px',
               }}
               src={`${item.url}`}
             ></Video>

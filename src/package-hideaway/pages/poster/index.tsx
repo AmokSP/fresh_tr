@@ -7,19 +7,17 @@ import './index.scss';
 import EditableItem from './components/EditableItem';
 import EditableText from './components/EditableText';
 import EditablePhoto from './components/EditablePhoto';
+import PanelButton from './components/PanelButton';
 import TextEditor from './components/TextEditor';
 import useBoolean from '@hooks/useBoolean';
 import StickerPopup from './components/StickerPopup';
 // import AllStickers from '@hideaway/assets/poster/stickers';
 import Templates from '@hideaway/assets/poster/templates';
-import PanelBtn from '@hideaway/assets/poster/icons/panel-btn.png';
 import { POSTER_HEIGHT, POSTER_WIDTH, posterToView, viewToPoster } from './utils/scale';
 import HideawaySharePanel from '@hideaway/components/HideawaySharePanel';
 import useShareStatusQuery from '@hideaway/useShareStatusQuery';
 import { goto, hideLoading, showLoading, showToast } from '@utils';
 import { HIDEAWAY, PAGES } from '@app.config';
-import Header from '@components/Basic/Header';
-import Navbar, { NAVBAR_HEIGHT } from '@components/Basic/Navbar';
 import EditGuide from './components/Guides/EditGuide';
 import HideawayPopup from '@components/HideawayPopup';
 import HideawayService from '@api/hideaway.service';
@@ -27,7 +25,10 @@ import { COUPON_STATUS } from '@constants/coupon';
 import Plane from '@assets/plane.png';
 import PrivacyAuth from '@components/PrivacyAuth';
 import useAsync from '@hooks/useAsync';
+import * as Icons from '@assets/icons';
+import Logo from '@assets/logo-large.png';
 
+const menuButtonRect = Taro.getMenuButtonBoundingClientRect();
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 const MoveableSize = { width: posterToView(POSTER_WIDTH), height: posterToView(POSTER_HEIGHT) };
 let touches: Map<string, { preX: number; preY: number }> = new Map();
@@ -379,6 +380,7 @@ export default function Editor() {
       });
     }
     if (texts.some((i) => i.error)) {
+      hideLoading();
       return showContentError();
     }
     try {
@@ -407,7 +409,7 @@ export default function Editor() {
   // console.log(AllStickers['tmp1']);
   return (
     <View className='hideaway-poster'>
-      <Navbar transparent={true} holdPlace={false}>
+      {/* <Navbar transparent={true} holdPlace={false}>
         <Header
           buttonBack
           onClickBack={() => {
@@ -421,14 +423,29 @@ export default function Editor() {
           }}
           title='brand_logo'
         ></Header>
-      </Navbar>
+      </Navbar> */}
       <Image
-        style={{ top: NAVBAR_HEIGHT }}
-        className='panel-btn'
+        src={Logo}
         mode='widthFix'
-        src={PanelBtn}
-        onClick={toggleStickerPopup}
+        className='brand-logo'
+        style={{ top: menuButtonRect.top + menuButtonRect.height * 0.5 }}
       ></Image>
+      <Image
+        src={Icons.arrow_back}
+        className={'nav-back'}
+        style={{ top: menuButtonRect.top + menuButtonRect.height * 0.5 }}
+        mode='widthFix'
+        onClick={() => {
+          Taro.navigateBack({
+            delta: 1,
+
+            fail: () => {
+              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+            },
+          });
+        }}
+      />
+      <PanelButton onClick={toggleStickerPopup}></PanelButton>
       <MovableArea scaleArea={false} className='move-area'>
         <MovableView
           direction='vertical'

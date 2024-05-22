@@ -210,7 +210,7 @@ export default function Index() {
           {ctas}
         </View>
       </HideawayPopup>
-      <PrivacyAuth></PrivacyAuth>
+      <PrivacyAuth init></PrivacyAuth>
     </View>
   );
 }
