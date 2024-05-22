@@ -382,11 +382,11 @@ export default class FressBook {
       this.animate(canvas);
     });
     if (this.interactive) {
-      if (this.progress.current >= 50) {
-        this.camera.position.x = 0;
-      } else {
-        this.camera.position.x = ((50 - this.progress.current) / 50) * PAGE_WIDTH * 0.5;
-      }
+      // if (this.progress.current >= 50) {
+      //   this.camera.position.x = 0;
+      // } else {
+      //   this.camera.position.x = ((50 - this.progress.current) / 50) * PAGE_WIDTH * 0.5;
+      // }
     }
     this.cover.rotation.y = -clamp(this.progress.current / 50, 0.015, 1) * Math.PI;
     this.pages.forEach((page, index) => {

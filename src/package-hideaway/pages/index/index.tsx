@@ -24,6 +24,7 @@ import PlaneLoad from '@hideaway/assets/plane-load.png';
 import { HIDEAWAY, PAGES } from '@app.config';
 import { COUPON_STATUS } from '@constants/coupon';
 import Header from '@components/Basic/Header';
+import { degToRad } from '../poster/utils/rotations';
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 let prevTouch = 0;
 let animating = false;
@@ -86,9 +87,9 @@ export default function Index() {
       animating = true;
       setPhase('book-ready');
       gsap.to(freshBook.current.camera.position, {
-        x: 0,
-        z: 45,
-        y: 0,
+        // x: 0,
+        z: 23,
+        // y: 0,
         duration: 2,
         delay: 0,
         ease: 'power1.out',
@@ -144,15 +145,15 @@ export default function Index() {
         current: targetProgress,
       });
     }
-    if (freshBook.current.progress.current >= 25) {
-      gsap.to(freshBook.current.camera.position, {
-        x: 0,
-      });
-    } else {
-      gsap.to(freshBook.current.camera.position, {
-        x: PAGE_WIDTH * 0.5,
-      });
-    }
+    // if (freshBook.current.progress.current >= 25) {
+    //   gsap.to(freshBook.current.camera.position, {
+    //     x: 0,
+    //   });
+    // } else {
+    //   gsap.to(freshBook.current.camera.position, {
+    //     x: PAGE_WIDTH * 0.5,
+    //   });
+    // }
     setCityIndex(Math.floor((targetProgress - 50) / 50));
   };
   const toggleOrient = () => {
@@ -252,25 +253,30 @@ export default function Index() {
     });
 
     gsap.to(freshBook.current.camera.position, {
-      y: -0.5,
+      y: -0,
       duration: 1.5,
       ease: 'power1.inOut',
+      onComplete: () => {},
+    });
+    gsap.to(freshBook.current.camera.position, {
+      x: PAGE_WIDTH * 0.5,
+      z: 23,
+      duration: 3,
+      delay: 1.5,
+      ease: 'power1.inOut',
       onComplete: () => {
+        animating = false;
         showSwipeGuide();
         freshBook.current.parallax = true;
         freshBook.current.interactive = true;
         setPhase('book-ready');
       },
     });
-    gsap.to(freshBook.current.camera.position, {
-      x: 0,
-      z: 45,
+    gsap.to(freshBook.current.camera.rotation, {
+      z: degToRad(-4),
       duration: 3,
       delay: 1.5,
       ease: 'power1.inOut',
-      onComplete: () => {
-        animating = false;
-      },
     });
   };
   const bookOut = (index = cityIndex) => {
@@ -292,7 +298,7 @@ export default function Index() {
       zoomInpos.y = -0.2;
     }
     gsap.to(freshBook.current.camera.position, {
-      ...zoomInpos,
+      // ...zoomInpos,
       z: 12,
       duration: 3,
       delay: 0,
@@ -360,8 +366,8 @@ export default function Index() {
       >
         {['book-ready', 'book-out'].includes(phase) ? '开启体验' : '开启手账'}
       </View>
-      <Image src={Orient} onClick={toggleOrient} className='orient-toggle'></Image>
-      <View style={{ paddingTop: `${NAVBAR_HEIGHT}px` }} className='slogan'>
+      {/* <Image src={Orient} onClick={toggleOrient} className='orient-toggle'></Image> */}
+      {/* <View style={{ paddingTop: `${NAVBAR_HEIGHT}px` }} className='slogan'>
         <View>逸游茶境 悠然阅己</View>
         <View className='sub'>享一杯悠闲漫时光 寻fresh茶粹的力量</View>
       </View>
@@ -391,8 +397,8 @@ export default function Index() {
           云南
         </View>
       </View>
+    <SwipeGuide show={swipeGuideFlag}></SwipeGuide> */}
       <Image className='bg' src={Background}></Image>
-      <SwipeGuide show={swipeGuideFlag}></SwipeGuide>
 
       <HideawaySharePanel
         giftCount={giftCount}

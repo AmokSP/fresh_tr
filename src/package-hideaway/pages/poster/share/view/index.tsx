@@ -53,6 +53,8 @@ export default function Index() {
   useEffect(() => {
     if (posterData) {
       console.log(posterData);
+      hideLoading();
+      return showExpirePopup();
       switch (posterData.success) {
         case 'expired':
           hideLoading();
@@ -120,7 +122,7 @@ export default function Index() {
         }}
         className='underline'
       >
-        探索更多
+        继续探索
       </View>
     </Block>
   );
@@ -203,9 +205,9 @@ export default function Index() {
         }}
       >
         <View className='save-popup'>
-          <View className='title'>提醒</View>
+          <View className='title'>过期提醒</View>
           <View className='text'>
-            很抱歉，您的好友分享的内容已过期。您可以前往制作心仪的海报或探索更多其他内容。
+            很抱歉，您的好友分享的内容已过期。你可以前往制作一张专属于你的旅行手账或探索更多其他内容。
           </View>
           {ctas}
         </View>

@@ -40,6 +40,7 @@ let renderFlag = false;
 
 export default function Editor() {
   const renderTimer = useRef<NodeJS.Timeout>();
+  const checkTimer = useRef<NodeJS.Timeout>();
   const [policyPopupFlag, showPolicy] = useBoolean(false);
   const [contentErrorFlag, showContentError, hideContentError] = useBoolean(false);
   const [contentInCheckFlag, showContentIncheck, hideContentIncheck] = useBoolean(false);
@@ -76,17 +77,24 @@ export default function Editor() {
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
   useDidShow(() => {
     clearInterval(renderTimer.current);
-    console.log(renderTimer.current);
+    clearInterval(checkTimer.current);
     renderTimer.current = setInterval(() => {
       if (renderFlag) setStickers(stickerCache);
     }, 20);
   });
   useDidHide(() => {
     clearInterval(renderTimer.current);
+    clearInterval(checkTimer.current);
   });
   useLoad(() => {
     fetchAllStickers();
   });
+  useEffect(() => {
+    return () => {
+      clearInterval(renderTimer.current);
+      clearInterval(checkTimer.current);
+    };
+  }, []);
   useShareAppMessage(() => {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
@@ -126,6 +134,27 @@ export default function Editor() {
   useEffect(() => {
     saveToLocal();
   }, [photos, texts]);
+  useEffect(() => {
+    console.log(photos.filter((i) => i.touched));
+    if (photos.some((i) => i.status === 'in_check')) {
+      setTimeout(() => {
+        checkPhotos();
+      }, 5000);
+    }
+  }, [photos]);
+  const checkPhotos = async () => {
+    const checkRres = await HideawayService.checkPhotos(
+      photos.filter((i) => i.status === 'in_check')
+    );
+    setPhotos((ps) => {
+      const newPhotos = [...ps];
+      checkRres.forEach((res) => {
+        const target = newPhotos.find((i) => i.id === res.id);
+        target!.status = res.status;
+      });
+      return newPhotos;
+    });
+  };
   const canvasTouchStart = (e) => {
     if (touches.size === 1 && focusItemId > 0) {
     } else {
@@ -277,7 +306,7 @@ export default function Editor() {
           ...target,
           src: accessUrl,
           touched: true,
-          status: 'success',
+          status: 'in_check',
         },
       ]);
     } catch (error) {
@@ -353,32 +382,40 @@ export default function Editor() {
   };
   const handleGenerate = async () => {
     showLoading();
-    if (photos.some((i) => i.touched)) {
-      Taro.showLoading();
-      const checkRres = await HideawayService.checkPhotos(photos.filter((i) => i.touched));
-      if (!checkRres.every((i) => i.status === 'success')) {
-        if (checkRres.some((i) => i.status === 'invalid_content')) {
-          showContentError();
-        } else if (checkRres.some((i) => i.status === 'in_check')) {
-          showContentIncheck();
-        }
-        hideLoading();
-        return setPhotos((ps) => {
-          checkRres.forEach((res) => {
-            const target = ps.find((i) => i.id === res.id);
-            target!.status = res.status;
-          });
-          return ps;
-        });
-      }
-      setPhotos((ps) => {
-        ps.forEach((photo) => {
-          photo.status = 'success';
-        });
-        saveToLocal();
-        return ps;
-      });
+    if (photos.some((i) => i.status === 'in_check')) {
+      hideLoading();
+      return showContentIncheck();
     }
+    if (photos.some((i) => i.status === 'invalid_content')) {
+      hideLoading();
+      return showContentError();
+    }
+    // if (photos.some((i) => i.touched)) {
+    //   Taro.showLoading();
+    //   const checkRres = await HideawayService.checkPhotos(photos.filter((i) => i.touched));
+    //   if (!checkRres.every((i) => i.status === 'success')) {
+    //     if (checkRres.some((i) => i.status === 'invalid_content')) {
+    //       showContentError();
+    //     } else if (checkRres.some((i) => i.status === 'in_check')) {
+    //       showContentIncheck();
+    //     }
+    //     hideLoading();
+    //     return setPhotos((ps) => {
+    //       checkRres.forEach((res) => {
+    //         const target = ps.find((i) => i.id === res.id);
+    //         target!.status = res.status;
+    //       });
+    //       return ps;
+    //     });
+    //   }
+    //   setPhotos((ps) => {
+    //     ps.forEach((photo) => {
+    //       photo.status = 'success';
+    //     });
+    //     saveToLocal();
+    //     return ps;
+    //   });
+    // }
     if (texts.some((i) => i.error)) {
       hideLoading();
       return showContentError();

@@ -4,16 +4,16 @@
     "miniprogram": {
       "list": [
         {
-          "name": "package-hideaway/pages/kol-story/index",
-          "pathName": "package-hideaway/pages/kol-story/index",
-          "query": "slug=hangzhou2",
+          "name": "package-hideaway/pages/poster/share/view/index",
+          "pathName": "package-hideaway/pages/poster/share/view/index",
+          "query": "token=postcard_23nva3_NWKnd3",
           "launchMode": "default",
           "scene": null
         },
         {
-          "name": "package-hideaway/pages/poster/share/view/index",
-          "pathName": "package-hideaway/pages/poster/share/view/index",
-          "query": "token=postcard_23nva3_eLReBp",
+          "name": "package-hideaway/pages/kol-story/index",
+          "pathName": "package-hideaway/pages/kol-story/index",
+          "query": "slug=hangzhou2",
           "launchMode": "default",
           "scene": null
         },
