@@ -31,18 +31,19 @@ export default function Index() {
     value: posterData,
     execute: fetchPoster,
     reset: resetPosterData,
+    status,
   } = useAsync(async (token) => {
     return HideawayService.readPoster(token);
   });
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && status === 'idle') {
       showLoading();
       fetchPoster(params.token);
     }
   }, [isLogin]);
   useDidShow(() => {
-    if (isLogin) {
+    if (isLogin && status === 'idle') {
       showLoading();
       fetchPoster(params.token);
     }
