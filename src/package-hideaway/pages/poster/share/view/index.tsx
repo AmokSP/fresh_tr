@@ -52,9 +52,9 @@ export default function Index() {
   });
   useEffect(() => {
     if (posterData) {
-      console.log(posterData);
-      hideLoading();
-      return showExpirePopup();
+      // console.log(posterData);
+      // hideLoading();
+      // return showExpirePopup();
       switch (posterData.success) {
         case 'expired':
           hideLoading();
