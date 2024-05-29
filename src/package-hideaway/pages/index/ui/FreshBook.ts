@@ -1,5 +1,8 @@
 import HideawayService from '@api/hideaway.service';
 import Taro from '@tarojs/taro';
+import BM0 from '@hideaway/assets/book/bmhz.png';
+import BM1 from '@hideaway/assets/book/bmcd.png';
+import BM2 from '@hideaway/assets/book/bmyn.png';
 import {
   Vector2,
   Color,
@@ -22,12 +25,16 @@ import {
   Raycaster,
   NearestFilter,
 } from 'three-platformize';
+import HitBoxes from './HitBoxes';
+import { degToRad } from 'three/src/math/MathUtils';
 
 const { windowWidth, windowHeight, pixelRatio } = Taro.getSystemInfoSync();
 export const PAGE_WIDTH = 7.79;
 export const PAGE_HEIGHT = 11.4;
 export const BOOK_HEIGHT = 0.5;
 export const COVER_SIZE_INCRE = 0.1;
+
+const BookMarkTexture = [BM0, BM1, BM2];
 export default class FressBook {
   public progress = {
     current: 150,
@@ -46,6 +53,7 @@ export default class FressBook {
   private cover;
   private back;
   private frameId;
+  public bookmarks: Object3D[] = [];
   constructor(canvas) {
     this.moveFactorDefaults = [
       new Vector2(0, 0),
@@ -202,8 +210,21 @@ export default class FressBook {
     const y = -((py * pixelRatio) / this.canvas.height) * 2 + 1;
     const raycaster = new Raycaster();
     raycaster.setFromCamera(new Vector2(x, y), this.camera);
-    const intersects = raycaster.intersectObjects([this.bookWrapper]);
-    return intersects.length > 0;
+    const intersects = raycaster.intersectObjects([this.back, ...this.bookmarks]);
+    const currentPage = Math.floor((this.progress.current - 25) / 50);
+    console.log(currentPage);
+    console.log(intersects[0]);
+    if (intersects[0] === undefined) {
+      return 'none';
+    }
+    if (intersects[0].object.name.startsWith('bookmark')) {
+      return intersects[0].object.name;
+    }
+    const { x: pagex, y: pagey } = intersects[0]?.point;
+    const hitItem = Object.entries(HitBoxes[0]).find(([key, value]) => {
+      return pagex >= value.xs && pagex <= value.xe && pagey >= value.ys && pagey <= value.ye;
+    });
+    return hitItem?.[0] ?? 'none';
   }
   public async init() {
     // this.rough = await new TextureLoader().load(Rough);
@@ -291,7 +312,7 @@ export default class FressBook {
     pos = this.back.geometry.attributes.position;
     for (let index = 0; index < 4; index++) {
       pos.setX(index, pos.array[index * 3] + 8.5 * 0.5);
-      pos.setZ(index, 0.01);
+      pos.setZ(index, -0.01);
     }
     // this.back.geometry.vertices.forEach((v) => {
     //   v.x += COVER_WIDTH / 2;
@@ -368,6 +389,31 @@ export default class FressBook {
       this.bookWrapper.add(mesh);
     });
 
+    const bmtextures = await Promise.all(
+      BookMarkTexture.map((src) => {
+        return new TextureLoader().loadAsync(src);
+      })
+    );
+    bmtextures.forEach(async (mat, index) => {
+      // const mat = new MeshStandardMaterial({ color: 0xfff000 });
+      const mesh = new Mesh(
+        new PlaneGeometry(3.63 * 0.3, 9.51 * 0.3, 1),
+        new MeshStandardMaterial({ map: mat, side: DoubleSide })
+      );
+      mesh.name = 'bookmark' + index;
+      const bookmarkWrapper = new Object3D();
+      bookmarkWrapper.position.z = -0.005;
+      bookmarkWrapper.position.y = PAGE_HEIGHT * 0.5;
+      bookmarkWrapper.position.x = 1 + index * 3.63 * 0.4;
+      bookmarkWrapper.add(mesh);
+      mesh.position.y = - 9.51 * 0.3;
+      this.bookmarks.push(bookmarkWrapper);
+      this.bookWrapper.add(bookmarkWrapper);
+    });
+
+    this.bookmarks[0].rotation.z = degToRad(5);
+    this.bookmarks[1].rotation.z = degToRad(0);
+    this.bookmarks[2].rotation.z = degToRad(-3);
     this.animate(this.canvas);
   }
   public startRender() {

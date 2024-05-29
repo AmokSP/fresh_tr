@@ -2,7 +2,7 @@ import { View, Image, Text, Canvas, Block } from '@tarojs/components';
 import Taro, { useDidHide, useDidShow, useLoad, useShareAppMessage, useUnload } from '@tarojs/taro';
 import gsap from 'gsap';
 import './index.scss';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import FressBook, { PAGE_WIDTH } from './ui/FreshBook';
 import Orient from '@hideaway/assets/book/orient.svg';
@@ -100,6 +100,15 @@ export default function Index() {
       });
     }
   });
+  useEffect(() => {
+    freshBook.current?.bookmarks.forEach((wrapper, index) => {
+      gsap.to(wrapper.children[0].position, {
+        y: index === cityIndex ? 0.55 : 0,
+        duration: 0.3,
+        ease: 'power2.inOut',
+      });
+    });
+  }, [cityIndex]);
   useDidHide(() => {
     freshBook.current.stopRender();
   });
@@ -134,7 +143,9 @@ export default function Index() {
     freshBook.current.progress.current += delta * -0.15;
     const pageProgress = freshBook.current.progress.current % 50;
     let targetProgress = 0;
+    let target = cityIndex;
     if (pageProgress < 25) {
+      target = cityIndex - 1;
       targetProgress = Math.floor(freshBook.current.progress.current / 50) * 50;
       gsap.to(freshBook.current.progress, {
         current: targetProgress < 0 ? 0 : targetProgress,
@@ -193,7 +204,7 @@ export default function Index() {
     gsap.to(freshBook.current.progress, {
       delay: 0,
       current: 50 + index * 50,
-      duration: 1,
+      duration: 1 + 1 * Math.abs(index - cityIndex),
       ease: 'power2.inOut',
     });
   };
@@ -278,6 +289,14 @@ export default function Index() {
       delay: 1.5,
       ease: 'power1.inOut',
     });
+    freshBook.current.bookmarks.forEach((wrapper, index) => {
+      gsap.to(wrapper.children[0].position, {
+        y: index === 0 ? 0.55 : 0,
+        duration: 0.5,
+        delay: 3.7 + 0.2 * index,
+        ease: 'back.out',
+      });
+    });
   };
   const bookOut = (index = cityIndex) => {
     if (animating) return;
@@ -316,7 +335,24 @@ export default function Index() {
       case 'idle':
         return startIntro();
       case 'book-ready':
+        if (animating) return;
         const result = freshBook.current.raycastCheck(e.detail.x, e.detail.y);
+        console.log(result);
+        switch (result) {
+          case 'bookmark0':
+            flipTo(0);
+            break;
+          case 'bookmark1':
+            flipTo(1);
+            break;
+          case 'bookmark2':
+            flipTo(2);
+            break;
+          default:
+            bookOut(cityIndex);
+            break;
+        }
+        return;
         if (result && cityIndex >= 0) {
           bookOut(cityIndex);
         }
