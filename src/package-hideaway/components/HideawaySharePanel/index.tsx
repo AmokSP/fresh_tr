@@ -7,6 +7,9 @@ import IconOn from './on.svg';
 import './index.scss';
 import { goto } from '@utils';
 import { HIDEAWAY } from '@app.config';
+import SkyBg from '@hideaway/assets/book/background';
+import Title from './title.png';
+import Box from './box';
 interface SharePanelProps extends HideawayPopupProps {
   giftCount?: number;
   receivedCount?: number;
@@ -14,24 +17,42 @@ interface SharePanelProps extends HideawayPopupProps {
 export default React.memo((props: SharePanelProps) => {
   const { receivedCount = 0, giftCount = 0 } = props;
   return (
-    <HideawayPopup show={props.show} onClose={props.onClose}>
+    <HideawayPopup
+      style={{
+        backgroundImage: `url(${SkyBg})`,
+        backgroundPosition: 'top',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
+      show={props.show}
+      onClose={props.onClose}
+    >
       <View className='share-panel'>
         <View>
           <View className='share-panel__desc'>
-            分享旅行手账至微信好友，每三位好友打卡成功即可获得惊喜豪礼。
-            <Text className='underline' onClick={() => goto({ url: HIDEAWAY.GAME_RULE })}>
+            <View>分享旅行手账至微信好友，每三位好友打</View>
+            <View>卡成功即可获得惊喜豪礼。</View>
+            <View className='underline' onClick={() => goto({ url: HIDEAWAY.GAME_RULE })}>
               详细规则
-            </Text>
+            </View>
           </View>
-          <View className='share-panel__title'>好友打卡状态</View>
-          <View className='share-panel__friends'>
+          <Image className='share-panel__title' src={Title}></Image>
+          <View
+            className='share-panel__friends'
+            style={{
+              backgroundImage: `url(${Box})`,
+              backgroundPosition: 'top',
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
             <View className='share-panel__friends__friend'>
               <Image src={receivedCount % 3 >= 1 ? IconOn : IconOff}></Image>
-              <View>好友1</View>
+              <View>{receivedCount % 3 >= 1 ? '已打卡' : '未打卡'}</View>
             </View>
             <View className='share-panel__friends__friend'>
               <Image src={receivedCount % 3 >= 2 ? IconOn : IconOff}></Image>
-              <View>好友2</View>
+              <View>{receivedCount % 3 >= 1 ? '已打卡' : '未打卡'}</View>
             </View>
             <View className='share-panel__friends__friend'>
               <Image src={IconOff}></Image>
@@ -41,7 +62,7 @@ export default React.memo((props: SharePanelProps) => {
           <View className='share-panel__redeemed'>
             <Text>已获得豪礼：</Text>
             <Text className='share-panel__redeemed__count'>{giftCount ?? 0}</Text>
-            <Text></Text>
+            <Text>张</Text>
           </View>
         </View>
         <View className='share-panel__cta-con'>{props.children}</View>

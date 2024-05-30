@@ -1,4 +1,3 @@
-import HideawayService from '@api/hideaway.service';
 import Taro from '@tarojs/taro';
 import BM0 from '@hideaway/assets/book/bmhz.png';
 import BM1 from '@hideaway/assets/book/bmcd.png';
@@ -53,8 +52,9 @@ export default class FressBook {
   private cover;
   private back;
   private frameId;
+  private bookData;
   public bookmarks: Object3D[] = [];
-  constructor(canvas) {
+  constructor(canvas, bookData) {
     this.moveFactorDefaults = [
       new Vector2(0, 0),
       new Vector2(0.5, 0.5),
@@ -64,6 +64,7 @@ export default class FressBook {
       new Vector2(1.1, 0.1),
     ];
     this.canvas = canvas;
+    this.bookData = bookData;
     this.canvas.width = 375;
     this.canvas.height = 812;
     this.getParaMat = (pageData, pageNumber) => {
@@ -227,16 +228,12 @@ export default class FressBook {
     return hitItem?.[0] ?? 'none';
   }
   public async init() {
-    // this.rough = await new TextureLoader().load(Rough);
-    // this.bump = await new TextureLoader().load(Bump);
-    // this.normalMap = await new TextureLoader().load(Normal);
-    const { data: bookData } = await HideawayService.getHidewayAsset();
     const [coverTex, backTex] = await Promise.all([
       new TextureLoader().loadAsync(
-        `${BUCKET_URL}${bookData.attributes.bookcover.data.attributes.url}`
+        `${BUCKET_URL}${this.bookData.attributes.bookcover.data.attributes.url}`
       ),
       new TextureLoader().loadAsync(
-        `${BUCKET_URL}${bookData.attributes.bookback.data.attributes.url}`
+        `${BUCKET_URL}${this.bookData.attributes.bookback.data.attributes.url}`
       ),
     ]);
     Taro.eventCenter.trigger('asset-loaded');
@@ -370,7 +367,7 @@ export default class FressBook {
     this.renderer.setPixelRatio(pixelRatio);
     this.renderer.setSize(windowWidth, windowHeight);
     this.renderer.shadowMap.enabled = true;
-    const bookpages = bookData.attributes.bookpage.map((i) => i.frames.data);
+    const bookpages = this.bookData.attributes.bookpage.map((i) => i.frames.data);
     console.log(bookpages);
     bookpages.forEach(async (pageData, index) => {
       const mat = await this.getParaMat(pageData, index + 1);
@@ -406,7 +403,7 @@ export default class FressBook {
       bookmarkWrapper.position.y = PAGE_HEIGHT * 0.5;
       bookmarkWrapper.position.x = 1 + index * 3.63 * 0.4;
       bookmarkWrapper.add(mesh);
-      mesh.position.y = - 9.51 * 0.3;
+      mesh.position.y = -9.51 * 0.3;
       this.bookmarks.push(bookmarkWrapper);
       this.bookWrapper.add(bookmarkWrapper);
     });

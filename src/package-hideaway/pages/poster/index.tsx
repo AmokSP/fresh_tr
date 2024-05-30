@@ -23,6 +23,7 @@ import HideawayPopup from '@components/HideawayPopup';
 import HideawayService from '@api/hideaway.service';
 import { COUPON_STATUS } from '@constants/coupon';
 import Plane from '@assets/plane.png';
+import PanelCta from '@hideaway/assets/panel-cta.png';
 import PrivacyAuth from '@components/PrivacyAuth';
 import useAsync from '@hooks/useAsync';
 import * as Icons from '@assets/icons';
@@ -446,21 +447,6 @@ export default function Editor() {
   // console.log(AllStickers['tmp1']);
   return (
     <View className='hideaway-poster'>
-      {/* <Navbar transparent={true} holdPlace={false}>
-        <Header
-          buttonBack
-          onClickBack={() => {
-            Taro.navigateBack({
-              delta: 1,
-
-              fail: () => {
-                goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
-              },
-            });
-          }}
-          title='brand_logo'
-        ></Header>
-      </Navbar> */}
       <Image
         src={Logo}
         mode='widthFix'
@@ -477,7 +463,7 @@ export default function Editor() {
             delta: 1,
 
             fail: () => {
-              goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+              goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
             },
           });
         }}
@@ -607,7 +593,8 @@ export default function Editor() {
               goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` });
             }}
           >
-            查看礼券
+            <Image className='scratch' src={PanelCta}></Image>
+            <View>查看礼券</View>
           </View>
         </View>
       </HideawaySharePanel>

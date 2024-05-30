@@ -122,12 +122,33 @@
     }
   }
   .share-popup-ctas {
-    padding-top: 60px;
+    padding-top: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
     .pill-button {
-      margin-bottom: 60px;
+      margin-bottom: 22px;
+      background: none !important;
+      border: none !important;
+      position: relative;
+      width: 168px * 2;
+      height: 34px * 2;
+      color: white !important;
+      .scratch {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        top: 10%;
+      }
+      &.disabled {
+        pointer-events: none;
+        .scratch {
+          opacity: 0.2;
+        }
+
+        color: rgba(#323d47, 0.3) !important;
+      }
     }
     .more {
       display: flex;

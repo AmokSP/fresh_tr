@@ -19,6 +19,7 @@ import { COUPON_STATUS } from '@constants/coupon';
 import useShareStatusQuery from '@hideaway/useShareStatusQuery';
 import cx from 'classnames';
 import PrivacyAuth from '@components/PrivacyAuth';
+import PanelCta from '@hideaway/assets/panel-cta.png';
 
 export default function Index() {
   const posterData: PosterData = Taro.getStorageSync('posterData');
@@ -79,9 +80,9 @@ export default function Index() {
   };
   const backToMap = () => {
     const pages = Taro.getCurrentPages();
-    const target = pages.findIndex((i) => i.route === HIDEAWAY.CITY_MAP.slice(1));
+    const target = pages.findIndex((i) => i.route === HIDEAWAY.INDEX.slice(1));
     if (target === -1) {
-      goto({ url: HIDEAWAY.CITY_MAP, type: 'reLaunch' });
+      goto({ url: HIDEAWAY.INDEX, type: 'reLaunch' });
     } else {
       Taro.navigateBack({
         delta: pages.length - target - 1,
@@ -140,6 +141,7 @@ export default function Index() {
             onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
             className={cx('pill-button primary', { disabled: giftCount === 0 })}
           >
+            <Image className='scratch' src={PanelCta}></Image>
             查看礼券
           </View>
           <View className='more'>

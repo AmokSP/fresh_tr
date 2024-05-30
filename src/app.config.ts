@@ -26,7 +26,7 @@ export enum PAGES {
 }
 export enum HIDEAWAY {
   INDEX = '/package-hideaway/pages/index/index',
-  CITY_MAP = '/package-hideaway/pages/city-map/index',
+  // CITY_MAP = '/package-hideaway/pages/city-map/index',
   // CITY_DETAIL = '/package-hideaway/pages/city-map/detail/index',
   KOL_STORY = '/package-hideaway/pages/kol-story/index',
   POSTER = '/package-hideaway/pages/poster/index',

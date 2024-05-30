@@ -5,12 +5,8 @@ import './index.scss';
 import { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import FressBook, { PAGE_WIDTH } from './ui/FreshBook';
-import Orient from '@hideaway/assets/book/orient.svg';
 import Title from '@hideaway/assets/book/title.png';
-// import LoadingTitle from '@hideaway/assets/book/loading-title.svg';
-// import LoadingText from '@hideaway/assets/book/loading-text.svg';
-import Cta from '@hideaway/assets/book/cta.png';
-import Background from '@hideaway/assets/book/background.jpg';
+import Background from '@hideaway/assets/book/background';
 import { PLATFORM } from 'three-platformize';
 import HideawaySharePanel from '@hideaway/components/HideawaySharePanel';
 import { WechatPlatform } from 'three-platformize/src/WechatPlatform';
@@ -25,6 +21,11 @@ import { HIDEAWAY, PAGES } from '@app.config';
 import { COUPON_STATUS } from '@constants/coupon';
 import Header from '@components/Basic/Header';
 import { degToRad } from '../poster/utils/rotations';
+import PanelCta from '@hideaway/assets/panel-cta.png';
+import { showToast } from '@utils';
+import subscribeMessage from './ui/SubscribeCampaignMessage';
+import HideawayService from '@api/hideaway.service';
+import useAsync from '@hooks/useAsync';
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 let prevTouch = 0;
 let animating = false;
@@ -39,7 +40,9 @@ const PhaseSeq = [
   'book-ready',
   'book-out',
 ] as const;
+const SubscribeKey = 'hideaway_subscribed';
 export default function Index() {
+  const [subscribed, setSubscribed] = useState<boolean>(Taro.getStorageSync(SubscribeKey) ?? false);
   const freshBook = useRef<any>();
   const platform = useRef<WechatPlatform>();
   const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
@@ -48,11 +51,13 @@ export default function Index() {
   const [isLandscape, setLandscape] = useState(false);
   const [cityIndex, setCityIndex] = useState(0);
   const [phase, setPhase] = useState<(typeof PhaseSeq)[number]>('idle');
+  const { value: hideawayAssets, execute: fetchAsset } = useAsync(HideawayService.getHidewayAsset);
   useLoad(async () => {
     console.log(Taro.getCurrentPages());
     await delay(100);
     setPhase('load-start');
     await delay(2500);
+    const { data: bookData } = await fetchAsset();
 
     Taro.eventCenter.on('asset-loaded', async () => {
       assetLoaded++;
@@ -72,7 +77,7 @@ export default function Index() {
 
         PLATFORM.set(platform.current);
 
-        freshBook.current = new FressBook(canvas);
+        freshBook.current = new FressBook(canvas, bookData);
       });
   });
   useShareAppMessage(() => {
@@ -118,6 +123,29 @@ export default function Index() {
     freshBook.current.stopRender();
     PLATFORM.dispose();
   });
+  const onBellClick = async () => {
+    subscribeMessage(hideawayAssets?.data?.attributes?.templateId, true)
+      .then(() => {
+        showToast({
+          title: '订阅成功',
+          icon: 'success',
+        });
+      })
+      .then(() => {
+        setSubscribed(true);
+      });
+  };
+  const onCardClick = (slug) => {
+    subscribeMessage(hideawayAssets?.data?.attributes?.templateId, false)
+      .then(() => {
+        setSubscribed(true);
+      })
+      .finally(() => {
+        goto({
+          url: `${HIDEAWAY.KOL_STORY}?slug=${slug}`,
+        });
+      });
+  };
   const touchBeginHandler = (e) => {
     if (phase != 'book-ready') return;
     gsap.killTweensOf(freshBook.current.progress, 'current');
@@ -325,7 +353,7 @@ export default function Index() {
       onComplete: () => {
         animating = false;
         goto({
-          url: `${HIDEAWAY.CITY_MAP}?city=${index}`,
+          url: `${HIDEAWAY.KOL_STORY}?city=${index}`,
         });
       },
     });
@@ -433,7 +461,8 @@ export default function Index() {
           云南
         </View>
       </View>
-    <SwipeGuide show={swipeGuideFlag}></SwipeGuide> */}
+    */}
+      <SwipeGuide show={swipeGuideFlag}></SwipeGuide>
       <Image className='bg' src={Background}></Image>
 
       <HideawaySharePanel
@@ -450,6 +479,7 @@ export default function Index() {
               goto({ url: `${HIDEAWAY.POSTER}` });
             }}
           >
+            <Image className='scratch' src={PanelCta}></Image>
             继续制作手账
           </View>
           <View

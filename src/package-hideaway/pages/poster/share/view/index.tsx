@@ -119,7 +119,7 @@ export default function Index() {
       </View>
       <View
         onClick={() => {
-          goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+          goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
         }}
         className='underline'
       >
@@ -187,7 +187,7 @@ export default function Index() {
       <HideawayPopup
         show={errorPopup}
         onClose={() => {
-          goto({ url: HIDEAWAY.CITY_MAP, type: 'redirectTo' });
+          goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
         }}
       >
         <View className='save-popup'>

@@ -1,5 +1,5 @@
 .share-panel {
-  padding-top: 124px;
+  padding-top: 51 * 2px;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 75px;
@@ -12,6 +12,7 @@
     color: #424a52;
     .underline {
       font-weight: 600;
+      margin-top: 16px;
     }
   }
   &__title {
@@ -20,19 +21,24 @@
     font-weight: 600;
     line-height: 26.32px * 2;
     text-align: center;
-    margin: 40px;
+    width: 159 * 2px;
+    height: 53 * 2px;
+    margin-top: 16px;
+    margin-left: 123px;
   }
   &__friends {
     display: flex;
-    height: 260px;
+    width: 278 * 2px;
+    height: 169 * 2px;
+    margin-top: -80px;
     gap: 70px;
-    border: 2px solid #424a52;
-    background-color: rgba(#424a52, 0.1);
-    background-clip: content-box;
-    padding: 12px;
+    // border: 2px solid #424a52;
+    // background-color: rgba(#424a52, 0.1);
+    // background-clip: content-box;
+    // padding: 12px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     box-sizing: padding-box;
 
     &__friend {
@@ -42,8 +48,8 @@
       justify-content: center;
       image {
         width: 90px;
-        height: 90px;
-        margin-bottom: 18px;
+        height: 70px;
+        margin-bottom: 32px;
       }
       view {
         font-size: 12px * 2;
@@ -62,6 +68,7 @@
     color: #424a52;
     display: flex;
     align-items: center;
+    justify-content: center;
     &__count {
       font-family: PingFang SC;
       font-size: 22px * 2;
