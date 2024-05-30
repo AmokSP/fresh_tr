@@ -271,7 +271,7 @@ export default class FressBook {
 
     this.bookWrapper = new Object3D();
     this.cover = new Mesh(
-      new PlaneGeometry(8, 12.7),
+      new PlaneGeometry(8.5, 14.4),
       new MeshStandardMaterial({
         transparent: false,
         map: coverTex,
@@ -288,11 +288,11 @@ export default class FressBook {
     );
     let pos = this.cover.geometry.attributes.position;
     for (let index = 0; index < 4; index++) {
-      pos.setX(index, pos.array[index * 3] + 8 * 0.5);
+      pos.setX(index, pos.array[index * 3] + 8.5 * 0.5);
       pos.setZ(index, 0.01);
     }
     this.back = new Mesh(
-      new PlaneGeometry(8.5, 14.5),
+      new PlaneGeometry(8.5, 14.4),
 
       new MeshStandardMaterial({
         transparent: true,
@@ -401,7 +401,7 @@ export default class FressBook {
       const bookmarkWrapper = new Object3D();
       bookmarkWrapper.position.z = -0.005;
       bookmarkWrapper.position.y = PAGE_HEIGHT * 0.5;
-      bookmarkWrapper.position.x = 1 + index * 3.63 * 0.4;
+      bookmarkWrapper.position.x = 1.3 + index * 3.63 * 0.4;
       bookmarkWrapper.add(mesh);
       mesh.position.y = -9.51 * 0.3;
       this.bookmarks.push(bookmarkWrapper);
