@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { View, Image } from '@tarojs/components';
 import './index.scss';
-import PanelBtn from '@hideaway/assets/poster/icons/panel-btn.png';
-import PanelBtnOff from '@hideaway/assets/poster/icons/panel-btn-off.png';
-
+import Arrow from './arrow.svg';
 import Navbar, { NAVBAR_HEIGHT } from '@components/Basic/Navbar';
 import useBoolean from '@hooks/useBoolean';
-export default React.memo(({ onClick }: { onClick?: () => void }) => {
-  const [openFlag, , , toggle] = useBoolean(true);
-  return (
-    <View className='panel-btn-wrapper' style={{ top: NAVBAR_HEIGHT }}>
-      <View className='toggler' onClick={toggle}></View>
-      <View>
-        {openFlag ? (
-          <Image className='panel-open' src={PanelBtn} onClick={onClick} mode='heightFix'></Image>
-        ) : (
-          <Image className='panel-close' src={PanelBtnOff} mode='heightFix'></Image>
-        )}
+import cx from 'classnames';
+export default React.memo(
+  ({
+    ready = true,
+    open = true,
+    onClick,
+  }: {
+    open?: boolean;
+    ready?: boolean;
+    onClick?: () => void;
+  }) => {
+    const [openFlag, , , toggle] = useBoolean(open);
+    return (
+      <View
+        className={cx('panel-btn-wrapper', {
+          open: openFlag,
+        })}
+        style={{ top: NAVBAR_HEIGHT + 20 }}
+      >
+        <View className='pill-button primary'>
+          <Image className='arrow' src={Arrow} onClick={ready ? toggle : undefined}></Image>
+          <View className='label' onClick={onClick}>
+            保存
+          </View>
+        </View>
       </View>
-    </View>
-  );
-});
+    );
+  }
+);

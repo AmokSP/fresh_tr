@@ -1,20 +1,30 @@
 .panel-btn-wrapper {
   position: fixed;
-  right: 0;
+  right: -200px;
   z-index: 900;
-  .toggler {
-    position: absolute;
-    width: 24 * 2px;
-    height: 48 * 2px;
-    background-color: rgba(255, 0, 0, 0);
-    z-index: 2;
-    left: 10px;
-    top: 30px;
+  transition: all 0.3s ease-in-out;
+  &.open {
+    right: -60px;
+    .pill-button {
+      .arrow {
+        transform: rotate(0deg);
+      }
+    }
   }
-  .panel-open,
-  .panel-close {
-    z-index: 1;
-    height: 78 * 2px;
-    width: auto;
+
+  .pill-button {
+    border: 2px solid white;
+    width: 260px;
+    justify-content: flex-start;
+    .arrow {
+      width: 12.24 * 2px;
+      height: 10.35 * 2px;
+      padding: 24px 28px;
+      transition: all 0.3s ease-in-out;
+      transform: rotate(180deg);
+    }
+    .label {
+      padding: 24px 14px;
+    }
   }
 }

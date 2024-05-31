@@ -7,7 +7,7 @@ import cx from 'classnames';
 import FressBook, { PAGE_WIDTH } from './ui/FreshBook';
 import Title from '@hideaway/assets/book/title.png';
 import Background from '@hideaway/assets/book/background';
-import { PLATFORM } from 'three-platformize';
+import { PLATFORM, Vector3 } from 'three-platformize';
 import HideawaySharePanel from '@hideaway/components/HideawaySharePanel';
 import { WechatPlatform } from 'three-platformize/src/WechatPlatform';
 import Navbar, { NAVBAR_HEIGHT } from '@components/Basic/Navbar';
@@ -16,6 +16,7 @@ import SwipeGuide from '@hideaway/components/SwipeGuide';
 import useBoolean from '@hooks/useBoolean';
 import useShareStatusQuery from '@hideaway/useShareStatusQuery';
 import Plane from '@assets/plane.png';
+import Bell from '@hideaway/assets/book/bell.png';
 import PlaneLoad from '@hideaway/assets/plane-load.png';
 import { HIDEAWAY, PAGES } from '@app.config';
 import { COUPON_STATUS } from '@constants/coupon';
@@ -27,6 +28,11 @@ import subscribeMessage from './ui/SubscribeCampaignMessage';
 import HideawayService from '@api/hideaway.service';
 import useAsync from '@hooks/useAsync';
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
+const CAMERA_READY_POS = {
+  x: PAGE_WIDTH * 0.5,
+  z: 24,
+  y: 1,
+};
 let prevTouch = 0;
 let animating = false;
 let assetLoaded = 0;
@@ -92,9 +98,7 @@ export default function Index() {
       animating = true;
       setPhase('book-ready');
       gsap.to(freshBook.current.camera.position, {
-        // x: 0,
-        z: 23,
-        // y: 0,
+        ...CAMERA_READY_POS,
         duration: 2,
         delay: 0,
         ease: 'power1.out',
@@ -108,7 +112,7 @@ export default function Index() {
   useEffect(() => {
     freshBook.current?.bookmarks.forEach((wrapper, index) => {
       gsap.to(wrapper.children[0].position, {
-        y: index === cityIndex ? 0.55 : 0,
+        y: index === cityIndex ? 0.35 : 0,
         duration: 0.3,
         ease: 'power2.inOut',
       });
@@ -298,8 +302,7 @@ export default function Index() {
       onComplete: () => {},
     });
     gsap.to(freshBook.current.camera.position, {
-      x: PAGE_WIDTH * 0.5,
-      z: 23,
+      ...CAMERA_READY_POS,
       duration: 3,
       delay: 1.5,
       ease: 'power1.inOut',
@@ -312,7 +315,7 @@ export default function Index() {
       },
     });
     gsap.to(freshBook.current.camera.rotation, {
-      z: degToRad(-4),
+      z: degToRad(-3),
       duration: 3,
       delay: 1.5,
       ease: 'power1.inOut',
@@ -326,34 +329,23 @@ export default function Index() {
       });
     });
   };
-  const bookOut = (index = cityIndex) => {
+  const bookOut = (kolslug, point: Vector3) => {
     if (animating) return;
     animating = true;
     setPhase('book-out');
     console.log('book-out');
     freshBook.current.interactive = false;
-    const zoomInpos = {
-      x: -3.8,
-      y: 2,
-    };
-    if (index === 1) {
-      zoomInpos.x = -1.9;
-      zoomInpos.y = -2;
-    }
-    if (index === 2) {
-      zoomInpos.x = 2.4;
-      zoomInpos.y = -0.2;
-    }
     gsap.to(freshBook.current.camera.position, {
-      // ...zoomInpos,
-      z: 12,
+      x: point.x,
+      y: point.y,
+      z: 16,
       duration: 3,
       delay: 0,
       ease: 'power1.inOut',
       onComplete: () => {
         animating = false;
         goto({
-          url: `${HIDEAWAY.KOL_STORY}?city=${index}`,
+          url: `${HIDEAWAY.KOL_STORY}?slug=${kolslug}`,
         });
       },
     });
@@ -364,7 +356,7 @@ export default function Index() {
         return startIntro();
       case 'book-ready':
         if (animating) return;
-        const result = freshBook.current.raycastCheck(e.detail.x, e.detail.y);
+        const { result, point } = freshBook.current.raycastCheck(e.detail.x, e.detail.y);
         console.log(result);
         switch (result) {
           case 'bookmark0':
@@ -377,13 +369,12 @@ export default function Index() {
             flipTo(2);
             break;
           default:
-            bookOut(cityIndex);
+            if (result !== 'none') {
+              bookOut(result, point);
+            }
             break;
         }
         return;
-        if (result && cityIndex >= 0) {
-          bookOut(cityIndex);
-        }
         break;
       default:
         break;
@@ -424,11 +415,11 @@ export default function Index() {
       <Image className='title' src={Title}></Image>
       <View
         onClick={() => {
-          phase === 'cover' ? coverOut() : bookOut();
+          coverOut();
         }}
         className='cta'
       >
-        {['book-ready', 'book-out'].includes(phase) ? '开启体验' : '开启手账'}
+        {'开启手账'}
       </View>
       {/* <Image src={Orient} onClick={toggleOrient} className='orient-toggle'></Image> */}
       {/* <View style={{ paddingTop: `${NAVBAR_HEIGHT}px` }} className='slogan'>
@@ -464,7 +455,23 @@ export default function Index() {
     */}
       <SwipeGuide show={swipeGuideFlag}></SwipeGuide>
       <Image className='bg' src={Background}></Image>
+      <Image
+        className={cx('bell', {
+          subscribed,
+        })}
+        style={{ top: NAVBAR_HEIGHT + 34 }}
+        src={Bell}
+        onClick={onBellClick}
+      ></Image>
 
+      <View className='bottom-btns'>
+        <View className='underline' onClick={() => goto({ url: HIDEAWAY.POSTER })}>
+          制作旅行手账
+        </View>
+        <View className='underline' onClick={showSharePanel}>
+          分享赢好礼
+        </View>
+      </View>
       <HideawaySharePanel
         giftCount={giftCount}
         receivedCount={receivedCount}

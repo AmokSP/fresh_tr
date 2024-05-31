@@ -5,8 +5,6 @@ import Taro from '@tarojs/taro';
 import ArrowDown from '@assets/icons/arrow-down.svg';
 import cx from 'classnames';
 import AllTemplates from '@hideaway/assets/poster/templates';
-import AllStickers from '@hideaway/assets/poster/stickers';
-
 type StickerPopupProps = {
   show: boolean;
   selectedTemplate: string;
@@ -15,6 +13,7 @@ type StickerPopupProps = {
   onSelectTemplate?: (id: string) => void;
   onAddSticker?: (id: number | string) => void;
   onRemoveSticker?: (id: number | string) => void;
+  onOpen?: () => void;
   onClose?: () => void;
 };
 export default React.memo((props: StickerPopupProps) => {
@@ -25,6 +24,7 @@ export default React.memo((props: StickerPopupProps) => {
     onAddSticker,
     onRemoveSticker,
     onSelectTemplate,
+    onOpen,
   } = props;
   const [view, setView] = useState<'sticker' | 'template'>('template');
   const toggleSticker = (sticker: Sticker) => {
@@ -41,19 +41,29 @@ export default React.memo((props: StickerPopupProps) => {
     <View className={cx('sticker-popup', { show: props.show })}>
       <View className='popup-header'>
         <View
-          onClick={() => setView('template')}
+          onClick={() => {
+            onOpen?.();
+            setView('template');
+          }}
           className={cx('view-item', { active: view === 'template' })}
         >
           模板
         </View>
         <View style={{ color: '#897968' }}>|</View>
         <View
-          onClick={() => setView('sticker')}
+          onClick={() => {
+            onOpen?.();
+            setView('sticker');
+          }}
           className={cx('view-item', { active: view === 'sticker' })}
         >
           贴纸
         </View>
-        <Image onClick={props.onClose} className='close' src={ArrowDown} />
+        <Image
+          onClick={props.show ? props.onClose : props.onOpen}
+          className='close'
+          src={ArrowDown}
+        />
       </View>
 
       {view === 'template' && (

@@ -8,7 +8,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
   pointer-events: all;
-  z-index: 500;
+  z-index: 901;
   font-size: 12px * 2;
   font-weight: 300;
   line-height: 16.8px * 2;
@@ -39,11 +39,35 @@
       bottom: 0;
       height: auto;
     }
-    .panel-finger {
+    .save-finger {
       top: 167 * 2px;
-      left: 291 * 2px;
+      left: 553px;
+    }
+    .panel-finger {
+      transform-origin: center;
+      transform: translateX(-50%) rotate(180deg);
+      left: 50%;
+
+      bottom: 341 * 2px;
+    }
+    .text2 {
+      font-family: PingFang SC;
+      font-size: 12px * 2;
+      color: white;
+      font-weight: 300;
+      line-height: 16.8px * 2;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      bottom: 397 * 2px;
     }
     .text1 {
+      image {
+        width: 7.36 * 3px;
+        height: 6.44 * 3px;
+        padding: 0 10px;
+      }
       position: absolute;
       font-size: 24px;
       font-weight: 300;
@@ -58,8 +82,8 @@
       color: white;
 
       width: 215 * 2px;
-      top: 177 * 2px;
-      left: 75 * 2px;
+      top: 248px;
+      left: 86px;
       .span {
         font-size: 16px * 2;
         font-weight: 500;
@@ -68,13 +92,33 @@
       }
     }
     .btn-next {
-      top: 280 * 2px;
-      left: 159 * 2px;
+      top: 445px;
+      left: 282px;
     }
   }
   &.step1 {
+    .text2 {
+      image {
+        width: 7.36 * 3px;
+        height: 6.44 * 3px;
+        padding: 0 10px;
+        transform: rotate(180deg);
+      }
+      position: absolute;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 33.6px;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      letter-spacing: 1px;
+      color: white;
+
+      top: 118 * 2px;
+      left: 205 * 2px;
+    }
     .btn-start {
-      bottom: 212px;
+      bottom: 212px - 100px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -83,12 +127,12 @@
       left: 520px;
     }
     .sticker-finger {
-      top: 326px;
-      left: 322px;
+      top: 331 * 2px;
+      left: 135 * 2px;
     }
     .text-finger {
-      top: 1096px;
-      left: 104px;
+      top: 579 * 2px;
+      left: 77 * 2px;
     }
     .texts {
       position: absolute;
@@ -99,41 +143,41 @@
       color: white;
     }
     .sticker-text {
-      top: 416px;
-      left: 312px;
+      top: 376 * 2px;
+      left: 130 * 2px;
     }
     .photo-text {
       top: 1042px;
       left: 512px;
     }
     .text-text {
-      top: 1194px;
-      left: 96px;
+      top: 624 * 2px;
+      left: 73 * 2px;
     }
 
     .fake-sticker {
       position: absolute;
-      width: 92 * 2px;
-      height: 49 * 2px;
-      left: 132.5px * 2;
-      top: 105px * 2;
+      width: 121.78 * 2px;
+      height: 96 * 2px;
+      left: 94px * 2;
+      top: 229px * 2;
 
-      border: 2px solid white;
+      // border: 2px solid white;
     }
     .fake-photo {
       position: absolute;
-      width: 141.24px * 2;
-      height: 160px * 2;
-      left: 219px * 2;
-      top: 302px * 2;
+      width: 334px;
+      height: 226px * 2;
+      left: 394px;
+      top: 247px * 2;
       transform: scale(1.2);
     }
     .fake-text {
       position: absolute;
-      width: 180px * 2;
-      height: 180px * 2;
-      left: -12px * 2;
-      top: 399px * 2;
+      width: 186px * 2;
+      height: 183px * 2;
+      left: -0px * 2;
+      top: 396px * 2;
     }
     .text-done {
       position: absolute;
@@ -144,7 +188,7 @@
       height: 39px * 2;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 150 * 2px;
+      bottom: 100 * 2px;
       color: white;
     }
   }

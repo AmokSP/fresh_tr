@@ -134,7 +134,7 @@ export default function Editor() {
   }, [templateId]);
   useEffect(() => {
     saveToLocal();
-  }, [photos, texts]);
+  }, [photos, texts, cmsStickers]);
   useEffect(() => {
     console.log(photos.filter((i) => i.touched));
     if (photos.some((i) => i.status === 'in_check')) {
@@ -468,7 +468,7 @@ export default function Editor() {
           });
         }}
       />
-      <PanelButton onClick={toggleStickerPopup}></PanelButton>
+      <PanelButton onClick={handleGenerate}></PanelButton>
       <MovableArea scaleArea={false} className='move-area'>
         <MovableView
           direction='vertical'
@@ -519,9 +519,9 @@ export default function Editor() {
               );
             })}
           </View>
-          <View onClick={handleGenerate} className='next'>
+          {/* <View onClick={handleGenerate} className='next'>
             预览
-          </View>
+          </View> */}
         </MovableView>
       </MovableArea>
       <View>
@@ -535,6 +535,7 @@ export default function Editor() {
       </View>
       <EditGuide onClose={showPolicy}></EditGuide>
       <StickerPopup
+        onOpen={showStickerPopup}
         allStickers={cmsStickers}
         show={stickerPopupFlag}
         selectedTemplate={templateId}

@@ -3,17 +3,18 @@ import Taro from '@tarojs/taro';
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
-import PanelBtn from '@hideaway/assets/poster/icons/panel-btn.png';
 import IconFinger from '../assets/finger.svg';
 import FakePanel from '../assets/Panel.png';
 import FakeSticker from '../assets/sticker.png';
 import FakePhoto from '../assets/Photo.png';
 import FakeText from '../assets/text.png';
+import Arrow from '../../PanelButton/arrow.svg';
 import { NAVBAR_HEIGHT } from '@components/Basic/Navbar';
 import useBoolean from '@hooks/useBoolean';
 import cx from 'classnames';
+import PanelButton from '../../PanelButton';
+
 export default React.memo(({ onClose }: { onClose?: () => void }) => {
-  const [policyChecked, , , togglePolicy] = useBoolean(false);
   const [guideRead, setGuideRead] = useBoolean(Taro.getStorageSync('edit_guide_read') ?? false);
   // const [guideRead, setGuideRead] = useBoolean(false);
   const [step, setStep] = useState(0);
@@ -25,31 +26,33 @@ export default React.memo(({ onClose }: { onClose?: () => void }) => {
       {
         [
           <Block>
-            <Image
-              style={{ top: NAVBAR_HEIGHT }}
-              className='panel-btn'
-              mode='widthFix'
-              src={PanelBtn}
-            ></Image>
+            <PanelButton ready={false}></PanelButton>
             <Image className='panel' mode='widthFix' src={FakePanel}></Image>
+            <Image className='finger save-finger' src={IconFinger}></Image>
             <Image className='finger panel-finger' src={IconFinger}></Image>
             <View className='text1'>
               <View>
-                点击<Text className='span'>手账制作</Text>
+                点击<Image src={Arrow}></Image>收起
               </View>
-              <View>选择你喜欢的模板和贴纸</View>
-              <View>设计属于你独一无二的旅行手账</View>
+              <View style={{ marginTop: '84rpx' }}>点击【保存】生成手账预览</View>
             </View>
+            <Text className='text2'>
+              选择你喜欢的模板和贴纸{'\n'}设计属于你独一无二的{'\n'}旅行手账
+            </Text>
             <View className='rnd-btn btn-next' onClick={() => setStep(1)}>
               下一步
             </View>
           </Block>,
           <Block>
+            {/* <PanelButton ready={false} open={false}></PanelButton>
+            <View className='text2'>
+              点击<Image src={Arrow}></Image>展开
+            </View> */}
             <Image className='fake-sticker' src={FakeSticker}></Image>
             <Image className='finger sticker-finger' src={IconFinger}></Image>
             <View className='texts sticker-text'>贴纸替换</View>
 
-            <Image className='fake-photo' src={FakePhoto}></Image>
+            <Image className='fake-photo' src={FakePhoto} mode='aspectFit'></Image>
             <Image className='finger photo-finger' src={IconFinger}></Image>
             <View className='texts photo-text'>照片上传</View>
 

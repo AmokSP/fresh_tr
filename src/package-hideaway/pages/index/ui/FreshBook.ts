@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
-import BM0 from '@hideaway/assets/book/bmhz.png';
-import BM1 from '@hideaway/assets/book/bmcd.png';
-import BM2 from '@hideaway/assets/book/bmyn.png';
+import BM0 from '@hideaway/assets/book/bmhz.jpg';
+import BM1 from '@hideaway/assets/book/bmcd.jpg';
+import BM2 from '@hideaway/assets/book/bmyn.jpg';
 import {
   Vector2,
   Color,
@@ -214,7 +214,7 @@ export default class FressBook {
     const intersects = raycaster.intersectObjects([this.back, ...this.bookmarks]);
     const currentPage = Math.floor((this.progress.current - 25) / 50);
     console.log(currentPage);
-    console.log(intersects[0]);
+    console.log(intersects[0]?.point);
     if (intersects[0] === undefined) {
       return 'none';
     }
@@ -222,10 +222,10 @@ export default class FressBook {
       return intersects[0].object.name;
     }
     const { x: pagex, y: pagey } = intersects[0]?.point;
-    const hitItem = Object.entries(HitBoxes[0]).find(([key, value]) => {
+    const hitItem = Object.entries(HitBoxes[currentPage]).find(([key, value]) => {
       return pagex >= value.xs && pagex <= value.xe && pagey >= value.ys && pagey <= value.ye;
     });
-    return hitItem?.[0] ?? 'none';
+    return { result: hitItem?.[0] ?? 'none', point: intersects[0]?.point };
   }
   public async init() {
     const [coverTex, backTex] = await Promise.all([

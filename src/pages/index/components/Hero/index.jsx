@@ -135,7 +135,7 @@ export default function Hero({ data = [] }) {
                   <Video
                     src={item?.attributes?.videoUrl}
                     autoplay={index === 0}
-                    loop
+                    loop={item?.attributes?.autoRotation ?? true}
                     muted
                     objectFit='cover'
                     controls={false}
