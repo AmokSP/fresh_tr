@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { View, Image } from '@tarojs/components';
 import './index.scss';
 import Arrow from './arrow.svg';
@@ -8,14 +8,21 @@ import cx from 'classnames';
 export default React.memo(
   ({
     ready = true,
-    open = true,
+    open = false,
     onClick,
   }: {
     open?: boolean;
     ready?: boolean;
     onClick?: () => void;
   }) => {
-    const [openFlag, , , toggle] = useBoolean(open);
+    const [openFlag, openPanel, closePanel, toggle] = useBoolean(open);
+    useEffect(() => {
+      if (open) {
+        openPanel();
+      } else {
+        closePanel();
+      }
+    }, [open]);
     return (
       <View
         className={cx('panel-btn-wrapper', {

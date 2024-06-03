@@ -152,6 +152,7 @@ export default function Index() {
   };
   const touchBeginHandler = (e) => {
     if (phase != 'book-ready') return;
+    if (animating) animating = false;
     gsap.killTweensOf(freshBook.current.progress, 'current');
     prevTouch = isLandscape ? e.changedTouches[0].pageY : e.changedTouches[0].pageX;
   };
@@ -232,12 +233,17 @@ export default function Index() {
     setLandscape(!isLandscape);
   };
   const flipTo = (index) => {
+    if (animating) return;
     setCityIndex(index);
+    animating = true;
     gsap.to(freshBook.current.progress, {
       delay: 0,
       current: 50 + index * 50,
       duration: 1 + 1 * Math.abs(index - cityIndex),
       ease: 'power2.inOut',
+      onComplete: () => {
+        animating = false;
+      },
     });
   };
   const startIntro = () => {

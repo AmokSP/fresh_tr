@@ -7,9 +7,8 @@ import { goto, hideLoading, showLoading } from '@utils';
 import './index.scss';
 import useAsync from '@hooks/useAsync';
 import HideawayService from '@api/hideaway.service';
-import { useState } from 'react';
+import { CSSProperties, useState } from 'react';
 import cx from 'classnames';
-const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 export default function Index() {
   const { params } = useRouter();
   const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStoryBySlug);
@@ -33,34 +32,59 @@ export default function Index() {
       <View className={cx('mask', { loading })}></View>
       {kolData?.data?.[0]?.attributes.content.map((item, index) => {
         const image = item?.image?.data?.attributes;
+        const itemStyle: CSSProperties = {
+          position: item?.absolute ? 'absolute' : 'relative',
+          width: item.width ? Taro.pxTransform(item.width) : undefined,
+          height: item.height ? Taro.pxTransform(item.height) : undefined,
+          top: item.height ? Taro.pxTransform(item.top) : undefined,
+          left: item.height ? Taro.pxTransform(item.left) : undefined,
+          transformOrigin: 'center',
+          transform: `rotate(${item.rotation ?? 0}deg)`,
+        };
         return {
           'hideawaybookpage.kol-image': (
-            <Image
-              lazyLoad
-              className='w-100'
-              onLoad={() => {
-                if (index == 0) {
-                  hideLoading();
-                  setLoading(false);
-                }
+            <View
+              className='kol-image'
+              style={{
+                ...itemStyle,
+                pointerEvents: item.path ? 'all' : 'none',
+                zIndex: item?.absolute ? 1 : 2 + index,
               }}
-              mode='widthFix'
-              src={`${BUCKET_URL}${image?.url}`}
-              onClick={() => {
-                if (index === (kolData?.data?.[0]?.attributes.content.length ?? 0) - 1) {
-                  goto({ url: HIDEAWAY.POSTER });
-                }
-              }}
-            ></Image>
+            >
+              <Image
+                lazyLoad
+                className='w-100'
+                onLoad={() => {
+                  if (index == 0) {
+                    hideLoading();
+                    setLoading(false);
+                  }
+                }}
+                mode='widthFix'
+                src={`${BUCKET_URL}${image?.url}`}
+                style={{
+                  width: '100%',
+                  height: item.height === null ? 'auto' : '100%',
+                }}
+                onClick={() => {
+                  goto({
+                    url: item.path,
+                  });
+                }}
+              ></Image>
+              {item.description === 'is_frame' && <View className='explore'>点击探索</View>}
+              <View className='product-title'>{item.title}</View>
+            </View>
           ),
           'hideawaybookpage.kol-video': (
             <Video
               className='w-100'
               style={{
-                height: (item.height ?? 211) * (windowWidth / (item.width ?? 375)) + 'px',
-                width: ((item.width ?? 375) / 375) * windowWidth + 'px',
+                ...itemStyle,
+                zIndex: 1,
               }}
               src={`${item.url}`}
+              objectFit='cover'
             ></Video>
           ),
         }[item.__component];

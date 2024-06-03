@@ -48,7 +48,7 @@ export default function Editor() {
   const [templateSwitchPopup, showTempalteSwitch, hideTemplateSwitch] = useBoolean(false);
   const { receivedCount, giftCount } = useShareStatusQuery();
   const [stickerPopupFlag, showStickerPopup, hideStickerPopup, toggleStickerPopup] =
-    useBoolean(false);
+    useBoolean(true);
   const [templateId, setTemplateId] = useState(Taro.getStorageSync('posterData').id ?? 'temp1');
   // const [templateId, setTemplateId] = useState('tmp1');
   const [focusItemId, setFocusItemId] = useState(-1);

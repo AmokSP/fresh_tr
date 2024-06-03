@@ -214,12 +214,12 @@ export default class FressBook {
     const intersects = raycaster.intersectObjects([this.back, ...this.bookmarks]);
     const currentPage = Math.floor((this.progress.current - 25) / 50);
     console.log(currentPage);
-    console.log(intersects[0]?.point);
+    console.log(intersects[0]);
     if (intersects[0] === undefined) {
       return 'none';
     }
     if (intersects[0].object.name.startsWith('bookmark')) {
-      return intersects[0].object.name;
+      return { result: intersects[0].object.name };
     }
     const { x: pagex, y: pagey } = intersects[0]?.point;
     const hitItem = Object.entries(HitBoxes[currentPage]).find(([key, value]) => {

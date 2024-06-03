@@ -26,7 +26,6 @@ export default React.memo(({ onClose }: { onClose?: () => void }) => {
       {
         [
           <Block>
-            <PanelButton ready={false}></PanelButton>
             <Image className='panel' mode='widthFix' src={FakePanel}></Image>
             <Image className='finger save-finger' src={IconFinger}></Image>
             <Image className='finger panel-finger' src={IconFinger}></Image>
@@ -44,10 +43,9 @@ export default React.memo(({ onClose }: { onClose?: () => void }) => {
             </View>
           </Block>,
           <Block>
-            {/* <PanelButton ready={false} open={false}></PanelButton>
             <View className='text2'>
               点击<Image src={Arrow}></Image>展开
-            </View> */}
+            </View>
             <Image className='fake-sticker' src={FakeSticker}></Image>
             <Image className='finger sticker-finger' src={IconFinger}></Image>
             <View className='texts sticker-text'>贴纸替换</View>
@@ -72,39 +70,10 @@ export default React.memo(({ onClose }: { onClose?: () => void }) => {
             >
               开始创作
             </View>
-            {/* <View className={'policy'} onClick={togglePolicy}>
-              <View
-                className={`policy__checkbox ${policyChecked ? 'policy__checkbox__active' : ''}`}
-              >
-                <Text className={`${'policy__checkbox__icon'} iconfont icon-right`}></Text>
-              </View>
-              <View className={'policy__text'}>
-                {t('signup.policy.part1')}
-                <Text
-                  className='text_link'
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    goto({ url: `${PAGES.POLICY}?name=private` });
-                  }}
-                >
-                  {t('signup.policy.link')}
-                </Text>
-                {t('signup.policy.part2')}
-                <Text
-                  className='text_link'
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    goto({ url: `${PAGES.POLICY}?name=private` });
-                  }}
-                >
-                  {t('signup.policy.link')}
-                </Text>
-                {t('signup.policy.part3')}
-              </View>
-            </View> */}
           </Block>,
         ][step]
       }
+      <PanelButton open={step === 0} ready={false}></PanelButton>
     </View>
   );
 });
