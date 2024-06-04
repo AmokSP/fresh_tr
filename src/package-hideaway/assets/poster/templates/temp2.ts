@@ -56,7 +56,7 @@ const Temp1: PosterData = {
       id: 1,
       src: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[1].photo1}`,
 
-      x: 283,
+      x: 282,
       y: 263,
       width: 158,
       height: 130,
@@ -84,9 +84,9 @@ const Temp1: PosterData = {
 
       x: 115,
       y: 551,
-      width: 232,
+      width: 233,
       ratio: '4:3',
-      height: 158,
+      height: 160,
       rotation: -3.62,
       touched: false,
       status: 'success',

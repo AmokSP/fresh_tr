@@ -45,6 +45,7 @@ module.exports = {
     HIDEAWAY_ASSETS: JSON.stringify({
       campaignQrCode: '/uploads/freshqr_465001d3a9.png',
       shareTitle: '感官逸游 馥已焕新',
+      shareImage: '/uploads/2_c82be04c8f.jpg',
       templates: [
         {
           bg: '/uploads/1_1_99fe7ebef7.png',
@@ -53,7 +54,7 @@ module.exports = {
           photo3: '/uploads/Mask_group_10b1e5dfb4.jpg',
         },
         {
-          bg: '/uploads/2_cc9eba19fb.png',
+          bg: '/uploads/2_e7170dc9d0.png',
           photo1: '/uploads/Mask_group_1_ee76ed0378.jpg',
           photo2: '/uploads/Mask_group_7_415c88f094.jpg',
           photo3: '/uploads/Mask_group_4_9160c96d17.jpg',

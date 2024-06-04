@@ -21,6 +21,7 @@ export default function Index() {
   useShareAppMessage(() => {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
+      imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
       path: HIDEAWAY.INDEX,
     };
   });
@@ -84,7 +85,7 @@ export default function Index() {
                 zIndex: 1,
               }}
               src={`${item.url}`}
-              objectFit='cover'
+              objectFit='fill'
             ></Video>
           ),
         }[item.__component];

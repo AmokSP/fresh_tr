@@ -205,20 +205,24 @@
     position: absolute;
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    gap: 70px;
+    justify-content: center;
     align-items: center;
     font-family: PingFang SC;
     font-size: 16px * 2;
     font-weight: 500;
     line-height: 26.32px * 2;
     text-align: center;
-    bottom: 110px;
+    bottom: 98px;
     opacity: 0;
     transition: all 1.2s ease-in-out;
     pointer-events: none;
     transform: translateY(100%);
     color: #323c48;
     z-index: 2;
+    .underline {
+      padding: 24px;
+    }
   }
   &.book-ready {
     .bottom-btns {

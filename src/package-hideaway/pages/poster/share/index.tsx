@@ -41,6 +41,7 @@ export default function Index() {
     showSharePopup();
     return {
       title: '收到一封来自好友的旅行手账，点击查看',
+      imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
       path: `${HIDEAWAY.POSTER_VIEW}?token=${params.token}`,
     };
   });

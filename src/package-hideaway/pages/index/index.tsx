@@ -89,6 +89,7 @@ export default function Index() {
   useShareAppMessage(() => {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
+      imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
       path: HIDEAWAY.INDEX,
     };
   });
@@ -112,7 +113,7 @@ export default function Index() {
   useEffect(() => {
     freshBook.current?.bookmarks.forEach((wrapper, index) => {
       gsap.to(wrapper.children[0].position, {
-        y: index === cityIndex ? 0.35 : 0,
+        y: index === cityIndex ? 0.6 : 0,
         duration: 0.3,
         ease: 'power2.inOut',
       });
@@ -328,7 +329,7 @@ export default function Index() {
     });
     freshBook.current.bookmarks.forEach((wrapper, index) => {
       gsap.to(wrapper.children[0].position, {
-        y: index === 0 ? 0.55 : 0,
+        y: index === 0 ? 0.6 : 0,
         duration: 0.5,
         delay: 3.7 + 0.2 * index,
         ease: 'back.out',
@@ -375,7 +376,7 @@ export default function Index() {
             flipTo(2);
             break;
           default:
-            if (result !== 'none') {
+            if (result !== 'none' && result !== undefined) {
               bookOut(result, point);
             }
             break;

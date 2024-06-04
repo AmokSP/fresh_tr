@@ -99,6 +99,7 @@ export default function Editor() {
   useShareAppMessage(() => {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
+      imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
       path: HIDEAWAY.INDEX,
     };
   });

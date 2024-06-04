@@ -394,13 +394,13 @@ export default class FressBook {
     bmtextures.forEach(async (mat, index) => {
       // const mat = new MeshStandardMaterial({ color: 0xfff000 });
       const mesh = new Mesh(
-        new PlaneGeometry(3.63 * 0.3, 9.51 * 0.3, 1),
+        new PlaneGeometry(3.63 * 0.35, 9.51 * 0.35, 1),
         new MeshStandardMaterial({ map: mat, side: DoubleSide })
       );
       mesh.name = 'bookmark' + index;
       const bookmarkWrapper = new Object3D();
       bookmarkWrapper.position.z = -0.005;
-      bookmarkWrapper.position.y = PAGE_HEIGHT * 0.5;
+      bookmarkWrapper.position.y = PAGE_HEIGHT * 0.51;
       bookmarkWrapper.position.x = 1.3 + index * 3.63 * 0.4;
       bookmarkWrapper.add(mesh);
       mesh.position.y = -9.51 * 0.3;
