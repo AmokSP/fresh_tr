@@ -5,7 +5,8 @@ const Temp1: PosterData = {
   id: 'temp3',
   preview: preview,
   background: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[2].bg}`,
-  desc: '这是模板3 的文字哈哈哈',
+  desc: 'Join my sensorial journey',
+  subTitle: '扫码定制专属旅行手账，\n更有惊喜好礼等着你！',
   textfields: [
     {
       id: 4,

@@ -83,7 +83,11 @@ export default function Index() {
       try {
         let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
         Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
-        const imageUrl = await drawSaveImage(temp, Templates[posterData!.content.id].desc);
+        const imageUrl = await drawSaveImage(
+          temp,
+          Templates[posterData!.content.id].desc,
+          Templates[posterData!.content.id].subTitle
+        );
         const saveRes = await Taro.saveImageToPhotosAlbum({
           filePath: imageUrl!,
         });
@@ -144,7 +148,9 @@ export default function Index() {
           <View className='block'>
             <Image className='preview' mode='aspectFill' src={drawnImageUrl ?? ''}></Image>
             <View className='desc'>{Templates[posterData.content.id]?.desc}</View>
-            <View className='hint'>{'扫码制作海报分享好友获得优惠券'}</View>{' '}
+            <View className='hint'>
+              <Text>{Templates[posterData.content.id]?.subTitle}</Text>
+            </View>{' '}
             <Image
               className='qr-code'
               src={`${BUCKET_URL}${HIDEAWAY_ASSETS.campaignQrCode}`}

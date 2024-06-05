@@ -1,16 +1,18 @@
 import { HIDEAWAY } from '@app.config';
 import Header from '@components/Basic/Header';
 import Navbar from '@components/Basic/Navbar';
-import { View, Image, Text, Canvas, Video } from '@tarojs/components';
+import { View, Image, Button, Canvas, Video } from '@tarojs/components';
 import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import { goto, hideLoading, showLoading } from '@utils';
 import './index.scss';
 import useAsync from '@hooks/useAsync';
 import HideawayService from '@api/hideaway.service';
 import { CSSProperties, useState } from 'react';
+import BtnShare from './share.svg';
 import cx from 'classnames';
 export default function Index() {
   const { params } = useRouter();
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStoryBySlug);
   const [loading, setLoading] = useState(true);
   useLoad(async () => {
@@ -18,27 +20,54 @@ export default function Index() {
     await fetchKolData(params.slug!);
   });
 
-  useShareAppMessage(() => {
-    return {
-      title: HIDEAWAY_ASSETS.shareTitle,
-      imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
-      path: HIDEAWAY.INDEX,
-    };
+  useShareAppMessage((e) => {
+    if (e.from === 'button') {
+      return {
+        title: HIDEAWAY_ASSETS.shareTitle,
+        imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
+        path: `${HIDEAWAY.KOL_STORY}?slug=${params.slug}`,
+      };
+    } else {
+      return {
+        title: HIDEAWAY_ASSETS.shareTitle,
+        imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
+        path: HIDEAWAY.INDEX,
+      };
+    }
   });
   return (
     <View className={'kol-story'}>
       <Navbar transparent holdPlace={false}>
-        <Header title='brand_logo'></Header>
+        <Header
+          title='brand_logo'
+          buttonBack
+          onClickBack={() => {
+            Taro.navigateBack({
+              delta: 1,
+
+              fail: () => {
+                goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
+              },
+            });
+          }}
+        ></Header>
       </Navbar>
       <View className={cx('mask', { loading })}></View>
+      <Button className='btn-share' openType='share'>
+        <Image src={BtnShare}></Image>
+      </Button>
       {kolData?.data?.[0]?.attributes.content.map((item, index) => {
         const image = item?.image?.data?.attributes;
         const itemStyle: CSSProperties = {
           position: item?.absolute ? 'absolute' : 'relative',
           width: item.width ? Taro.pxTransform(item.width) : undefined,
-          height: item.height ? Taro.pxTransform(item.height) : undefined,
-          top: item.height ? Taro.pxTransform(item.top) : undefined,
-          left: item.height ? Taro.pxTransform(item.left) : undefined,
+          height: item.height
+            ? Taro.pxTransform(item.height)
+            : image
+            ? Taro.pxTransform(image.height / (image.width / 750))
+            : undefined,
+          top: item.top ? Taro.pxTransform(item.top) : undefined,
+          left: item.left ? Taro.pxTransform(item.left) : undefined,
           transformOrigin: 'center',
           transform: `rotate(${item.rotation ?? 0}deg)`,
         };
@@ -49,7 +78,8 @@ export default function Index() {
               style={{
                 ...itemStyle,
                 pointerEvents: item.path ? 'all' : 'none',
-                zIndex: item?.absolute ? 1 : 2 + index,
+                zIndex: item?.absolute ? 1 : 20 + index,
+                lineHeight: 0,
               }}
             >
               <Image
@@ -61,11 +91,11 @@ export default function Index() {
                     setLoading(false);
                   }
                 }}
-                mode='widthFix'
+                mode='scaleToFill'
                 src={`${BUCKET_URL}${image?.url}`}
                 style={{
                   width: '100%',
-                  height: item.height === null ? 'auto' : '100%',
+                  height: '100%',
                 }}
                 onClick={() => {
                   goto({
@@ -85,7 +115,12 @@ export default function Index() {
                 zIndex: 1,
               }}
               src={`${item.url}`}
-              objectFit='fill'
+              objectFit={isFullScreen ? 'contain' : 'fill'}
+              showFullscreenBtn={params.slug !== 'chengdu2'}
+              onFullScreenChange={(e) => {
+                console.log(e.detail);
+                setIsFullScreen(e.detail.fullScreen);
+              }}
             ></Video>
           ),
         }[item.__component];

@@ -103,7 +103,7 @@ export async function drawPoster(posterData: PosterData) {
   });
 }
 
-export async function drawSaveImage(url: string, title: string) {
+export async function drawSaveImage(url: string, title: string, subTitle: string) {
   const canvas: any = Taro.createOffscreenCanvas({
     type: '2d',
     width: 314 * dpr,
@@ -134,14 +134,15 @@ export async function drawSaveImage(url: string, title: string) {
     mode: 'aspectFill',
   });
   context.fillStyle = '#323d47';
-  context.font = `500 18px PingFang SC`;
+  context.font = `500 16px PingFang SC`;
   context.textBaseline = 'top';
   fillTextarea({
     canvas: canvas,
     content: title,
+    // content: 'Join my sensorial journey',
     x: 13,
-    y: 629,
-    width: 160,
+    y: 629 - 11,
+    width: 260,
     height: 22,
     lineHeight: 21,
   });
@@ -149,11 +150,11 @@ export async function drawSaveImage(url: string, title: string) {
   context.textBaseline = 'top';
   fillTextarea({
     canvas: canvas,
-    content: '扫码制作海报分享好友获得优惠券',
+    content: subTitle,
     x: 13,
-    y: 656,
+    y: 656 - 11,
     width: 185,
-    height: 22,
+    height: 43,
     lineHeight: 21,
   });
 

@@ -30,6 +30,7 @@ let actionAfterRegister = '';
 
 export default function Coupon() {
   const router = useRouter();
+  const regsiterCallback = useRef();
   const { status: defaultStatus } = router.params;
   const { COUPON_STATUS_DATA } = getCouponData();
   const [status, setStatus] = useState(
@@ -120,22 +121,54 @@ export default function Coupon() {
       (dayjs().isAfter(item?.validityAfter, 'day') &&
         dayjs().isBefore(item?.validityBefore, 'day'));
     if (!isValidate) {
-      showToast({
-        title: '未在有效期内',
-      });
+      showToast({ title: t('coupon.invalid') });
       return;
     }
-    if (!isRegister) return showSignup();
-    if (item.couponType === 'Coupon') {
-      setCouponToRedeem(item.couponId);
+    if (status.value === COUPON_STATUS.TO_BE_COLLECTED) {
+      regsiterCallback.current = async () => {
+        await delay(2200);
+        showLoading();
+        try {
+          const data = await CouponService.bindCoupon({ name: item.name });
+          if (!data.success) {
+            return showToast({
+              title: t('coupon.collectFail'),
+            });
+          }
+
+          hideLoading();
+          showToast({
+            title: t('coupon.collectSuccess'),
+            mask: true,
+          });
+        } catch (error) {
+          hideLoading();
+          showToast({
+            title: t('coupon.collectFail'),
+          });
+        } finally {
+        }
+
+        resetCouponList();
+        getCouponList(status.value, 1);
+      };
+      showSignup();
     }
-    if (item.couponType === 'LuckyDraw') {
-      goto({
-        url: PAGES.MY_GIFT,
-      });
+    if (status.value === COUPON_STATUS.COLLECTED) {
+      if (!isRegister) return showSignup();
+      if (item.couponType === 'Coupon') {
+        setCouponToRedeem(item);
+      }
+      if (item.couponType === 'LuckyDraw') {
+        goto({
+          url: PAGES.MY_GIFT,
+        });
+      }
     }
   };
-  const handleRegisterSuccess = () => {};
+  const handleRegisterSuccess = () => {
+    regsiterCallback.current?.();
+  };
 
   const handleCouponDetail = async (item) => {
     if (item.status === COUPON_STATUS.LUCKY_DRAW) {
@@ -193,9 +226,9 @@ export default function Coupon() {
                   <CouponCard
                     data={item}
                     onClick={
-                      status.value === COUPON_STATUS.COLLECTED
-                        ? handleCouponClick
-                        : handleCouponDetail
+                      // status.value === COUPON_STATUS.COLLECTED
+                      handleCouponClick
+                      // : handleCouponDetail
                     }
                     onDetail={handleCouponDetail}
                   />
@@ -213,8 +246,8 @@ export default function Coupon() {
           <CodePanel
             targetCoupon={couponToRedeem}
             onSuccess={() => {
-              getCouponList(status.value, 1);
               resetCouponList();
+              getCouponList(status.value, 1);
             }}
             onClose={() => {
               setCouponToRedeem(undefined);

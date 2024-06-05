@@ -43,6 +43,7 @@ type PosterData = {
   id: string;
   preview: string;
   background: string;
+  subTitle: string;
   desc: string;
   textfields: Array<TextField>;
   photos: Array<Photo>;

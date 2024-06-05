@@ -20,7 +20,7 @@ export default React.memo(
     onClose,
     onSuccess,
   }: {
-    targetCoupon: string;
+    targetCoupon: any;
     onSuccess?: () => void;
     onClose?: () => void;
   }) => {
@@ -33,21 +33,36 @@ export default React.memo(
       reset: resetBinding,
     } = useAsync(async () => {
       return new Promise((resolve, reject) => {
-        if (code === '') {
-          return reject('empty');
+        if (targetCoupon.needRedeemPwd) {
+          if (code === '') {
+            return reject('empty');
+          }
+          showLoading();
+          CouponService.userRedeem(targetCoupon.couponId, code)
+            .then(({ success }) => {
+              if (success) {
+                PointService.fireTask({ name: TASK.REDEEM_VOUCHER });
+                resolve(null);
+              } else {
+                reject();
+              }
+            })
+            .catch(reject)
+            .finally(hideLoading);
+        } else {
+          showLoading();
+          CouponService.autoRedeem(targetCoupon.couponId)
+            .then(({ success }) => {
+              if (success) {
+                PointService.fireTask({ name: TASK.REDEEM_VOUCHER });
+                resolve(null);
+              } else {
+                reject();
+              }
+            })
+            .catch(reject)
+            .finally(hideLoading);
         }
-        showLoading();
-        CouponService.userRedeem(targetCoupon, code)
-          .then(({ success }) => {
-            if (success) {
-              PointService.fireTask({ name: TASK.REDEEM_VOUCHER });
-              resolve(null);
-            } else {
-              reject();
-            }
-          })
-          .catch(reject)
-          .finally(hideLoading);
       });
     });
     useEffect(() => {
@@ -66,54 +81,88 @@ export default React.memo(
         ) : (
           <View className={s.panel}>
             <Image onClick={onClose} src={RoundClose} className={s.close} />
-            <View className={s.content}>
-              <Text className={s.title}>{t('coupon.codePanel.title')}</Text>
+            {targetCoupon.needRedeemPwd ? (
+              <View className={s.content}>
+                <Text className={s.title}>{t('coupon.codePanel.title')}</Text>
 
-              <View className={s.desc}>
-                <View>
-                  {t('coupon.qr.desc.part1')}
-                  <Text
-                    style='textDecoration:underline'
-                    onClick={() => {
-                      goto({
-                        url: `${PAGES.STORE_RESTRICT}?couponRedeem=true`,
-                      });
-                    }}
-                  >
-                    {t('coupon.qr.desc.part2')}
-                  </Text>
-                  {t('coupon.qr.desc.part3')}
+                <View className={s.desc}>
+                  <View>
+                    {t('coupon.qr.desc.part1')}
+                    <Text
+                      style='textDecoration:underline'
+                      onClick={() => {
+                        goto({
+                          url: `${PAGES.STORE_RESTRICT}?couponRedeem=true`,
+                        });
+                      }}
+                    >
+                      {t('coupon.qr.desc.part2')}
+                    </Text>
+                    {t('coupon.qr.desc.part3')}
+                  </View>
+                  <View className={s['qr__tip']}>
+                    <View>*{t('coupon.qr.tip')}</View>
+                  </View>
                 </View>
-                <View className={s['qr__tip']}>
-                  <View>*{t('coupon.qr.tip')}</View>
-                </View>
-              </View>
 
-              <View className={s.inputWrapper}>
-                <Input
-                  onInput={handleInput}
-                  onConfirm={handleInput}
-                  value={code}
-                  password={!passwordVisible}
-                  placeholder={t('coupon.codePanel.placeHolder')}
-                  className={cx(s.input, { [s.error]: bindResult === 'error' })}
-                ></Input>
-                <Image
-                  src={passwordVisible ? EyeClose : Eye}
-                  onClick={togglePswVisibility}
-                  className={s.eye}
-                ></Image>
-                {bindResult === 'error' && (
-                  <View className={s.errmsg}>{t('coupon.codePanel.errorMsg')}</View>
-                )}
+                <View className={s.inputWrapper}>
+                  <Input
+                    onInput={handleInput}
+                    onConfirm={handleInput}
+                    value={code}
+                    password={!passwordVisible}
+                    placeholder={t('coupon.codePanel.placeHolder')}
+                    className={cx(s.input, { [s.error]: bindResult === 'error' })}
+                  ></Input>
+                  <Image
+                    src={passwordVisible ? EyeClose : Eye}
+                    onClick={togglePswVisibility}
+                    className={s.eye}
+                  ></Image>
+                  {bindResult === 'error' && (
+                    <View className={s.errmsg}>{t('coupon.codePanel.errorMsg')}</View>
+                  )}
+                </View>
+                <View
+                  onClick={bindResult === 'pending' ? undefined : bindCoupon}
+                  className={s.ctaHome}
+                >
+                  {t('common.confirm2')}
+                </View>
               </View>
-              <View
-                onClick={bindResult === 'pending' ? undefined : bindCoupon}
-                className={s.ctaHome}
-              >
-                {t('common.confirm2')}
+            ) : (
+              <View className={s.content}>
+                <Text className={s.title}>{t('coupon.codePanel.title')}</Text>
+
+                <View className={s.desc}>
+                  <View>
+                    {t('coupon.qr.desc.part1')}
+                    <Text
+                      style='textDecoration:underline'
+                      onClick={() => {
+                        goto({
+                          url: `${PAGES.STORE_RESTRICT}?couponRedeem=true`,
+                        });
+                      }}
+                    >
+                      {t('coupon.qr.desc.part2')}
+                    </Text>
+                    {t('coupon.qr.desc.part3')}
+                  </View>
+                  <View className={s['qr__tip']}>
+                    <View>*{t('coupon.qr.tip')}</View>
+                  </View>
+                </View>
+
+                <View className={s.inputWrapper}></View>
+                <View
+                  onClick={bindResult === 'pending' ? undefined : bindCoupon}
+                  className={s.ctaHome}
+                >
+                  {t('common.confirm2')}
+                </View>
               </View>
-            </View>
+            )}
           </View>
         )}
       </View>

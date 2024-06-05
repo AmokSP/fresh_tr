@@ -6,7 +6,8 @@ const Temp1: PosterData = {
   id: 'temp1',
   preview: preview,
   background: `${BUCKET_URL}${HIDEAWAY_ASSETS.templates[0].bg}`,
-  desc: '这是模板1的文字',
+  desc: 'Kind can be Powerful',
+  subTitle: '扫码定制专属旅行手账，\n更有惊喜好礼等着你！',
   textfields: [
     {
       id: 5,
@@ -181,133 +182,6 @@ const Temp1: PosterData = {
       rotation: 0,
       // rotation: degToRad(-10),
     },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta6',
-    //   width: 69,
-    //   height: 72,
-    //   x: 238,
-    //   y: 203,
-    //   rotation: 0,
-    //   // rotation: degToRad(-10),
-    // },
-    // {
-    //   id: stickerId++,
-    //   name: 'ta11',
-    //   width: 33,
-    //   height: 28,
-    //   x: 356,
-    //   y: 183,
-    //   rotation: degToRad(-22.3),
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta5',
-    //   width: 57,
-    //   height: 89,
-    //   x: 341,
-    //   y: 241,
-    //   rotation: 0,
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta3',
-    //   width: 76,
-    //   height: 95,
-    //   x: 91,
-    //   y: 308,
-    //   rotation: 0,
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta12',
-    //   width: 120,
-    //   height: 105,
-    //   x: 151,
-    //   y: 391,
-    //   rotation: 0,
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta4',
-    //   width: 85,
-    //   height: 102,
-    //   x: 37,
-    //   y: 398,
-    //   rotation: 0,
-    // },
-    // {
-    //   id: stickerId++,
-    //   name: 'ta1',
-    //   width: 92,
-    //   height: 73,
-    //   x: 150,
-    //   y: 559,
-    //   rotation: 0,
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta9',
-    //   width: 75,
-    //   height: 42,
-    //   x: 311,
-    //   y: 451,
-    //   rotation: 0,
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta7',
-    //   width: 24,
-    //   height: 26,
-    //   x: 31,
-    //   y: 623,
-    //   rotation: degToRad(9.33),
-    // },
-    // {
-    //   id: stickerId++,
-    //   name: 'ta10',
-    //   width: 35,
-    //   height: 46,
-    //   x: 29,
-    //   y: 668,
-    //   rotation: degToRad(-12),
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta14',
-    //   width: 60,
-    //   height: 29,
-    //   x: 196,
-    //   y: 434,
-    //   rotation: degToRad(-9.33),
-    // },
-
-    // {
-    //   id: stickerId++,
-    //   name: 'ta2',
-    //   width: 63,
-    //   height: 56,
-    //   x: 212,
-    //   y: 690,
-    //   rotation: degToRad(-6.83),
-    // },
-    // {
-    //   id: stickerId++,
-    //   name: 'ta8',
-    //   width: 68,
-    //   height: 68,
-    //   x: 43,
-    //   y: 111,
-    //   rotation: 0,
-    // },
   ],
 };
 export default Temp1;

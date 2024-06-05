@@ -104,7 +104,9 @@ export default function Index() {
       <View className='block'>
         <Image className='preview' mode='aspectFill' src={drawnImageUrl ?? ''}></Image>
         <View className='desc'>{Templates[posterData.id].desc}</View>
-        <View className='hint'>{'扫码制作海报分享好友获得优惠券'}</View>
+        <View className='hint'>
+          <Text>{Templates[posterData.id].subTitle}</Text>
+        </View>
         <Image className='qr-code' src={`${BUCKET_URL}${HIDEAWAY_ASSETS.campaignQrCode}`}></Image>
       </View>
 

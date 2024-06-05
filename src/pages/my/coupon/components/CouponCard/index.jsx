@@ -43,7 +43,7 @@ export default function CouponCard({ onClick, data, onDetail }) {
     switch (true) {
       case data.status === COUPON_STATUS.TO_BE_COLLECTED && data.luckyDraw:
         return t('draw.toDraw');
-      case data.status === COUPON_STATUS.COLLECTED && data.couponType==='LuckyDraw':
+      case data.status === COUPON_STATUS.COLLECTED && data.couponType === 'LuckyDraw':
         return t('coupon.toDeliver');
       default:
         return COUPON_STATUS_TEXT[data.status].STATUS;
@@ -59,14 +59,16 @@ export default function CouponCard({ onClick, data, onDetail }) {
             <View className={styles['couponCard__content__info__desc']}>{data?.description}</View>
             <View className={styles['couponCard__content__info__due']}>
               {dueDate} 到期
-              <View
-                className={styles['couponCard__content__info__detail']}
-                onClick={() => {
-                  handleDetail(data);
-                }}
-              >
-                {t('common.detail')}
-              </View>
+              {(data.luckyDraw || data.descriptionImgs.data) && (
+                <View
+                  className={styles['couponCard__content__info__detail']}
+                  onClick={() => {
+                    handleDetail(data);
+                  }}
+                >
+                  {t('common.detail')}
+                </View>
+              )}
             </View>
 
             <View className={styles['couponCard__content__info__image']}>

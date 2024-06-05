@@ -60,11 +60,18 @@ export class CouponService {
     });
   }
 
-  // 二维码核销
+  // 普通核销
   public static async userRedeem(couponId: string, password: string): Promise<any> {
     return request({
       url: `${API_URL}/coupon/${couponId}/redeem`,
       data: { password },
+      method: 'POST',
+    });
+  }
+  // 无码核销
+  public static async autoRedeem(couponId: string): Promise<any> {
+    return request({
+      url: `${API_URL}/coupon/${couponId}/redeemWithoutPwd`,
       method: 'POST',
     });
   }

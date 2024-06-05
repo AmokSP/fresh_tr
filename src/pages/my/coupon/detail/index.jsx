@@ -95,26 +95,20 @@ export default function CouponDetail() {
   }, [isLogin]);
 
   const handleClick = () => {
+    if (
+      dayjs().isAfter(dayjs(couponDetail.validityBefore)) ||
+      dayjs().isBefore(dayjs(couponDetail.validityAfter))
+    ) {
+      return showToast({ title: t('coupon.invalid') });
+    }
     switch (status) {
       case COUPON_STATUS.TO_BE_COLLECTED:
-        if (
-          dayjs().isAfter(dayjs(couponDetail.validityBefore)) ||
-          dayjs().isBefore(dayjs(couponDetail.validityAfter))
-        ) {
-          return showToast({ title: t('coupon.invalid') });
-        }
         showSignup();
         // goto({
         //   url: `${PAGES.SIGNUP}?name=${couponName}&type=coupon`,
         // });
         break;
       case COUPON_STATUS.COLLECTED:
-        if (
-          dayjs().isAfter(dayjs(userCoupon.validityBefore)) ||
-          dayjs().isBefore(dayjs(userCoupon.validityAfter))
-        ) {
-          return showToast({ title: t('coupon.invalid') });
-        }
         if (!isRegister) return showSignup();
         setCouponToRedeem(userCoupon.couponId);
         break;
@@ -132,7 +126,7 @@ export default function CouponDetail() {
             });
           }
           await getUserCoupon(data.couponId);
-          setCouponToRedeem(data.couponId);
+          setCouponToRedeem(data);
           showToast({
             title: t('coupon.collectSuccess'),
             mask: true,
@@ -144,7 +138,7 @@ export default function CouponDetail() {
         }
         break;
       case COUPON_STATUS.COLLECTED:
-        setCouponToRedeem(userCoupon.couponId);
+        setCouponToRedeem(userCoupon);
         break;
     }
   };
