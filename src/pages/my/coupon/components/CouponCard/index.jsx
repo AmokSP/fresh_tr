@@ -22,7 +22,8 @@ export default function CouponCard({ onClick, data, onDetail }) {
   const { COUPON_STATUS_TEXT } = getCouponData();
   const { t } = useTranslation();
 
-  const disabled = data.status === COUPON_STATUS.REDEEMED || data.status === COUPON_STATUS.EXPIRED;
+  const disabled =
+    data?.status === COUPON_STATUS.REDEEMED || data?.status === COUPON_STATUS.EXPIRED;
 
   const couponClass = classNames([
     styles['couponCard__wrap'],
@@ -59,7 +60,7 @@ export default function CouponCard({ onClick, data, onDetail }) {
             <View className={styles['couponCard__content__info__desc']}>{data?.description}</View>
             <View className={styles['couponCard__content__info__due']}>
               {dueDate} 到期
-              {(data.luckyDraw || data.descriptionImgs.data) && (
+              {(data?.luckyDraw || data?.descriptionImgs?.data) && (
                 <View
                   className={styles['couponCard__content__info__detail']}
                   onClick={() => {

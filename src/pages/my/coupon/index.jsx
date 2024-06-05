@@ -23,6 +23,8 @@ import CouponCard from './components/CouponCard';
 import styles from './index.module.scss';
 import CodePanel from './components/CodePanel';
 import Signup from '@pages/signup/index';
+import PopupSuccess from '../../draw/components/PopupSuccess';
+import PopupMiss from '../../draw/components/PopupMiss';
 
 const PAGE_SIZE = 10;
 
@@ -37,6 +39,11 @@ export default function Coupon() {
     COUPON_STATUS_DATA.find((i) => i.value === router.params.status) ?? COUPON_STATUS_DATA[0]
   );
   const [signupPageFlag, showSignup, hideSignup] = useBoolean(false);
+
+  const [successPopupFlag, showSuccess, hideSuccess] = useBoolean(false);
+  const [missPopupFlag, showMiss, hideMiss] = useBoolean(false);
+
+  const { value: drawResult, execute: drawPrize } = useAsync(LuckyService.drawPrize);
   const [couponToRedeem, setCouponToRedeem] = useState();
 
   const { userInfo, isLogin, isFromDFS } = useStore((state) => state);
@@ -74,6 +81,13 @@ export default function Coupon() {
         .finally(hideLoading);
     });
   });
+
+  useEffect(() => {
+    if (drawResult === null) {
+      return; // 还未抽奖
+    }
+    drawResult.success ? showSuccess(true) : showMiss(true);
+  }, [drawResult]);
 
   useEffect(() => {
     if (isLogin && status) {
@@ -166,6 +180,28 @@ export default function Coupon() {
       }
     }
   };
+  const handleOnlineClick = async (item) => {
+    const isValidate =
+      dayjs().isSame(item?.validityAfter, 'day') ||
+      dayjs().isSame(item?.validityBefore, 'day') ||
+      (dayjs().isAfter(item?.validityAfter, 'day') &&
+        dayjs().isBefore(item?.validityBefore, 'day'));
+    if (!isValidate) {
+      showToast({ title: t('coupon.invalid') });
+      return;
+    }
+    regsiterCallback.current = async () => {
+      await delay(2200);
+      showLoading();
+
+      await drawPrize(item.name);
+      hideLoading();
+      resetCouponList();
+      getDrawList();
+    };
+    showSignup();
+  };
+
   const handleRegisterSuccess = () => {
     regsiterCallback.current?.();
   };
@@ -216,7 +252,7 @@ export default function Coupon() {
                 <View className={styles['coupon__list__card']} key={item.name}>
                   <CouponCard
                     data={item}
-                    onClick={handleCouponDetail}
+                    onClick={item.luckyDraw ? handleCouponDetail : handleOnlineClick}
                     onDetail={handleCouponDetail}
                   />
                 </View>
@@ -253,6 +289,21 @@ export default function Coupon() {
               setCouponToRedeem(undefined);
             }}
           ></CodePanel>
+        )}
+      </View>
+
+      <View>{missPopupFlag && <PopupMiss onClose={hideMiss} onConfirm={hideMiss} />}</View>
+      <View>
+        {successPopupFlag && (
+          <PopupSuccess
+            onClose={hideSuccess}
+            onConfirm={() => {
+              hideSuccess();
+              goto({
+                url: PAGES.MY_GIFT,
+              });
+            }}
+          />
         )}
       </View>
       <PageContainer show={signupPageFlag} onAfterLeave={hideSignup} position='right'>

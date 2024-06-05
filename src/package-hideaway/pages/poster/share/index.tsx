@@ -54,7 +54,11 @@ export default function Index() {
         try {
           let temp = `${Taro.env.USER_DATA_PATH}/temp_save_${new Date().getTime()}.png`;
           Taro.getFileSystemManager().writeFileSync(temp, drawnImageUrl!.slice(22), 'base64');
-          const imageUrl = await drawSaveImage(temp, Templates[posterData.id].desc);
+          const imageUrl = await drawSaveImage(
+            temp,
+            Templates[posterData.id].desc,
+            Templates[posterData.id].subTitle
+          );
           const saveRes = await Taro.saveImageToPhotosAlbum({
             filePath: imageUrl!,
           });
