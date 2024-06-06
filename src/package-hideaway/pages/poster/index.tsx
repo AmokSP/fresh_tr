@@ -28,6 +28,7 @@ import PrivacyAuth from '@components/PrivacyAuth';
 import useAsync from '@hooks/useAsync';
 import * as Icons from '@assets/icons';
 import Logo from '@assets/logo-large.png';
+import { relative } from 'path';
 
 const menuButtonRect = Taro.getMenuButtonBoundingClientRect();
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
@@ -480,7 +481,7 @@ export default function Editor() {
           onTouchEnd={canvasTouchEnd}
           style={MoveableSize}
         >
-          <View>
+          <View style={{ zIndex: 0 }}>
             {photos.map((i) => (
               <EditablePhoto
                 key={templateId + 'photo' + i.id}
@@ -494,7 +495,7 @@ export default function Editor() {
             ))}
           </View>
           <Image className='poster' mode='widthFix' src={Templates[templateId].background}></Image>
-          <View>
+          <View style={{ position: 'relative', zIndex: 30 }}>
             {texts.map((i) => (
               <EditableText
                 key={templateId + 'text' + i.id}
@@ -503,7 +504,7 @@ export default function Editor() {
               ></EditableText>
             ))}
           </View>
-          <View>
+          <View style={{ position: 'relative', zIndex: 40 }}>
             {stickers.map((sticker) => {
               const cmsSticker = cmsStickers?.find((i) => sticker.name === i.name);
 

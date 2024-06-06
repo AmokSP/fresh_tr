@@ -19,6 +19,10 @@ function App({ children }) {
   useDFS();
   useTabbarSetting();
   useDidShow((options) => {
+    const updateManager = Taro.getUpdateManager();
+    updateManager.onUpdateReady(() => {
+      updateManager.applyUpdate();
+    });
     console.log('options', options);
     const { scene, lang, utm_source, utm_medium, utm_campaign, dfs } = options.query;
     if (utm_source || utm_medium || utm_campaign) {

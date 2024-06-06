@@ -16,7 +16,13 @@ export async function drawPoster(posterData: PosterData) {
     const context: any = canvas.getContext('2d');
 
     context.scale(dpr, dpr);
-
+    posterData.photos.sort((a, b) => {
+      if ((a.zIndex ?? 0) > (b.zIndex ?? 0)) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
     for (const item of posterData.photos) {
       context.save();
       context.translate(item.x, item.y);

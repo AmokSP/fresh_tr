@@ -3,7 +3,7 @@ import { Image, View, Text } from '@tarojs/components';
 import { degToRad } from '../../utils/rotations';
 
 export default React.memo((props: Photo & { onClick?: (e) => void }) => {
-  const { src, rotation, x, y, status } = props;
+  const { src, rotation, x, y, status, zIndex } = props;
   const cosV = Math.cos(degToRad(rotation) ?? 0);
   const sinV = Math.sin(degToRad(rotation) ?? 0);
   return (
@@ -16,6 +16,7 @@ export default React.memo((props: Photo & { onClick?: (e) => void }) => {
       style={{
         position: 'absolute',
         transformOrigin: '0 0',
+        zIndex,
         transform: `matrix(${cosV},${sinV},${-sinV},${cosV},${Math.round(x)},${Math.round(y)})`,
       }}
     >

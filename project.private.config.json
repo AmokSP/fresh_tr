@@ -6,7 +6,14 @@
         {
           "name": "package-hideaway/pages/kol-story/index",
           "pathName": "package-hideaway/pages/kol-story/index",
-          "query": "slug=yunnan2",
+          "query": "slug=hangzhou1",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/signup/index/index",
+          "pathName": "pages/signup/index/index",
+          "query": "redirect=hideaway_poster",
           "launchMode": "default",
           "scene": null
         },
@@ -112,13 +119,6 @@
           "name": "测试",
           "pathName": "pages/index/index",
           "query": "utm_source=test1&utm_medium=test2",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/signup/index/index",
-          "query": "",
           "launchMode": "default",
           "scene": null
         },

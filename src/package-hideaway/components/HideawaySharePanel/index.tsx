@@ -52,7 +52,7 @@ export default React.memo((props: SharePanelProps) => {
             </View>
             <View className='share-panel__friends__friend'>
               <Image src={receivedCount % 3 >= 2 ? IconOn : IconOff}></Image>
-              <View>{receivedCount % 3 >= 1 ? '已打卡' : '未打卡'}</View>
+              <View>{receivedCount % 3 >= 2 ? '已打卡' : '未打卡'}</View>
             </View>
             <View className='share-panel__friends__friend'>
               <Image src={IconOff}></Image>

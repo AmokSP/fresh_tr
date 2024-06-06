@@ -196,7 +196,7 @@ export default function Coupon() {
 
       await drawPrize(item.name);
       hideLoading();
-      resetCouponList();
+      resetDrawList();
       getDrawList();
     };
     showSignup();

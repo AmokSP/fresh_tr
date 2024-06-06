@@ -38,6 +38,7 @@ type Photo = {
   ratio?: string;
   touched: false;
   status: CheckResult;
+  zIndex?: number;
 };
 type PosterData = {
   id: string;

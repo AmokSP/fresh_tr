@@ -52,6 +52,7 @@ const Temp1: PosterData = {
       rotation: -0.95,
       touched: false,
       status: 'success',
+      zIndex: 1,
     },
     {
       id: 1,
@@ -65,6 +66,7 @@ const Temp1: PosterData = {
       rotation: 5.81,
       touched: false,
       status: 'success',
+      zIndex: 2,
     },
     {
       id: 2,
@@ -78,6 +80,7 @@ const Temp1: PosterData = {
       rotation: 5.81,
       touched: false,
       status: 'success',
+      zIndex: 3,
     },
     {
       id: 3,
@@ -91,6 +94,8 @@ const Temp1: PosterData = {
       rotation: -3.62,
       touched: false,
       status: 'success',
+
+      zIndex: 4,
     },
   ],
   stickers: [

@@ -13,7 +13,7 @@ import { UserService } from '@api/user.services';
 import { PointService } from '@api/point.services';
 import { TASK } from '@constants';
 import { goto, showToast, delayNavigateBack, showLoading, hideLoading } from '@utils';
-import { PAGES } from '@app.config';
+import { HIDEAWAY, PAGES } from '@app.config';
 import CustomNav from '@components/CustomNav';
 import PrivacyAuth from '@components/PrivacyAuth';
 import RegionPicker from '@components/RegionPicker';
@@ -75,7 +75,8 @@ export default function Signup({
   const router = useRouter();
   const { redirect } = router.params;
   const { t } = useTranslation();
-  const isH5Campaign = redirect !== undefined;
+  const isH5Campaign =
+    redirect !== undefined && !['hideaway_poster', 'hideaway'].includes(redirect);
   useEffect(() => {
     if (isLogin) {
       _getRegion();
@@ -206,10 +207,25 @@ export default function Signup({
       setTimeout(() => {
         onClose();
       }, 2000);
-    } else if (isH5Campaign) {
-      setTimeout(() => {
-        goto({ url: `${PAGES.WEBVIEW}?target=${redirect}`, type: 'redirectTo' });
-      }, 2000);
+    } else if (redirect !== undefined) {
+      switch (redirect) {
+        case 'hideaway':
+          setTimeout(() => {
+            goto({ url: HIDEAWAY.INDEX, type: 'redirectTo' });
+          }, 2000);
+          break;
+        case 'hideaway_poster':
+          setTimeout(() => {
+            goto({ url: HIDEAWAY.POSTER, type: 'redirectTo' });
+          }, 2000);
+          break;
+
+        default:
+          setTimeout(() => {
+            goto({ url: `${PAGES.WEBVIEW}?target=${redirect}`, type: 'redirectTo' });
+          }, 2000);
+          break;
+      }
     } else {
       delayNavigateBack();
     }
