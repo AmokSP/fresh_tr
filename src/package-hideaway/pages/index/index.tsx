@@ -301,7 +301,7 @@ export default function Index() {
       freshBook.current.camera.position,
       { z: 25, y: 0.5 },
       {
-        y: 1.5,
+        y: 1.1,
         z: 35,
         duration: 5 * factor,
         ease: 'power1.inOut',

@@ -141,7 +141,7 @@ export default React.memo(
                       style='textDecoration:underline'
                       onClick={() => {
                         goto({
-                          url: `${PAGES.STORE_RESTRICT}?couponRedeem=true`,
+                          url: `${PAGES.STORE_RESTRICT}?couponRedeem=true&hideaway=true`,
                         });
                       }}
                     >

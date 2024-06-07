@@ -589,21 +589,41 @@ export default function Editor() {
       >
         <View className='ctas'>
           <View
-            className={cx('pill-button primary', {
-              disabled: giftCount === 0,
-            })}
+            className={cx('pill-button primary')}
             onClick={() => {
               hideSharePanel();
-              goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` });
+              handleGenerate();
             }}
           >
             <Image className='scratch' src={PanelCta}></Image>
-            <View>查看礼券</View>
+            <View>保存分享</View>
           </View>
 
-          <Button openType='share' className='underline'>
-            分享好友
-          </Button>
+          
+          <View className='more'>
+            <View
+              className={cx('underline', {
+                disabled: giftCount === 0,
+              })}
+              onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
+            >
+              查看礼券
+            </View>
+            <View className='line'></View>
+            <View
+              onClick={() => {
+                hideSharePanel();
+                // goto({ url: `${HIDEAWAY.POSTER}` });
+              }}
+              className='underline'
+            >
+              继续制作手账
+            </View>
+          </View>
+
+          {/* <Button openType='share' className='underline'>
+            立即分享
+          </Button> */}
         </View>
       </HideawaySharePanel>
       <PrivacyAuth init={policyPopupFlag}>

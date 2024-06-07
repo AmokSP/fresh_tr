@@ -26,7 +26,7 @@ export default function Store() {
   const { result: location, run } = useLocation({ manual: true });
   const { t } = useTranslation();
   const router = useRouter();
-  const { couponRedeem } = router.params;
+  const { couponRedeem, hideaway } = router.params;
 
   const _getList = async () => {
     showLoading();
@@ -34,6 +34,11 @@ export default function Store() {
     let data = result?.data;
     if (couponRedeem) {
       data = result?.data.filter((item) => item?.attributes?.couponRedeem === true);
+    }
+    if (hideaway) {
+      //uat 34
+      //prod 293
+      data = result?.data.filter((item) => [34, 293].includes(item?.id));
     }
     createMarkers(data);
     _setListData(data);
