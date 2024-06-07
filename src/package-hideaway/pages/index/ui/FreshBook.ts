@@ -346,6 +346,7 @@ export default class FressBook {
     // this.bookCase.position.z = -BOOK_HEIGHT - 0.02;
 
     this.bookWrapper.position.z = 0.6;
+    this.bookWrapper.position.y = 0.4;
     this.bookWrapper.add(this.cover);
     this.bookWrapper.add(this.back);
     // this.bookWrapper.add(this.fakePages);

@@ -1,4 +1,4 @@
-import { useDidShow } from '@tarojs/taro';
+import Taro, { useDidShow } from '@tarojs/taro';
 import storage from '@utils/storage';
 import useLogin from '@hooks/useLogin';
 import useDFS from '@hooks/useDFS';

@@ -1,4 +1,4 @@
-import { Text, Image, View, Block, MovableArea, MovableView } from '@tarojs/components';
+import { Text, Image, View, Button, MovableArea, MovableView } from '@tarojs/components';
 import Taro, { useDidHide, useDidShow, useLoad, useRouter, useShareAppMessage } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
@@ -28,7 +28,7 @@ import PrivacyAuth from '@components/PrivacyAuth';
 import useAsync from '@hooks/useAsync';
 import * as Icons from '@assets/icons';
 import Logo from '@assets/logo-large.png';
-import { relative } from 'path';
+import useStore from '@stores';
 
 const menuButtonRect = Taro.getMenuButtonBoundingClientRect();
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
@@ -41,6 +41,7 @@ let stickerCache: Sticker[] = [];
 let renderFlag = false;
 
 export default function Editor() {
+  const { userInfo, isLogin } = useStore((state) => state);
   const renderTimer = useRef<NodeJS.Timeout>();
   const checkTimer = useRef<NodeJS.Timeout>();
   const [policyPopupFlag, showPolicy] = useBoolean(false);
@@ -57,6 +58,7 @@ export default function Editor() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [texts, setTexts] = useState<TextField[]>([]);
   const [stickers, setStickers] = useState<Sticker[]>([]);
+  const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
   const { value: cmsStickers, execute: fetchAllStickers } = useAsync(() => {
     return new Promise((resolve) => {
       HideawayService.getHideawayStickers().then((res) => {
@@ -76,7 +78,6 @@ export default function Editor() {
       });
     });
   });
-  const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
   useDidShow(() => {
     clearInterval(renderTimer.current);
     clearInterval(checkTimer.current);
@@ -101,7 +102,7 @@ export default function Editor() {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
       imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
-      path: HIDEAWAY.INDEX,
+      path: `${HIDEAWAY.INDEX}?accountId=${userInfo.accountId}`,
     };
   });
   useEffect(() => {
@@ -599,6 +600,10 @@ export default function Editor() {
             <Image className='scratch' src={PanelCta}></Image>
             <View>查看礼券</View>
           </View>
+
+          <Button openType='share' className='underline'>
+            分享好友
+          </Button>
         </View>
       </HideawaySharePanel>
       <PrivacyAuth init={policyPopupFlag}>

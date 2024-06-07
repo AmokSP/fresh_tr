@@ -66,6 +66,12 @@ export class HideawayService {
       url: `${API_URL}/postcard/received/${token}`,
     });
   }
+  public static async checkIn(accountId: string): Promise<any> {
+    return request({
+      method: 'PUT',
+      url: `${API_URL}/postcard/checkin/${accountId}`,
+    });
+  }
   public static async checkPhotoStatus(url: string): Promise<any> {
     return request({
       method: 'GET',

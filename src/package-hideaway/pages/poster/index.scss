@@ -1,4 +1,27 @@
 .hideaway-poster {
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
+    box-sizing: border-box;
+    font-size: unset;
+    text-align: center;
+    text-decoration: none;
+    line-height: 2.5;
+    border-radius: 0px;
+    -webkit-tap-highlight-color: transparent;
+    overflow: visible;
+    color: #000;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    &::after {
+      border: unset;
+    }
+  }
   .nav-back {
     position: absolute;
     width: 18px;
@@ -81,7 +104,7 @@
     transition: all 1s ease-out;
 
     &::after {
-      content: '查看进度';
+      content: '分享有礼';
       color: black;
       position: absolute;
       top: 105%;

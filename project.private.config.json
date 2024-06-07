@@ -6,7 +6,14 @@
         {
           "name": "package-hideaway/pages/kol-story/index",
           "pathName": "package-hideaway/pages/kol-story/index",
-          "query": "slug=hangzhou1",
+          "query": "slug=hangzhou1&accountId=wpVE1W",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "package-hideaway/pages/index/index",
+          "pathName": "package-hideaway/pages/index/index",
+          "query": "accountId=wpVE1W",
           "launchMode": "default",
           "scene": null
         },
@@ -55,13 +62,6 @@
         {
           "name": "package-hideaway/pages/poster/share/index",
           "pathName": "package-hideaway/pages/poster/share/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "package-hideaway/pages/index/index",
-          "pathName": "package-hideaway/pages/index/index",
           "query": "",
           "launchMode": "default",
           "scene": null

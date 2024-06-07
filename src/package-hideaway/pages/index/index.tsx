@@ -1,5 +1,12 @@
-import { View, Image, Text, Canvas, Block } from '@tarojs/components';
-import Taro, { useDidHide, useDidShow, useLoad, useShareAppMessage, useUnload } from '@tarojs/taro';
+import { View, Image, Button, Canvas, Block } from '@tarojs/components';
+import Taro, {
+  useRouter,
+  useDidHide,
+  useDidShow,
+  useLoad,
+  useShareAppMessage,
+  useUnload,
+} from '@tarojs/taro';
 import gsap from 'gsap';
 import './index.scss';
 import { useEffect, useRef, useState } from 'react';
@@ -27,6 +34,7 @@ import { showToast } from '@utils';
 import subscribeMessage from './ui/SubscribeCampaignMessage';
 import HideawayService from '@api/hideaway.service';
 import useAsync from '@hooks/useAsync';
+import useStore from '@stores';
 const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
 const CAMERA_READY_POS = {
   x: PAGE_WIDTH * 0.5,
@@ -48,6 +56,7 @@ const PhaseSeq = [
 ] as const;
 const SubscribeKey = 'hideaway_subscribed';
 export default function Index() {
+  const { params } = useRouter();
   const [subscribed, setSubscribed] = useState<boolean>(Taro.getStorageSync(SubscribeKey) ?? false);
   const freshBook = useRef<any>();
   const platform = useRef<WechatPlatform>();
@@ -57,7 +66,9 @@ export default function Index() {
   const [isLandscape, setLandscape] = useState(false);
   const [cityIndex, setCityIndex] = useState(0);
   const [phase, setPhase] = useState<(typeof PhaseSeq)[number]>('idle');
+  const { userInfo, isLogin } = useStore((state) => state);
   const { value: hideawayAssets, execute: fetchAsset } = useAsync(HideawayService.getHidewayAsset);
+  const { execute: checkIn } = useAsync(HideawayService.checkIn);
   useLoad(async () => {
     console.log(Taro.getCurrentPages());
     await delay(100);
@@ -90,7 +101,7 @@ export default function Index() {
     return {
       title: HIDEAWAY_ASSETS.shareTitle,
       imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
-      path: HIDEAWAY.INDEX,
+      path: `${HIDEAWAY.INDEX}?accountId=${userInfo.accountId}`,
     };
   });
   useDidShow(() => {
@@ -110,6 +121,11 @@ export default function Index() {
       });
     }
   });
+  useEffect(() => {
+    if (isLogin && params.accountId && params.accountId !== userInfo.accountId) {
+      checkIn(params.accountId);
+    }
+  }, [isLogin, params.accountId]);
   useEffect(() => {
     freshBook.current?.bookmarks.forEach((wrapper, index) => {
       gsap.to(wrapper.children[0].position, {
@@ -418,7 +434,7 @@ export default function Index() {
           </Block>
         )}
       </View>
-      <Image onClick={showSharePanel} src={Plane} className={'btn-plane'}></Image>
+      {/* <Image onClick={showSharePanel} src={Plane} className={'btn-plane'}></Image> */}
       <Image className='title' src={Title}></Image>
       <View
         onClick={() => {
@@ -486,23 +502,30 @@ export default function Index() {
         onClose={hideSharePanel}
       >
         <View className='ctas'>
-          <View
-            className='pill-button primary'
-            onClick={() => {
-              hideSharePanel();
-              goto({ url: `${HIDEAWAY.POSTER}` });
-            }}
-          >
+          <Button className='pill-button primary' openType='share'>
             <Image className='scratch' src={PanelCta}></Image>
-            继续制作手账
-          </View>
-          <View
-            className={cx('underline', {
-              disabled: giftCount === 0,
-            })}
-            onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
-          >
-            查看礼券
+            立即分享
+          </Button>
+
+          <View className='more'>
+            <View
+              className={cx('underline', {
+                disabled: giftCount === 0,
+              })}
+              onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
+            >
+              查看礼券
+            </View>
+            <View className='line'></View>
+            <View
+              onClick={() => {
+                // hideSharePanel();
+                goto({ url: `${HIDEAWAY.POSTER}` });
+              }}
+              className='underline'
+            >
+              制作手账
+            </View>
           </View>
         </View>
       </HideawaySharePanel>

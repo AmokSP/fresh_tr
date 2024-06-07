@@ -7,33 +7,42 @@ import { goto, hideLoading, showLoading } from '@utils';
 import './index.scss';
 import useAsync from '@hooks/useAsync';
 import HideawayService from '@api/hideaway.service';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useState, useEffect } from 'react';
+import HideawaySharePanel from '@hideaway/components/HideawaySharePanel';
 import BtnShare from './share.svg';
+import { COUPON_STATUS } from '@constants/coupon';
+import PanelCta from '@hideaway/assets/panel-cta.png';
+import Plane from '@assets/plane.png';
 import cx from 'classnames';
+import { PAGES } from '@app.config';
+import useBoolean from '@hooks/useBoolean';
+import useShareStatusQuery from '@hideaway/useShareStatusQuery';
+import useStore from '@stores';
 export default function Index() {
   const { params } = useRouter();
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const { receivedCount, giftCount } = useShareStatusQuery();
+  const [sharePanelFlag, showSharePanel, hideSharePanel] = useBoolean(false);
   const { value: kolData, execute: fetchKolData } = useAsync(HideawayService.getKolStoryBySlug);
   const [loading, setLoading] = useState(true);
+  const { execute: checkIn } = useAsync(HideawayService.checkIn);
+  const { userInfo, isLogin } = useStore((state) => state);
   useLoad(async () => {
     showLoading();
     await fetchKolData(params.slug!);
   });
+  useEffect(() => {
+    if (isLogin && params.accountId && params.accountId !== userInfo.accountId) {
+      checkIn(params.accountId);
+    }
+  }, [isLogin, params.accountId]);
 
   useShareAppMessage((e) => {
-    if (e.from === 'button') {
-      return {
-        title: HIDEAWAY_ASSETS.shareTitle,
-        imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
-        path: `${HIDEAWAY.KOL_STORY}?slug=${params.slug}`,
-      };
-    } else {
-      return {
-        title: HIDEAWAY_ASSETS.shareTitle,
-        imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
-        path: HIDEAWAY.INDEX,
-      };
-    }
+    return {
+      title: HIDEAWAY_ASSETS.shareTitle,
+      imageUrl: `${BUCKET_URL}${HIDEAWAY_ASSETS.shareImage}`,
+      path: `${HIDEAWAY.KOL_STORY}?slug=${params.slug}&accountId=${userInfo.accountId}`,
+    };
   });
   return (
     <View className={'kol-story'}>
@@ -52,10 +61,11 @@ export default function Index() {
           }}
         ></Header>
       </Navbar>
+      <Image onClick={showSharePanel} className='btn-plane' src={Plane}></Image>
       <View className={cx('mask', { loading })}></View>
-      <Button className='btn-share' openType='share'>
+      {/* <Button className='btn-share' openType='share'>
         <Image src={BtnShare}></Image>
-      </Button>
+      </Button> */}
       {kolData?.data?.[0]?.attributes.content.map((item, index) => {
         const image = item?.image?.data?.attributes;
         const itemStyle: CSSProperties = {
@@ -125,6 +135,41 @@ export default function Index() {
           ),
         }[item.__component];
       })}
+
+      <HideawaySharePanel
+        giftCount={giftCount}
+        receivedCount={receivedCount}
+        show={sharePanelFlag}
+        onClose={hideSharePanel}
+      >
+        <View className='ctas'>
+          <Button className='pill-button primary' openType='share'>
+            <Image className='scratch' src={PanelCta}></Image>
+            立即分享
+          </Button>
+
+          <View className='more'>
+            <View
+              className={cx('underline', {
+                disabled: giftCount === 0,
+              })}
+              onClick={() => goto({ url: `${PAGES.MY_COUPON}?status=${COUPON_STATUS.COLLECTED}` })}
+            >
+              查看礼券
+            </View>
+            <View className='line'></View>
+            <View
+              onClick={() => {
+                // hideSharePanel();
+                goto({ url: `${HIDEAWAY.POSTER}` });
+              }}
+              className='underline'
+            >
+              制作手账
+            </View>
+          </View>
+        </View>
+      </HideawaySharePanel>
       {/* <Image
         src={`${BUCKET_URL}${HIDEAWAY_ASSETS.stories[0].gif}`}
         className='w-100 gif'
