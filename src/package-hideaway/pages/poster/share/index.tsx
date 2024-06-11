@@ -156,8 +156,8 @@ export default function Index() {
               继续探索
             </View>
             <View className='line'></View>
-            <Button openType='share' className='underline'>
-              分享好友
+            <Button openType='share'>
+              <View className='underline'>分享好友</View>
             </Button>
           </View>
         </View>
