@@ -131,12 +131,10 @@ export default React.memo(
                 </View>
               </View>
             ) : (
-              <View className={s.content}>
-                <Text className={s.title}>{t('coupon.codePanel.title')}</Text>
-
+              <View className={s.content} style={{ paddingTop: '80rpx', paddingBottom: '80rpx' }}>
                 <View className={s.desc}>
                   <View>
-                    {t('coupon.qr.desc.part1')}
+                    {t('coupon.qr_hideaway.desc.part1')}
                     <Text
                       style='textDecoration:underline'
                       onClick={() => {
@@ -145,12 +143,12 @@ export default React.memo(
                         });
                       }}
                     >
-                      {t('coupon.qr.desc.part2')}
+                      {t('coupon.qr_hideaway.desc.part2')}
                     </Text>
-                    {t('coupon.qr.desc.part3')}
+                    {t('coupon.qr_hideaway.desc.part3')}
                   </View>
                   <View className={s['qr__tip']}>
-                    <View>*{t('coupon.qr.tip')}</View>
+                    <View>*{t('coupon.qr_hideaway.tip')}</View>
                   </View>
                 </View>
 
@@ -159,7 +157,10 @@ export default React.memo(
                   onClick={bindResult === 'pending' ? undefined : bindCoupon}
                   className={s.ctaHome}
                 >
-                  {t('common.confirm2')}
+                  {t('coupon.qr_hideaway.cta')}
+                </View>
+                <View className={s['qr__tip']}>
+                  <View>*{t('coupon.qr_hideaway.tip2')}</View>
                 </View>
               </View>
             )}

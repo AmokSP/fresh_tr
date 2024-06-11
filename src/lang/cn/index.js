@@ -105,6 +105,17 @@ export default {
       },
       tip: '明星小样随机发放，具体以柜台实际兑换为准',
     },
+    qr_hideaway: {
+      title: '',
+      desc: {
+        part1: '前往以下',
+        part2: '馥蕾诗免税专柜',
+        part3: '进行领取兑换',
+      },
+      tip: '柜台每日库存有限，先到先得',
+      cta: '待到店兑换',
+      tip2: '仅在兑换后，由现场工作人员点击核销',
+    },
     dfsPopup: {
       title: '恭喜你已成功\n领取好礼',
       subTitle: '了解更多fresh馥蕾诗免税动向',

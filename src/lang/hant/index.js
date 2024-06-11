@@ -109,6 +109,17 @@ export default {
       },
       tip: '明星小樣隨機發放，具體以櫃檯實際兌換為准',
     },
+    qr_hideaway: {
+      title: '',
+      desc: {
+        part1: '前往以下',
+        part2: '馥蕾詩免稅專櫃',
+        part3: '進行領取兌換',
+      },
+      tip: '櫃檯每日庫存有限，先到先得',
+      cta: '待到店兌換',
+      tip2: '僅在兌換后，由現場工作人員核銷',
+    },
     dfsPopup: {
       title: '恭喜你已成功\n領取好禮',
       subTitle: '了解更多Fresh馥蕾詩免稅動向',
