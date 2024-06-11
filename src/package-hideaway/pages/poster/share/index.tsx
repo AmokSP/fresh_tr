@@ -149,7 +149,7 @@ export default function Index() {
             className={cx('pill-button primary', { disabled: giftCount === 0 })}
           >
             <Image className='scratch' src={PanelCta}></Image>
-            查看礼券
+            <View>查看礼券</View>
           </View>
           <View className='more'>
             <View className='underline' onClick={backToMap}>

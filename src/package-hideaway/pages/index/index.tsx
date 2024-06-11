@@ -488,11 +488,15 @@ export default function Index() {
       ></Image>
 
       <View className='bottom-btns'>
-        <View className='underline' onClick={() => goto({ url: HIDEAWAY.POSTER })}>
-          制作旅行手账
+        <View style={{ padding: '24rpx' }}>
+          <View className='underline' onClick={() => goto({ url: HIDEAWAY.POSTER })}>
+            制作旅行手账
+          </View>
         </View>
-        <View className='underline' onClick={showSharePanel}>
-          分享赢好礼
+        <View style={{ padding: '24rpx' }}>
+          <View className='underline' onClick={showSharePanel}>
+            分享赢好礼
+          </View>
         </View>
       </View>
       <HideawaySharePanel
@@ -504,7 +508,7 @@ export default function Index() {
         <View className='ctas'>
           <Button className='pill-button primary' openType='share'>
             <Image className='scratch' src={PanelCta}></Image>
-            立即分享
+            <View>立即分享</View>
           </Button>
 
           <View className='more'>

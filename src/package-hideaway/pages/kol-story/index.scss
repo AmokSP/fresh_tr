@@ -153,6 +153,10 @@
       width: 168px * 2;
       height: 34px * 2;
       color: white !important;
+      view {
+        position: relative;
+        top: 6px;
+      }
       .scratch {
         position: absolute;
         width: 100%;

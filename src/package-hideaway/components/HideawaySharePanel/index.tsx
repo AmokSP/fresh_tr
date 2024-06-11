@@ -1,6 +1,6 @@
 import { View, Text, Image } from '@tarojs/components';
 import React from 'react';
-import Taro from '@tarojs/taro';
+import Taro, { useRouter } from '@tarojs/taro';
 import HideawayPopup, { HideawayPopupProps } from '@components/HideawayPopup';
 import IconOff from './off.svg';
 import IconOn from './on.svg';
@@ -16,6 +16,21 @@ interface SharePanelProps extends HideawayPopupProps {
 }
 export default React.memo((props: SharePanelProps) => {
   const { receivedCount = 0, giftCount = 0 } = props;
+  const router = useRouter();
+  console.log(router.path);
+  let text = '';
+  switch (router.path) {
+    case HIDEAWAY.INDEX:
+      text = '分享馥蕾诗城市逸游指南至微信好友，每三位好友打卡成功即可获得惊喜豪礼。';
+      break;
+    case HIDEAWAY.KOL_STORY:
+      text = '分享达人旅行手账至微信好友，每三位好友打卡成功即可获得惊喜豪礼。';
+      break;
+    case HIDEAWAY.POSTER:
+    case HIDEAWAY.POSTER_SHARE:
+      text = '分享我的旅行手账至微信好友，每三位好友打卡成功即可获得惊喜豪礼。';
+      break;
+  }
   return (
     <HideawayPopup
       style={{
@@ -30,10 +45,7 @@ export default React.memo((props: SharePanelProps) => {
       <View className='share-panel'>
         <View>
           <View className='share-panel__desc'>
-            <View>
-              分享馥蕾诗城市逸游指南/任一达人旅行手账/制作好的旅行手账至微信好友，每三位好友打
-            </View>
-            <View>卡成功即可获得惊喜豪礼。</View>
+            <View>{text}</View>
             <View className='underline' onClick={() => goto({ url: HIDEAWAY.GAME_RULE })}>
               详细规则
             </View>

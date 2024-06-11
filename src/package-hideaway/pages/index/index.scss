@@ -243,9 +243,9 @@
     transform: translateY(100%);
     color: #323c48;
     z-index: 2;
-    .underline {
-      padding: 24px;
-    }
+    // .underline {
+    //   padding: 24px;
+    // }
   }
   &.book-ready {
     .bottom-btns {
@@ -434,6 +434,10 @@
       width: 168px * 2;
       height: 34px * 2;
       color: white !important;
+      view {
+        position: relative;
+        top: 6px;
+      }
       .scratch {
         position: absolute;
         width: 100%;

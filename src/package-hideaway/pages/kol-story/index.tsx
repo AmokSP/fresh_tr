@@ -46,7 +46,7 @@ export default function Index() {
   });
   return (
     <View className={'kol-story'}>
-      <Navbar transparent holdPlace={false}>
+      <Navbar transparent={'auto'} holdPlace={false}>
         <Header
           title='brand_logo'
           buttonBack
@@ -145,7 +145,7 @@ export default function Index() {
         <View className='ctas'>
           <Button className='pill-button primary' openType='share'>
             <Image className='scratch' src={PanelCta}></Image>
-            立即分享
+            <View>立即分享</View>
           </Button>
 
           <View className='more'>

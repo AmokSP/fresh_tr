@@ -40,5 +40,15 @@
   }
 }
 .underline {
-  text-decoration: underline !important;
+  position: relative;
+  // text-decoration: underline !important;
+  &::after {
+    height: 2px;
+    width: 100%;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    background-color: #424a52;
+  }
 }

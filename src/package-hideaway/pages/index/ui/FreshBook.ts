@@ -289,7 +289,7 @@ export default class FressBook {
     let pos = this.cover.geometry.attributes.position;
     for (let index = 0; index < 4; index++) {
       pos.setX(index, pos.array[index * 3] + 8.5 * 0.5);
-      pos.setZ(index, 0.01);
+      pos.setZ(index, 0.02);
     }
     this.back = new Mesh(
       new PlaneGeometry(8.5, 14.4),
