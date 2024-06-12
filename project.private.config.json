@@ -4,6 +4,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "package-hideaway/pages/poster/index",
+          "pathName": "package-hideaway/pages/poster/index",
+          "query": "utm_source=APAC&utm_media=Seminar&utm_campaign=hideaway poster",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "package-hideaway/pages/poster/share/view/index",
           "pathName": "package-hideaway/pages/poster/share/index",
           "query": "",

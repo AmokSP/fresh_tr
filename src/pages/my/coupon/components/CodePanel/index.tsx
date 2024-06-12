@@ -131,8 +131,12 @@ export default React.memo(
                 </View>
               </View>
             ) : (
-              <View className={s.content} style={{ paddingTop: '80rpx', paddingBottom: '80rpx' }}>
-                <View className={s.desc}>
+              <View
+                className={s.content}
+                style={{ paddingBottom: '80rpx', paddingLeft: '60rpx', paddingRight: '60rpx' }}
+              >
+                <Text className={s.title}>{t('coupon.qr_hideaway.title')}</Text>
+                <View style={{ width: 'auto' }} className={s.desc}>
                   <View>
                     {t('coupon.qr_hideaway.desc.part1')}
                     <Text
@@ -145,7 +149,7 @@ export default React.memo(
                     >
                       {t('coupon.qr_hideaway.desc.part2')}
                     </Text>
-                    {t('coupon.qr_hideaway.desc.part3')}
+                    <View>{t('coupon.qr_hideaway.desc.part3')}</View>
                   </View>
                   <View className={s['qr__tip']}>
                     <View>*{t('coupon.qr_hideaway.tip')}</View>

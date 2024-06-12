@@ -18,7 +18,7 @@ export default function Rule() {
         1. 将馥蕾诗城市逸游指南/任一达人旅行手账/制作好的旅行手账以链接的形式分享给你的微信好友。
       </View>
       <View>2. 好友点击打开分享后的链接即视为分享成功。</View>
-      <View>3. 每成功分享三位好友即可获得一张礼券，多享多得。</View>
+      <View>3. 每成功分享三位好友即可获得一张礼券，累加计算，多享多得。</View>
       <View>4. 礼券领取成功后，可前往您的礼券查看详情。</View>
       <View className='title'>礼品详情</View>
       <View>
