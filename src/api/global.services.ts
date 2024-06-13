@@ -39,6 +39,12 @@ export class GlobalService {
       url: `${CMS_API_URL}/global-resource?fields[0]=showRecommend`,
     });
   }
+  public static async getShowHideaway(): Promise<any> {
+    return request({
+      method: 'GET',
+      url: `${CMS_API_URL}/global-resource?fields[0]=showHideawayEntrance`,
+    });
+  }
 }
 
 export default GlobalService;

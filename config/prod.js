@@ -41,7 +41,7 @@ module.exports = {
     }),
 
     HIDEAWAY_ASSETS: JSON.stringify({
-      campaignQrCode: '/uploads/freshqr_465001d3a9_c8471918b0.png', // todo
+      campaignQrCode: '/uploads/qr_prod_dd9bfd537f.jpg', // todo
       shareTitle: '感官逸游 馥已焕新',
       shareImage: '/uploads/2_c82be04c8f_bcf8fe57dc.jpg',
       templates: [

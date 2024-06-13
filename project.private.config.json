@@ -4,30 +4,30 @@
     "miniprogram": {
       "list": [
         {
-          "name": "package-hideaway/pages/poster/index",
-          "pathName": "package-hideaway/pages/poster/index",
-          "query": "utm_source=APAC&utm_media=Seminar&utm_campaign=hideaway poster",
+          "name": "package-hideaway/pages/index/index",
+          "pathName": "package-hideaway/pages/index/index",
+          "query": "accountId=p5Ymbp",
           "launchMode": "default",
           "scene": null
         },
         {
           "name": "package-hideaway/pages/poster/share/view/index",
-          "pathName": "package-hideaway/pages/poster/share/index",
-          "query": "",
+          "pathName": "package-hideaway/pages/poster/share/view/index",
+          "query": "token=postcard_p5Ymbp_Yyd7WK",
           "launchMode": "default",
           "scene": null
         },
         {
           "name": "package-hideaway/pages/kol-story/index",
           "pathName": "package-hideaway/pages/kol-story/index",
-          "query": "slug=hangzhou1&accountId=wpVE1W",
+          "query": "slug=yunnan2",
           "launchMode": "default",
           "scene": null
         },
         {
-          "name": "package-hideaway/pages/index/index",
-          "pathName": "package-hideaway/pages/index/index",
-          "query": "accountId=wpVE1W",
+          "name": "package-hideaway/pages/poster/index",
+          "pathName": "package-hideaway/pages/poster/index",
+          "query": "utm_source=APAC&utm_media=Seminar&utm_campaign=hideaway poster",
           "launchMode": "default",
           "scene": null
         },
@@ -176,7 +176,7 @@
   },
   "libVersion": "3.4.1",
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "compileHotReLoad": false
   },
   "projectname": "freshTR"

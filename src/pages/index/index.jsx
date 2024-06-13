@@ -22,6 +22,8 @@ import HomePopup from './components/HomePopup';
 import LangSwitch from './components/LangSwitch';
 import Plane from '@assets/plane.png';
 import { HIDEAWAY } from '@app.config';
+import useAsync from '@hooks/useAsync';
+import GlobalService from '@api/global.services';
 
 export default function Index() {
   // const { result: location } = useLocation();
@@ -33,11 +35,16 @@ export default function Index() {
   const [showNav, setShowNav] = useState(true);
   const [homeData, setHomeData] = useState(null);
   const [hideHomePopup, setHideHomePopup] = useState(storage.getItem('hideHomePopup'));
-
+  const { value: hideawaySetting, execute: getHideawaySetting } = useAsync(
+    GlobalService.getShowHideaway
+  );
   useEffect(() => {
     _getHome();
   }, [language]);
-
+  useEffect(() => {
+    getHideawaySetting();
+  }, []);
+  console.log(hideawaySetting);
   const _getHome = async () => {
     showLoading();
     const result = await HomeService.getHome();
@@ -62,7 +69,7 @@ export default function Index() {
     Tracking.trackEvent('h_icon');
   };
   const goToHideaway = () => {
-    Taro.navigateTo({ url: HIDEAWAY.INDEX })
+    Taro.navigateTo({ url: HIDEAWAY.INDEX });
     // goto({ url: HIDEAWAY.INDEX });
   };
 
@@ -88,7 +95,9 @@ export default function Index() {
         </View>
       </CustomNav>
       <View className={styles['home']}>
-        <Image onClick={goToHideaway} src={Plane} className={styles['home__plane']}></Image>
+        {hideawaySetting?.data?.attributes?.showHideawayEntrance && (
+          <Image onClick={goToHideaway} src={Plane} className={styles['home__plane']}></Image>
+        )}
         <View className={styles['home__block']}>
           <View className={styles['home__swiper']}>
             <Hero data={homeData?.banner?.data} />

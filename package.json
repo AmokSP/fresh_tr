@@ -22,6 +22,7 @@
     "build:quickapp": "taro build --type quickapp",
     "dev:weapp": "npm run build:weapp:dev -- --watch",
     "uat:weapp": "npm run build:weapp:uat -- --watch",
+    "prod:weapp": "npm run build:weapp -- --watch",
     "dev:swan": "npm run build:swan -- --watch",
     "dev:alipay": "npm run build:alipay -- --watch",
     "dev:tt": "npm run build:tt -- --watch",
