@@ -27,7 +27,7 @@ import {
 import HitBoxes from './HitBoxes';
 import { degToRad } from 'three/src/math/MathUtils';
 
-const { windowWidth, windowHeight, pixelRatio } = Taro.getSystemInfoSync();
+const { screenWidth: windowWidth, screenHeight: windowHeight, pixelRatio } = Taro.getWindowInfo();
 export const PAGE_WIDTH = 7.79;
 export const PAGE_HEIGHT = 11.4;
 export const BOOK_HEIGHT = 0.5;

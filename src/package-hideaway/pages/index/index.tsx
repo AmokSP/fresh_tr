@@ -35,7 +35,7 @@ import subscribeMessage from './ui/SubscribeCampaignMessage';
 import HideawayService from '@api/hideaway.service';
 import useAsync from '@hooks/useAsync';
 import useStore from '@stores';
-const { windowWidth, windowHeight } = Taro.getSystemInfoSync();
+const { screenWidth: windowWidth, screenHeight: windowHeight } = Taro.getWindowInfo();
 const CAMERA_READY_POS = {
   x: PAGE_WIDTH * 0.5,
   z: 24,
@@ -70,7 +70,6 @@ export default function Index() {
   const { value: hideawayAssets, execute: fetchAsset } = useAsync(HideawayService.getHidewayAsset);
   const { execute: checkIn } = useAsync(HideawayService.checkIn);
   useLoad(async () => {
-    console.log(Taro.getCurrentPages());
     await delay(100);
     setPhase('load-start');
     await delay(2500);
@@ -418,6 +417,8 @@ export default function Index() {
         onTouchStart={touchBeginHandler}
         onTouchMove={touchMoveHandler}
         onTouchEnd={touchEndHandler}
+        width={windowWidth + 'px'}
+        height={windowHeight + 'px'}
         type='webgl'
         id='webgl'
         className='canvas'

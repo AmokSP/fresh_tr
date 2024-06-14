@@ -66,6 +66,7 @@
       & image {
         width: 100%;
         height: 100%;
+        border-radius: 6px;
       }
       &.active {
         border: 4px solid #81d2f5;
@@ -86,6 +87,8 @@
     .t-option {
       width: 210px;
       height: 404px;
+
+      // overflow: hidden;
     }
     .s-option {
       width: 210px;

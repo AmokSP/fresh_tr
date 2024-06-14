@@ -75,7 +75,7 @@ export default React.memo((props: StickerPopupProps) => {
                 active: selectedTemplate === i.id,
               })}
             >
-              <Image src={i.preview}></Image>
+              <Image src={i.preview} mode='aspectFill'></Image>
             </View>
           ))}
         </View>

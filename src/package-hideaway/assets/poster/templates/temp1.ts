@@ -1,5 +1,5 @@
 import { degToRad } from '@hideaway/pages/poster/utils/rotations';
-import preview from './1.png';
+import preview from './1.jpg';
 
 let stickerId = 0;
 const Temp1: PosterData = {
