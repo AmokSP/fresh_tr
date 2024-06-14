@@ -110,7 +110,7 @@ export default function CouponDetail() {
         break;
       case COUPON_STATUS.COLLECTED:
         if (!isRegister) return showSignup();
-        setCouponToRedeem(userCoupon.couponId);
+        setCouponToRedeem(userCoupon);
         break;
     }
   };
